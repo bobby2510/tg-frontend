@@ -1,0 +1,143 @@
+import React,{useState,useEffect} from 'react' 
+import NavBarTwo from '../navbar/NavBarTwo';
+import { useNavigate } from 'react-router-dom';
+import GenericFooter from '../footer/GenericFooter';
+import { generateTeams,get_attempt,store_data } from '../Generator/TeamGenerator';
+import { toast } from 'react-toastify';
+
+
+// 11 teams for GL, 4 teams for SL and 1 team for H2h 
+const GrandLeague = (props)=>{
+    let navigate = useNavigate()
+    let [teamNumber,setTeamNumber] = useState(null)
+    let combinations = [
+        [
+                [1,3,2,5],[1,3,3,4],[1,4,3,3],[1,4,2,4],[1,4,1,5],[1,5,2,3],[1,5,1,4],[1,6,1,3],[1,3,1,6],[1,3,4,3],
+            [2,3,3,3],[2,3,2,4],[2,3,1,5],[2,4,2,3],[2,4,1,4],[2,5,1,3],
+            [3,3,2,3],[3,4,1,3],[3,3,1,4],
+            [4,3,1,3]
+        ],
+        [ 
+            [1,4,5,1],[1,5,4,1],[1,5,3,2],[1,4,4,2],[1,3,4,3],[1,4,3,3],[1,3,5,2]
+        ],
+        [
+            [1,1,1,1,4],[1,1,1,2,3],[1,1,1,3,2],[1,1,1,4,1],[1,1,2,1,3],[1,1,2,2,2],[1,1,2,3,1],[1,1,3,2,1],[1,1,4,1,1],[1,2,1,1,3],[1,2,1,2,2],[1,2,2,1,2],[1,2,2,2,1],[1,2,3,1,1],[1,3,1,1,2],[1,3,1,2,1],[1,3,2,1,1],[1,4,1,1,1],
+            [2,1,1,1,2],[2,1,1,1,3],[2,1,1,2,2],[2,1,1,3,1],[2,1,2,1,2],[2,1,2,2,1],[2,1,3,1,1],[2,2,1,1,2],[2,2,1,2,1],[2,2,2,1,1],[2,3,1,1,1],
+            [3,1,1,1,2],[3,1,1,2,1],[3,1,2,1,1],[3,2,1,1,1],
+            [4,1,1,1,1]
+         ]
+    ]
+    let strategies = [
+        [
+        [4,7],
+        [5,6],
+        [6,5],
+        [7,4]
+    ],
+    [
+        [4,7],
+        [5,6],
+        [6,5],
+        [7,4]
+    ],
+    [
+        [3,5],
+        [4,4],
+        [5,3]
+    ]
+    ]
+  
+    useEffect(()=>{
+        if(props.reload === null)
+        {
+            navigate('/')
+            return
+        }
+    },[])
+
+    let handleChange = (e)=>{
+       setTeamNumber(e.target.value)
+    }
+
+    let handleClick = ()=>{
+        let tn = Number(teamNumber)
+        if(tn === null || tn<=0 || tn>3000 || tn==='')
+        {
+            toast.error('Enter Valid Number of Teams',{
+                position:"top-center"
+            })
+            return  
+        }
+
+        //captain stuff 
+        let tempCaptain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        for(let i=0;i<props.selectedPlayers.length;i++)
+        {
+            for(let j=0;j<props.selectedPlayers[i].length;j++)
+            {
+                let p = props.selectedPlayers[i][j]
+                if(p.credits>=8.5)
+                {
+                    tempCaptain[i].push(p.player_index)
+                }
+            }
+        }
+        //vice captain stuff 
+        let tempVicecaptain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        for(let i=0;i<props.selectedPlayers.length;i++)
+        {
+            for(let j=0;j<props.selectedPlayers[i].length;j++)
+            {
+                let p = props.selectedPlayers[i][j]
+                if(p.credits>=8)
+                {
+                    tempVicecaptain[i].push(p.player_index)
+                }
+            }
+        }
+
+        let temp_left = props.sportIndex === 2? 94 : 97;
+        let tempFixed = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        // 0 -> smart, 1 -> grand league , 2 -> advanced , 3 -> auto 
+       let teams_list =  generateTeams(props.selectedPlayers,tempFixed,tempCaptain,tempVicecaptain,strategies[props.sportIndex],temp_left,100,combinations[props.sportIndex],tn)
+        if(teams_list!=null)
+        {
+            let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,1,teams_list,props.sportIndex)
+            if(attempt!=null)
+            {
+                let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)
+                if(result_obj!=null){
+                    toast.success('teams stored successfully!',{
+                        position:'top-center'
+                    })
+                    navigate(`/display/${result_obj.matchId}/${result_obj.attempt_id}`)
+                    return 
+                }
+            }
+        }
+        else{
+            toast.error('Software Out of Combinations',{
+                position:"top-center"
+            })
+            return  
+        }
+    }
+    return (
+        <React.Fragment>
+            <NavBarTwo  navigate={navigate} />
+            <div className='mini-container'>
+               <div className='team-number'>
+                    <h3 className='team-number-title'>Enter Number of Teams</h3>
+                    <p className='team-number-sub'>you can generate between <b>1 - 3000</b> Teams</p>
+                    <div className='team-input'>
+                        <input onChange={handleChange} type="number" name="teamNumber" placeholder='No.of Teams' value={teamNumber} />
+                        <button onClick={handleClick} className='btn btn-success team-btn'>Generate Teams</button>
+                    </div>
+               </div>
+            </div>
+            <GenericFooter />
+        </React.Fragment>
+    );
+}
+
+export default GrandLeague;
