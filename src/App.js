@@ -85,7 +85,7 @@ const App = ()=>{
         let tg_id = localStorage.getItem('tg_id')
         if(tg_id !== null && tg_id !== undefined && tg_id !== '')
         {
-            axios.get(`http://localhost:5000/api/plan/status/${tg_id}`)
+            axios.get(`https://team-generation-api.herokuapp.com/api/plan/status/${tg_id}`)
             .then(response =>{
                 let data = response.data.data 
                 if(response.status===200)
