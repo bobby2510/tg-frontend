@@ -18,7 +18,7 @@ const ResultAuto = (props)=>{
             navigate('/')
             return
         }
-        let data = JSON.parse(localStorage.getItem('tg_data'))
+        let data = JSON.parse(localStorage.getItem('tgk_data'))
         let match_list = data[props.sportIndex] 
         let req_match = null 
         for(let i=0;i<match_list.length;i++)

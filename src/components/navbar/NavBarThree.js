@@ -1,5 +1,5 @@
 import React from 'react' 
-import {MdSportsCricket,MdOutlineSportsSoccer,MdSportsBasketball} from 'react-icons/md'
+import {MdSportsCricket,MdOutlineSportsSoccer,MdSportsBasketball,MdSportsKabaddi} from 'react-icons/md'
 
 
 function NavBarThree(props){
@@ -7,6 +7,10 @@ function NavBarThree(props){
     function handleCricket()
     {
        props.setSportIndex(0)
+    }
+    function handleKabaddi()
+    {
+        props.setSportIndex(3)
     }
     function handleFootball()
     {
@@ -33,6 +37,10 @@ function NavBarThree(props){
                 <div onClick={handleBasketball} className={props.sportIndex === 2 ? 'sport-icon sport-icon-active':'sport-icon'}>
                     <MdSportsBasketball size={20}  />
                     <span>Basketball</span>
+                </div>
+                <div onClick={handleKabaddi} className={props.sportIndex === 3 ? 'sport-icon sport-icon-active':'sport-icon'}>
+                    <MdSportsKabaddi size={20}  />
+                    <span>Kabaddi</span>
                 </div>
             </nav>
         </React.Fragment>

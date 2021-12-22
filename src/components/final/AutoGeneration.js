@@ -24,7 +24,10 @@ const AutoGeneration = (props)=>{
             [2,1,1,1,2],[2,1,1,1,3],[2,1,1,2,2],[2,1,1,3,1],[2,1,2,1,2],[2,1,2,2,1],[2,1,3,1,1],[2,2,1,1,2],[2,2,1,2,1],[2,2,2,1,1],[2,3,1,1,1],
             [3,1,1,1,2],[3,1,1,2,1],[3,1,2,1,1],[3,2,1,1,1],
             [4,1,1,1,1]
-         ]
+         ],
+         [
+            [2,2,3],[3,2,2],[3,1,3],[4,1,2],[4,2,1]
+        ]
     ]
     let strategies = [
         [
@@ -43,13 +46,30 @@ const AutoGeneration = (props)=>{
         [3,5],
         [4,4],
         [5,3]
+    ],
+    [
+        [2,5],
+        [3,4],
+        [4,3],
+        [5,2]
     ]
     ]
     let credit_left_range = [
         [96.5,97.5,98.5],
         [96.5,97.5,98.5],
+        [94.5,96.5,97],
         [94.5,96.5,97]
     ]
+
+    let get_player_list = ()=>{
+        if(props.sportIndex===2)
+            return [[],[],[],[],[]]
+        else if(props.sportIndex===3)
+            return [[],[],[]]
+        else 
+            return [[],[],[],[]]
+    }
+
     useEffect(()=>{
         if(props.reload === null)
         {
@@ -72,13 +92,13 @@ const AutoGeneration = (props)=>{
         }
 
         // Grand league teams 
-        let tempFixed = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
-        let gl_captain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
-        let gl_vicecaptain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
-        let sl_captain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
-        let sl_vicecaptain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
-        let h2h_captain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
-        let h2h_vicecaptain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        let tempFixed = get_player_list()
+        let gl_captain = get_player_list()
+        let gl_vicecaptain =get_player_list()
+        let sl_captain = get_player_list()
+        let sl_vicecaptain =get_player_list()
+        let h2h_captain = get_player_list()
+        let h2h_vicecaptain = get_player_list()
         for(let i=0;i<props.selectedPlayers.length;i++)
         {
             for(let j=0;j<props.selectedPlayers[i].length;j++)

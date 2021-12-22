@@ -27,7 +27,7 @@ const PreviousMatch = (props)=>{
             navigate('/plandata')
         }
 
-        let ata = JSON.parse(localStorage.getItem('tg_data'))
+        let ata = JSON.parse(localStorage.getItem('tgk_data'))
         for(let i=0;i<ata.length;i++)
         {
             let temp = ata[i]

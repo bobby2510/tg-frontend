@@ -44,9 +44,9 @@ import BestTips from './components/siders/BestTips';
 
 const App = ()=>{
     const [reload, setReload] = useState(null)
-    const [sportIndex,setSportIndex] = useState(0)
+    const [sportIndex,setSportIndex] = useState(0) // change 
     const [bottomIndex,setBottomIndex] = useState(0)
-    let [playerList,setPlayerList] = useState(null)
+    let [playerList,setPlayerList] = useState(null) // change
     // data of selected palyers from the match 
     const [selectedPlayers, setSelectedPlayers] = useState(null)
     // fixed player data 
@@ -56,7 +56,7 @@ const App = ()=>{
     {/* couting variables data start */}
     let [left,setLeft] = useState(0)
     let [right,setRight] = useState(0)
-    let [role,setRole] = useState([])
+    let [role,setRole] = useState([]) // change
     { /* counting variable end  */}
     {/* team image and name data start */}
     let [leftName,setLeftName] = useState('')
@@ -104,9 +104,9 @@ const App = ()=>{
                 }
             })
         }
-        let data = localStorage.getItem('tg_data')
+        let data = localStorage.getItem('tgk_data')
         if(data===null || data === undefined)
-            localStorage.setItem('tg_data',JSON.stringify([[],[],[]]))
+            localStorage.setItem('tgk_data',JSON.stringify([[],[],[],[]]))
     },[])
 
     return (

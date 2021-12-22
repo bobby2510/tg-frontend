@@ -101,7 +101,7 @@ const Register = (props)=>{
                         <input onChange={handlePassword} type="password" required class="form-control" id="exampleInputPassword1" placeholder="Password"/>
                         </div>
                     
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="submit" class="btn btn-primary">Register</button>
                   </form>
                 </div>
             </div>

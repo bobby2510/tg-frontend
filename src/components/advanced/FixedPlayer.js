@@ -11,9 +11,10 @@ const FixedPlayer = (props)=>{
     let type_name = [
         ['Wicket Keeper','Batsman','Alrounder','Bowler'],
         ['Goal Keeper','Defender','Mid Fielder','Forward'],
-        ['Point Guard','Shooting Gaurd','Small Forward','Power Forward','Center']
+        ['Point Guard','Shooting Gaurd','Small Forward','Power Forward','Center'],
+        ['Defender','Alrounder','Raider']
     ]
-    let limit = [6,6,4]
+    let limit = [6,6,4,4]
     let navigate = useNavigate()
     let [localFixed,setLocalFixed] = useState([])
     useEffect(()=>{
@@ -52,7 +53,13 @@ const FixedPlayer = (props)=>{
     }
 
     let get_sub_title = ()=>{
-        let size = props.sportIndex === 2 ? 5 : 4 
+        let size = null 
+        if(props.sportIndex===2)
+            size = 5 
+        else if(props.sportIndex===3)
+            size = 3 
+        else 
+            size = 4 
         let temp_role =[]
         let t_name=type_name[props.sportIndex]
         for(let i=0;i<size;i++)

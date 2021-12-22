@@ -21,7 +21,7 @@ let AddPoint = (props)=>{
         navigate('/')
         return
     }
-    let data = JSON.parse(localStorage.getItem('tg_data'))
+    let data = JSON.parse(localStorage.getItem('tgk_data'))
         let match_list = data[props.sportIndex] 
         let req_match = null 
         for(let i=0;i<match_list.length;i++)
@@ -90,7 +90,7 @@ let AddPoint = (props)=>{
                 return 
             }
         }
-        let data = JSON.parse(localStorage.getItem('tg_data'))
+        let data = JSON.parse(localStorage.getItem('tgk_data'))
         let match_list = data[props.sportIndex] 
         match_list = match_list.map((match)=>{
             if(match.id.toString() === id.toString())
@@ -103,7 +103,7 @@ let AddPoint = (props)=>{
             return match
         })
         data[props.sportIndex] = match_list 
-        localStorage.setItem('tg_data',JSON.stringify(data))
+        localStorage.setItem('tgk_data',JSON.stringify(data))
         toast.success('Player points Updated Successfully!',{position:'top-center'})
         navigate(-1)
         return 

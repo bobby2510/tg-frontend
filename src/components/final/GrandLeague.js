@@ -25,8 +25,20 @@ const GrandLeague = (props)=>{
             [2,1,1,1,2],[2,1,1,1,3],[2,1,1,2,2],[2,1,1,3,1],[2,1,2,1,2],[2,1,2,2,1],[2,1,3,1,1],[2,2,1,1,2],[2,2,1,2,1],[2,2,2,1,1],[2,3,1,1,1],
             [3,1,1,1,2],[3,1,1,2,1],[3,1,2,1,1],[3,2,1,1,1],
             [4,1,1,1,1]
-         ]
+         ],
+        [
+            [2,2,3],[3,2,2],[3,1,3],[4,1,2],[4,2,1]
+        ]
     ]
+    let get_player_list = ()=>{
+        if(props.sportIndex===2)
+            return [[],[],[],[],[]]
+        else if(props.sportIndex===3)
+            return [[],[],[]]
+        else 
+            return [[],[],[],[]]
+    }
+
     let strategies = [
         [
         [4,7],
@@ -44,6 +56,12 @@ const GrandLeague = (props)=>{
         [3,5],
         [4,4],
         [5,3]
+    ],
+    [
+        [2,5],
+        [3,4],
+        [4,3],
+        [5,2]
     ]
     ]
   
@@ -70,7 +88,7 @@ const GrandLeague = (props)=>{
         }
 
         //captain stuff 
-        let tempCaptain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        let tempCaptain = get_player_list()
         for(let i=0;i<props.selectedPlayers.length;i++)
         {
             for(let j=0;j<props.selectedPlayers[i].length;j++)
@@ -83,7 +101,7 @@ const GrandLeague = (props)=>{
             }
         }
         //vice captain stuff 
-        let tempVicecaptain = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        let tempVicecaptain = get_player_list()
         for(let i=0;i<props.selectedPlayers.length;i++)
         {
             for(let j=0;j<props.selectedPlayers[i].length;j++)
@@ -96,8 +114,8 @@ const GrandLeague = (props)=>{
             }
         }
 
-        let temp_left = props.sportIndex === 2? 94 : 97;
-        let tempFixed = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        let temp_left = props.sportIndex === 2 || props.sportIndex===3 ? 94 : 97;
+        let tempFixed = get_player_list()
         // 0 -> smart, 1 -> grand league , 2 -> advanced , 3 -> auto 
        let teams_list =  generateTeams(props.selectedPlayers,tempFixed,tempCaptain,tempVicecaptain,strategies[props.sportIndex],temp_left,100,combinations[props.sportIndex],tn)
         if(teams_list!=null)

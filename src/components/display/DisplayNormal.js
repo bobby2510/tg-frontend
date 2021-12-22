@@ -9,13 +9,21 @@ let DisplayNormal = (props)=>{
     let navigate = useNavigate()
     const {match,attempt} = useParams()
     let [finalTeamData,setFinalTeamData] = useState([])
+    let get_player_list = ()=>{
+        if(props.sportIndex===2)
+            return [[],[],[],[],[]]
+        else if(props.sportIndex===3)
+            return [[],[],[]]
+        else 
+            return [[],[],[],[]]
+    }
     useEffect(()=>{
         if(props.reload === null)
         {
             navigate('/')
             return
         }
-        let data = JSON.parse(localStorage.getItem('tg_data'))
+        let data = JSON.parse(localStorage.getItem('tgk_data'))
         let match_list = data[props.sportIndex] 
         let req_match = null 
         for(let i=0;i<match_list.length;i++)
@@ -57,11 +65,12 @@ let DisplayNormal = (props)=>{
                 temp_list[p.player_index] = p;
             }
         }
+        
         let final_team_list = []
         for(let i=0;i<req_attempt.team_list.length;i++)
         {
             let temp_team = req_attempt.team_list[i]
-            let final_team = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+            let final_team = get_player_list()
             for(let j=0;j<temp_team.team.length;j++)
             {
                 for(let k=0;k<temp_team.team[j].length;k++)

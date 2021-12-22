@@ -10,6 +10,14 @@ let DisplayAuto = (props)=>{
     const {match,attempt} = useParams()
     let [league,setLeague] = useState(0)
     let [finalTeamData,setFinalTeamData] = useState([[],[],[]])
+    let get_player_list = ()=>{
+        if(props.sportIndex===2)
+            return [[],[],[],[],[]]
+        else if(props.sportIndex===3)
+            return [[],[],[]]
+        else 
+            return [[],[],[],[]]
+    }
     useEffect(()=>{
        
         if(props.reload === null)
@@ -17,9 +25,9 @@ let DisplayAuto = (props)=>{
             navigate('/')
             return
         }
-        let new_list = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        let new_list = get_player_list()
         props.setSelectedPlayers(new_list)
-        let data = JSON.parse(localStorage.getItem('tg_data'))
+        let data = JSON.parse(localStorage.getItem('tgk_data'))
         let match_list = data[props.sportIndex] 
         let req_match = null 
         for(let i=0;i<match_list.length;i++)
@@ -73,7 +81,7 @@ let DisplayAuto = (props)=>{
             for(let i=0;i<req_attempt.team_list[p].length;i++)
             {
                 let temp_team = req_attempt.team_list[p][i]
-                let final_team = props.sportIndex === 2  ? [[],[],[],[],[]] : [[],[],[],[]] // change here
+                let final_team = get_player_list()// change here
                 for(let j=0;j<temp_team.team.length;j++)
                 {
                     for(let k=0;k<temp_team.team[j].length;k++)

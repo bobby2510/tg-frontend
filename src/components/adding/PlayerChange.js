@@ -8,7 +8,8 @@ const PlayerChange = (props)=>{
     let type_name = [
         ['WK','BAT','AL','BOWL'],
         ['GK','DEF','MID','ST'],
-        ['PG','SG','SF','PF','C']
+        ['PG','SG','SF','PF','C'],
+        ['DEF','ALL','RAI']
     ]
     let shortcutName = (n)=>{
         let arr = n.split(' ')

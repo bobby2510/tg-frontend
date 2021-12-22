@@ -26,6 +26,12 @@ const Partision = (props)=>{
         [3,5],
         [4,4],
         [5,3]
+    ],
+    [
+        [2,5],
+        [3,4],
+        [4,3],
+        [5,2]
     ]
     ]
     let [localPartision,setLocalPartision] = useState([])

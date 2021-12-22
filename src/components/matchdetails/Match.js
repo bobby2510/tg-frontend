@@ -13,24 +13,35 @@ const Match = (props)=>{
     let type_name = [
         ['WK','BAT','AL','BOWL'],
         ['GK','DEF','MID','ST'],
-        ['PG','SG','SF','PF','C']
+        ['PG','SG','SF','PF','C'],
+        ['DEF','ALL','RAI']
     ]
     let side_limit =[
         [7,7],
         [7,7],
+        [5,5],
         [5,5]
     ]
     let limit = [
         [1,3,1,3],
         [1,3,3,1],
-        [1,1,1,1,1]
+        [1,1,1,1,1],
+        [2,1,1]
     ]
     let navigate = useNavigate()
     const {id} = useParams()
     const [time,setTime] = useState('')
     let [matchTime,setMatchTime] = useState(null)
     let match_data = useRef({})
-    let [activeRole,setActiveRole] = useState(props.sportIndex === 2  ?[1,0,0,0,0] : [1,0,0,0])
+    let get_active_role = ()=>{
+        if(props.sportIndex===2)
+            return [1,0,0,0,0]
+        else if(props.sportIndex===3)
+            return [1,0,0]
+        else 
+            return [1,0,0,0]
+    }
+    let [activeRole,setActiveRole] = useState(get_active_role())
 
     
 
@@ -43,8 +54,17 @@ const Match = (props)=>{
         newRole[vp]=1 
         setActiveRole(newRole)
     }
+    let get_player_list = ()=>{
+        if(props.sportIndex===2)
+            return [[],[],[],[],[]]
+        else if(props.sportIndex===3)
+            return [[],[],[]]
+        else 
+            return [[],[],[],[]]
+    }
    
     useEffect(()=>{
+       
         if(props.reload === null)
         {
             navigate('/')
@@ -63,8 +83,10 @@ const Match = (props)=>{
         .then((response)=>{
             
             match_data.current = response.data.data
+            console.log(match_data.current)
             setMatchTime(match_data.current.match_time)
-            let player_list = props.sportIndex=== 2 ? [[],[],[],[],[]] : [[],[],[],[]]
+            let player_list = get_player_list()
+            console.log(player_list)
             props.setLeftName(match_data.current.left_team_name)
             props.setRightName(match_data.current.right_team_name)
             props.setLeftImage(match_data.current.left_team_image)
@@ -151,6 +173,8 @@ const Match = (props)=>{
          props.setPlayerList([...newPlayerList])
     }
     let handleContinue = ()=>{
+        console.log(props.playerList)
+        
         if(props.left<side_limit[props.sportIndex][0] || props.right<side_limit[props.sportIndex][1])
         {
             toast.error(`Minimum ${side_limit[props.sportIndex][0]} players from each side`,{position:"top-center"})
@@ -180,7 +204,7 @@ const Match = (props)=>{
         }
 
      
-        let new_list = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        let new_list = get_player_list()
         for(let i=0;i<new_list.length;i++)
         {
             for(let j=0;j<props.playerList[i].length;j++)
@@ -191,12 +215,21 @@ const Match = (props)=>{
                 }
             }
         }
+      //  console.log(new_list)
         props.setSelectedPlayers(new_list)
+       // console.log(props.selectedPlayers)
         navigate('/section')
     }
 
     let get_sub_title = ()=>{
-        let size = props.sportIndex === 2 ? 5 : 4 
+        let size = null
+        if(props.sportIndex===3)
+            size = 3 
+        else if(props.sportIndex===2)
+            size =5 
+        else 
+            size = 4 
+        
         let temp_role =[]
         let t_name= type_name[props.sportIndex]
        
@@ -213,7 +246,7 @@ const Match = (props)=>{
     }   
     let handleAuto = ()=>{
         let cnt = 0;
-        let new_list = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+        let new_list = get_player_list()
         for(let i=0;i<new_list.length;i++)
         {
             for(let j=0;j<props.playerList[i].length;j++)
@@ -225,7 +258,8 @@ const Match = (props)=>{
                 }
             }
         }
-        if(cnt>14)
+        
+        if(props.sportIndex===3 || cnt>14)
         {
             props.setSelectedPlayers(new_list)
             navigate('/auto')
@@ -255,7 +289,7 @@ const Match = (props)=>{
                         <MdHome onClick={()=> navigate('/')} size={24} style={{marginRight:10}} />
                 </nav>
             </div>
-            <div className="text-center m-2" style={{fontSize:12}}>Select any where between {props.sportIndex===2?'12-16' : '14-22'} players</div>
+            <div className="text-center m-2" style={{fontSize:12}}>Select any where between {props.sportIndex===2 || props.sportIndex===3?'12-16' : '14-22'} players</div>
                 <div className="d-flex justify-content-between">
                     <div className="select-team-left">
                         <div className="d-flex left-item  flex-column align-items-center">

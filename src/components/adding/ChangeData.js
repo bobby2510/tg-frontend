@@ -18,6 +18,7 @@ const ChangeData = (props)=>{
         }
         let team_left = []
         let team_right = []
+     //   console.log(props.playerList)
         for(let i=0;i<props.playerList.length;i++)
         {
             for(let j=0;j<props.playerList[i].length;j++)
@@ -33,6 +34,15 @@ const ChangeData = (props)=>{
         setRightTeam(team_right)
 
     },[])
+
+    let get_empty_list = ()=>{
+        if(props.sportIndex===2)
+            return [[],[],[],[],[]]
+        else if(props.sportIndex===3)
+            return [[],[],[]]
+        else 
+            return [[],[],[],[]]
+    }
 
     let handlePlayer = (pi,ti,credits,role) =>{
         if(ti===0)
@@ -98,7 +108,7 @@ const ChangeData = (props)=>{
         }
         // now the drama 
         let new_list = [...props.playerList]
-        let final_list = props.sportIndex === 2  ? [[],[],[],[],[]] : [[],[],[],[]]
+        let final_list = get_empty_list()
         for(let i=0;i<new_list.length;i++)
         {
             for(let j=0;j<new_list[i].length;j++)

@@ -46,8 +46,10 @@ const Team = (props)=>{
         return 'cricket-bg my-team'
         else if(props.sportIndex === 1)
         return 'football-bg my-team'
-        else 
+        else if(props.sportIndex=== 2) 
         return 'basketball-bg my-team'
+        else 
+        return 'kabaddi-bg my-team'
     }
     return (
         <React.Fragment>

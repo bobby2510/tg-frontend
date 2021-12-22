@@ -19,6 +19,12 @@ const Section = (props)=>{
             props.setCaptainPlayers([[],[],[],[],[]])
             props.setVicecaptainPlayers([[],[],[],[],[]])
         }
+        else if(props.sportIndex===3)
+        {
+            props.setFixedPlayers([[],[],[]])
+            props.setCaptainPlayers([[],[],[]])
+            props.setVicecaptainPlayers([[],[],[]])
+        }
         else 
         {
             props.setFixedPlayers([[],[],[],[]])

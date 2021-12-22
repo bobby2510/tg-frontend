@@ -22,7 +22,7 @@ const PreviousMatchDetail = (props)=>{
             return
         }
 
-        let all_sports = JSON.parse(localStorage.getItem('tg_data'))
+        let all_sports = JSON.parse(localStorage.getItem('tgk_data'))
         let req_sport = all_sports[props.sportIndex]
         let req_match = null 
         for(let i=0;i<req_sport.length;i++)

@@ -20,6 +20,17 @@ const Home = (props)=>{
             props.setLeft(0)
             props.setRole([0,0,0,0,0])
         }
+        else if(props.sportIndex===3)
+        {
+            props.setPlayerList([[],[],[]])
+            props.setSelectedPlayers([[],[],[]])
+            props.setFixedPlayers([[],[],[]])
+            props.setCaptainPlayers([[],[],[]])
+            props.setVicecaptainPlayers([[],[],[]])
+            props.setRight(0)
+            props.setLeft(0)
+            props.setRole([0,0,0])
+        }
         else{
             props.setPlayerList([[],[],[],[]])
             props.setSelectedPlayers([[],[],[],[]])
@@ -38,6 +49,7 @@ const Home = (props)=>{
            axios.get('https://team-generation-api.herokuapp.com/api/fantasy/matches')
             .then((response)=>{
                 setDataList(response.data.data)
+                console.log(response.data.data)
             })
             props.setReload('done')
     },[])

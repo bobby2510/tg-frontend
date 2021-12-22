@@ -261,7 +261,7 @@ let generateTeams = (selectedPlayers,fixedPlayers,captainPlayers,vicecaptainPlay
 
 let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generation_type,team_list,sport_index)
 {
-    let data = JSON.parse(localStorage.getItem('tg_data'))
+    let data = JSON.parse(localStorage.getItem('tgk_data'))
     let req_data = data[sport_index]
     let size = req_data.length
     let attempt_length = 0;
@@ -284,7 +284,7 @@ let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generati
 }
 let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightImage,playerList,attempt,sport_index)
 {
-    let data = JSON.parse(localStorage.getItem('tg_data'))
+    let data = JSON.parse(localStorage.getItem('tgk_data'))
     // this is the spot 
     for(let i=0;i<data.length;i++)
     {
@@ -355,7 +355,7 @@ let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightI
         console.log(obj)
         console.log(data)
        data[sport_index].push(obj)
-       localStorage.setItem('tg_data',JSON.stringify(data))
+       localStorage.setItem('tgk_data',JSON.stringify(data))
        return {matchId:matchId,attempt_id: attempt.id,type:attempt.type}
     }
     else 
@@ -364,7 +364,7 @@ let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightI
         console.log(data)
         match.attempts.push(attempt)
         data[sport_index][match_index]= match 
-       localStorage.setItem('tg_data',JSON.stringify(data))
+       localStorage.setItem('tgk_data',JSON.stringify(data))
        return {matchId:matchId,attempt_id: attempt.id ,type:attempt.type }
     }
 
