@@ -111,8 +111,6 @@ let AddPoint = (props)=>{
 
     return (
         <React.Fragment>
-        <div className="upper">
-        <div className="lower">
         <NavBarTwo navigate={navigate} /> 
         <div className='continue-container'>
         <div className="section-info">
@@ -129,8 +127,6 @@ let AddPoint = (props)=>{
         {rightTeam && rightTeam.map((player)=> <PlayerPoint player={player} handlePlayer={handlePlayer} index={1} /> )}
         </div>
         <ContinueFooter handleContinue ={()=>handleContinue()}  />
-        </div> 
-        </div> 
         </React.Fragment>
     );
 }

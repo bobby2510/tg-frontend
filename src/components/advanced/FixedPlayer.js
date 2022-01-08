@@ -94,8 +94,6 @@ const FixedPlayer = (props)=>{
 
     return (
         <React.Fragment>
-        <div className="upper">
-        <div className="lower">
             <NavBarTwo navigate={navigate} /> 
             <div className='continue-container'>
             <div className="section-info">
@@ -106,8 +104,6 @@ const FixedPlayer = (props)=>{
             {get_sub_title()}
             </div>
             <ContinueFooter handleContinue ={handleContinue}  />
-            </div> 
-            </div> 
         </React.Fragment>
     );
 }

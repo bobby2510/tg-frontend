@@ -339,8 +339,6 @@ const Match = (props)=>{
 
     return (
         <React.Fragment>
-        <div className="upper">
-            <div className="lower">
             <div style={{backgroundColor: "rgb(56,56,56)",color:'white'}}>
             <div>
                 <nav className="d-flex justify-content-between align-items-center" >
@@ -395,9 +393,6 @@ const Match = (props)=>{
                 : null} 
                 <button onClick={()=> handleContinue() } className="btn btn-success btn-sm vp-btn"> Continue </button>
            </div>
-            </div>
-        </div>
-         
         </React.Fragment>
     );
 }

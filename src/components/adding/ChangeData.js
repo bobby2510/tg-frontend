@@ -178,8 +178,7 @@ const ChangeData = (props)=>{
     }
 
     return (
-      <div className='upper'>
-      <div className="lower">
+        <div> 
       <NavBarTwo navigate={navigate} /> 
       <div className='continue-container'>
       <div className="section-info">
@@ -196,7 +195,6 @@ const ChangeData = (props)=>{
       {rightTeam && rightTeam.map((player)=> <PlayerChange player={player} handlePlayer={handlePlayer} index={1} sportIndex={props.sportIndex} /> )}
       </div>
       <ContinueFooter handleContinue ={()=>handleContinue()}  />
-      </div>
       </div>
     );
 }
