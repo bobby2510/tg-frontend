@@ -1,6 +1,6 @@
 import React,{useRef} from 'react' 
 import { useNavigate } from 'react-router-dom'
-import {MdToc} from 'react-icons/md'
+import {MdToc,MdRefresh} from 'react-icons/md'
 import {BsYoutube,BsFillInfoCircleFill,BsFillArrowDownLeftSquareFill,BsFillTrophyFill,BsFillTelephoneFill,BsBriefcaseFill} from 'react-icons/bs'
 
 const NavBarOne = (props)=>{
@@ -54,7 +54,7 @@ const NavBarOne = (props)=>{
         <span className="navbar-brand mb-0 text-center">
                 <img className="tg-logo" src="/tg_dark_logo.png" alt="tg logo" />
             </span>
-            <span></span>
+        <MdRefresh onClick={()=> {window.location.reload()} } style={{color:'white',marginRight:5,cursor:'pointer'}} size={40} />
         </nav>
         </React.Fragment>
     );
