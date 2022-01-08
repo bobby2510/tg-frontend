@@ -7,28 +7,36 @@ import Team from './Team'
 
 let DisplayAuto = (props)=>{
     let navigate = useNavigate()
+    let sportIndex = useRef(null)
     const {match,attempt} = useParams()
     let [league,setLeague] = useState(0)
     let [finalTeamData,setFinalTeamData] = useState([[],[],[]])
     let get_player_list = ()=>{
-        if(props.sportIndex===2)
+        if(sportIndex.current===2)
             return [[],[],[],[],[]]
-        else if(props.sportIndex===3)
+        else if(sportIndex.current===3)
             return [[],[],[]]
         else 
             return [[],[],[],[]]
     }
     useEffect(()=>{
        
-        if(props.reload === null)
-        {
-            navigate('/')
-            return
-        }
+    
         let new_list = get_player_list()
         props.setSelectedPlayers(new_list)
         let data = JSON.parse(localStorage.getItem('tgk_data'))
-        let match_list = data[props.sportIndex] 
+        for(let i=0;i<data.length;i++)
+        {
+            for(let j=0;j<data[i].length;j++)
+            {
+                if(data[i][j].id.toString() === match.toString())
+                {
+                    sportIndex.current = i;
+                    break;
+                }
+            }
+        }
+        let match_list = data[sportIndex.current] 
         let req_match = null 
         for(let i=0;i<match_list.length;i++)
         {
@@ -140,7 +148,7 @@ let DisplayAuto = (props)=>{
                            </div>
                         :
                         <React.Fragment>
-                        { finalTeamData[league].map((team)=> <Team teamData = {team} sportIndex={props.sportIndex} type={0} />)}
+                        { finalTeamData[league].map((team)=> <Team teamData = {team} sportIndex={sportIndex.current} type={0} />)}
                         </React.Fragment>   
                         }
                         </div>

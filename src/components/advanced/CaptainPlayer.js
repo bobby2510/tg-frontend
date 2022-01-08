@@ -95,6 +95,8 @@ const CaptainPlayer = (props)=>{
     
     return (
         <React.Fragment>
+        <div className="upper">
+        <div className="lower">
             <NavBarTwo navigate={navigate} /> 
             <div className='continue-container'>
             <div className="section-info">
@@ -105,6 +107,8 @@ const CaptainPlayer = (props)=>{
             {get_sub_title()}
             </div>
             <ContinueFooter handleContinue ={handleContinue}  />
+            </div> 
+            </div> 
         </React.Fragment>
     );
 }

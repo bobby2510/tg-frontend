@@ -107,6 +107,26 @@ const App = ()=>{
         let data = localStorage.getItem('tgk_data')
         if(data===null || data === undefined)
             localStorage.setItem('tgk_data',JSON.stringify([[],[],[],[]]))
+        let team_data = localStorage.getItem('team_data')
+        if(team_data === null || team_data === undefined)
+            localStorage.setItem('team_data',JSON.stringify([]))
+        //probably if any removal of any out dated match data should be displayed here. 
+       team_data = JSON.parse(team_data)
+        if(team_data!==null)
+        {
+            team_data= team_data.filter(team_obj =>{
+                let match_time = new Date(team_obj.data.match_time).getTime();
+                let now = new Date().getTime()
+                let distance = now-match_time 
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                if(days<1)
+                    return true 
+                else 
+                    return false
+            })
+            localStorage.setItem('team_data',JSON.stringify(team_data))
+        }
+
     },[])
 
     return (
@@ -218,6 +238,7 @@ const App = ()=>{
                     />} />
                 <Route path="/change" element={<ChangeData 
                     reload = {reload}
+                    matchId = {matchId}
                     sportIndex = {sportIndex}
                     playerList = {playerList}
                     setPlayerList = {setPlayerList}

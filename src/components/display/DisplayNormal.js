@@ -7,24 +7,32 @@ import Team from './Team'
 
 let DisplayNormal = (props)=>{
     let navigate = useNavigate()
+    let sportIndex = useRef(null)
     const {match,attempt} = useParams()
     let [finalTeamData,setFinalTeamData] = useState([])
     let get_player_list = ()=>{
-        if(props.sportIndex===2)
+        if(sportIndex.current===2)
             return [[],[],[],[],[]]
-        else if(props.sportIndex===3)
+        else if(sportIndex.current===3)
             return [[],[],[]]
         else 
             return [[],[],[],[]]
     }
     useEffect(()=>{
-        if(props.reload === null)
-        {
-            navigate('/')
-            return
-        }
+      
         let data = JSON.parse(localStorage.getItem('tgk_data'))
-        let match_list = data[props.sportIndex] 
+        for(let i=0;i<data.length;i++)
+        {
+            for(let j=0;j<data[i].length;j++)
+            {
+                if(data[i][j].id.toString() === match.toString())
+                {
+                    sportIndex.current = i;
+                    break;
+                }
+            }
+        }
+        let match_list = data[sportIndex.current] 
         let req_match = null 
         for(let i=0;i<match_list.length;i++)
         {
@@ -34,7 +42,7 @@ let DisplayNormal = (props)=>{
                 break;
             }
         }
-        console.log(props.sportIndex)
+        console.log(sportIndex.current)
         console.log(req_match)
         if(req_match===null)
         {
@@ -100,7 +108,7 @@ let DisplayNormal = (props)=>{
                         <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}>print</button>
                     </div>
                     <div className="display-team">
-                        { finalTeamData.map((team)=> <Team teamData = {team} sportIndex={props.sportIndex} type={0} />)}
+                        { finalTeamData.map((team)=> <Team teamData = {team} sportIndex={sportIndex.current} type={0} />)}
                     </div>
                 </div>
             </div>

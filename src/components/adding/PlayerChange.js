@@ -63,6 +63,7 @@ const PlayerChange = (props)=>{
                 </div>
                 <div className="d-flex flex-column align-items-start justify-content-center">
                     <span className="bobby-name">{shortcutName(props.player.name)}</span>
+                    <span className="bobby-percentage" style={{color:"green"}}>{props.player.playing === 1? '• Playing' : ''}</span>
                 </div>
             </div>
             <div  style={{fontWeight:500,flexGrow:1}}>

@@ -120,30 +120,84 @@ const ChangeData = (props)=>{
             }
         }
         props.setPlayerList(final_list)
+        //changing in the localStorage as well  
+        let temp = JSON.parse(localStorage.getItem('team_data'))
+        let m_data = null 
+        let m_index = -1
+        for(let i=0;i<temp.length;i++)
+        {
+            if(temp[i].id === props.matchId)
+            {
+                m_data = temp[i];
+                m_index = i;
+                break; 
+            }
+        }
+      //  console.log(m_data)
+        if(m_data!==null)
+        {
+            for(let i=0;i<final_list.length;i++)
+            {
+                for(let j=0;j<final_list[i].length;j++)
+                {
+                    let p = final_list[i][j]
+                    if(p.team_index===0)
+                    {
+                        for(let k=0;k<m_data.data.left_team_players.length;k++)
+                        {
+                            if(m_data.data.left_team_players[k].player_index === p.player_index)
+                            {
+                                m_data.data.left_team_players[k].credits = p.credits 
+                                m_data.data.left_team_players[k].role = p.role 
+                                
+                            }
+                        }
+                    }
+                    else 
+                    {
+                        for(let k=0;k<m_data.data.right_team_players.length;k++)
+                        {
+                            if(m_data.data.right_team_players[k].player_index === p.player_index)
+                            {
+                                m_data.data.right_team_players[k].credits = p.credits 
+                                m_data.data.right_team_players[k].role = p.role 
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            temp[m_index] = m_data 
+            //console.log(m_data)
+            localStorage.setItem('team_data',JSON.stringify(temp))
+        }
+        
         toast.success('Players Data Updated Successfully!',{position:'top-center'})
         navigate(-1)
         return 
     }
 
     return (
-        <React.Fragment>
-        <NavBarTwo navigate={navigate} /> 
-        <div className='continue-container'>
-        <div className="section-info">
-            <span className='section-primary'>Change Player Data</span>
-            <span className='section-secondary'>If Any Miss match in the data change here</span>
-        </div>
-        <div className='section-info'>
-            <span className='section-primary'>Team - {props.leftName}</span>
-        </div>
-        {leftTeam && leftTeam.map((player)=> <PlayerChange player={player} handlePlayer={handlePlayer} index={0} sportIndex={props.sportIndex}   /> )}
-        <div className='section-info'>
-            <span className='section-primary'>Team - {props.rightName}</span>
-        </div>
-        {rightTeam && rightTeam.map((player)=> <PlayerChange player={player} handlePlayer={handlePlayer} index={1} sportIndex={props.sportIndex} /> )}
-        </div>
-        <ContinueFooter handleContinue ={()=>handleContinue()}  />
-        </React.Fragment>
+      <div className='upper'>
+      <div className="lower">
+      <NavBarTwo navigate={navigate} /> 
+      <div className='continue-container'>
+      <div className="section-info">
+          <span className='section-primary'>Change Player Data</span>
+          <span className='section-secondary'>If Any Miss match in the data change here</span>
+      </div>
+      <div className='section-info'>
+          <span className='section-primary'>Team - {props.leftName}</span>
+      </div>
+      {leftTeam && leftTeam.map((player)=> <PlayerChange player={player} handlePlayer={handlePlayer} index={0} sportIndex={props.sportIndex}   /> )}
+      <div className='section-info'>
+          <span className='section-primary'>Team - {props.rightName}</span>
+      </div>
+      {rightTeam && rightTeam.map((player)=> <PlayerChange player={player} handlePlayer={handlePlayer} index={1} sportIndex={props.sportIndex} /> )}
+      </div>
+      <ContinueFooter handleContinue ={()=>handleContinue()}  />
+      </div>
+      </div>
     );
 }
 

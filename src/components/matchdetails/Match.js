@@ -82,11 +82,62 @@ const Match = (props)=>{
         axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
         .then((response)=>{
             
-            match_data.current = response.data.data
-            console.log(match_data.current)
+            //console.log(response.data.data)
+            //checking whether same id is there 
+            // if present i will have to take from there 
+            // if not i will have to add new and take from there 
+            let m_data = null
+            let temp = JSON.parse(localStorage.getItem('team_data'))
+            //let temp = []
+            //console.log(localStorage.getItem('team_data'))
+           //console.log(temp)
+            for(let i=0;i<temp.length;i++)
+            {
+                if(temp[i].id === id )
+                {
+                    m_data = temp[i].data 
+                    m_data.lineup_status = response.data.data.lineup_status 
+                    //left side updating 
+                    for(let k=0;k<response.data.data.left_team_players.length;k++)
+                    {
+                        let player = response.data.data.left_team_players[k]; 
+                        for(let j=0;j<m_data.left_team_players.length;j++)
+                        {
+                            if(m_data.left_team_players[j].player_index=== player.player_index)
+                            {
+                                m_data.left_team_players[j].playing = player.playing; 
+                            }
+                        }
+                    }
+                    //right side updating 
+                    for(let k=0;k<response.data.data.right_team_players.length;k++)
+                    {
+                        let player = response.data.data.right_team_players[k]; 
+                        for(let j=0;j<m_data.right_team_players.length;j++)
+                        {
+                            if(m_data.right_team_players[j].player_index=== player.player_index)
+                            {
+                                m_data.right_team_players[j].playing = player.playing; 
+                            } 
+                        }
+                    }
+                }
+            }
+            if(m_data === null )
+            {
+                temp.push({
+                    id: id,
+                    data: response.data.data 
+                })
+                m_data = response.data.data 
+                localStorage.setItem('team_data',JSON.stringify(temp))
+            }
+            match_data.current = m_data 
+            //console.log(m_data)
+            //console.log(match_data.current)
             setMatchTime(match_data.current.match_time)
             let player_list = get_player_list()
-            console.log(player_list)
+            //console.log(player_list)
             props.setLeftName(match_data.current.left_team_name)
             props.setRightName(match_data.current.right_team_name)
             props.setLeftImage(match_data.current.left_team_image)
@@ -105,6 +156,15 @@ const Match = (props)=>{
             for(let i=0;i<props.playerList.length;i++)
                 for(let j=0;j<props.playerList[i].length;j++)
                         cnt = cnt + 1 
+            for(let i=0;i<player_list.length;i++)
+            {
+                player_list[i] = player_list[i].sort((x,y)=>{
+                    if(x.credits<y.credits)
+                        return 1;
+                    else 
+                        return -1;
+                })
+            }
                 if(cnt ===0)
                 {
                 props.setPlayerList(player_list)
@@ -173,7 +233,7 @@ const Match = (props)=>{
          props.setPlayerList([...newPlayerList])
     }
     let handleContinue = ()=>{
-        console.log(props.playerList)
+       //(props.playerList)
         
         if(props.left<side_limit[props.sportIndex][0] || props.right<side_limit[props.sportIndex][1])
         {
@@ -279,7 +339,9 @@ const Match = (props)=>{
 
     return (
         <React.Fragment>
-           <div style={{backgroundColor: "rgb(56,56,56)",color:'white'}}>
+        <div className="upper">
+            <div className="lower">
+            <div style={{backgroundColor: "rgb(56,56,56)",color:'white'}}>
             <div>
                 <nav className="d-flex justify-content-between align-items-center" >
                         <MdWest onClick={() => navigate(-1) } size={24} style={{marginLeft:10}} />
@@ -333,6 +395,9 @@ const Match = (props)=>{
                 : null} 
                 <button onClick={()=> handleContinue() } className="btn btn-success btn-sm vp-btn"> Continue </button>
            </div>
+            </div>
+        </div>
+         
         </React.Fragment>
     );
 }

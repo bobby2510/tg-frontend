@@ -97,6 +97,8 @@ const TeamCombination = (props)=>{
     }
     return (
         <React.Fragment>
+        <div className="upper">
+        <div className="lower">
             <NavBarTwo navigate={navigate} /> 
             <div className='continue-container'>
                 <div className="section-info">
@@ -113,6 +115,8 @@ const TeamCombination = (props)=>{
             </div>
             </div> 
             <ContinueFooter handleContinue ={handleContinue}  />
+            </div> 
+            </div> 
         </React.Fragment>
     );
 }

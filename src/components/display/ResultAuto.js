@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react' 
+import React,{useState,useEffect,useRef} from 'react' 
 import {useNavigate} from 'react-router-dom'
 import { useParams } from "react-router";
 import NavBarTwo from '../navbar/NavBarTwo';
@@ -8,18 +8,25 @@ import Team from './Team'
 
 const ResultAuto = (props)=>{
     let navigate = useNavigate()
-    
+    let sportIndex = useRef()
     let [league,setLeague] = useState(0)
     const {match,attempt} = useParams()
     let [finalTeamData,setFinalTeamData] = useState([[],[],[]])
     useEffect(()=>{
-        if(props.reload === null)
-        {
-            navigate('/')
-            return
-        }
+       
         let data = JSON.parse(localStorage.getItem('tgk_data'))
-        let match_list = data[props.sportIndex] 
+        for(let i=0;i<data.length;i++)
+        {
+            for(let j=0;j<data[i].length;j++)
+            {
+                if(data[i][j].id.toString() === match.toString())
+                {
+                    sportIndex.current = i;
+                    break;
+                }
+            }
+        }
+        let match_list = data[sportIndex.current] 
         let req_match = null 
         for(let i=0;i<match_list.length;i++)
         {
@@ -78,7 +85,7 @@ const ResultAuto = (props)=>{
             {
                 let temp_team = req_attempt.team_list[p][i]
                 let points_sum = 0; 
-                let final_team = props.sportIndex === 2? [[],[],[],[],[]] : [[],[],[],[]]
+                let final_team = sportIndex.current === 2? [[],[],[],[],[]] : [[],[],[],[]]
                 for(let j=0;j<temp_team.team.length;j++)
                 {
                     for(let k=0;k<temp_team.team[j].length;k++)
@@ -148,7 +155,7 @@ const ResultAuto = (props)=>{
                            </div>
                         :
                         <React.Fragment>
-                        { finalTeamData[league].map((team)=> <Team teamData = {team} sportIndex={props.sportIndex} type={1} />)}
+                        { finalTeamData[league].map((team)=> <Team teamData = {team} sportIndex={sportIndex.current} type={1} />)}
                         </React.Fragment>   
                         }
                         </div>
