@@ -100,7 +100,7 @@ const Partision = (props)=>{
         let finalPartisionStrategy = newPartisionStrategy.map(p=> p.data)
         props.setPartisionStrategy(finalPartisionStrategy)
        // console.log(finalPartisionStrategy)
-        navigate('/credit')
+        navigate('/selection')
     }
 
     return (

@@ -32,11 +32,11 @@ const AdvancedGeneration = (props)=>{
             })
             return  
         }
-        
-       let teams_list =  generateTeams(props.selectedPlayers,props.fixedPlayers,props.captainPlayers,props.vicecaptainPlayers,props.partisionStrategy,props.leftRange,props.rightRange,props.combination,tn)
+        let ss = props.selectionFlag === true ? props.selectionStrategy : null;
+       let teams_list =  generateTeams(props.selectedPlayers,props.fixedPlayers,props.captainPlayers,props.vicecaptainPlayers,props.partisionStrategy,props.leftRange,props.rightRange,props.combination,tn,ss)
         if(teams_list!=null)
         {
-            let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,2,teams_list,props.sportIndex)
+            let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,2,teams_list,props.sportIndex,ss)
             if(attempt!=null)
             {
                 let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)

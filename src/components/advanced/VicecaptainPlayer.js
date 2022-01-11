@@ -11,7 +11,7 @@ const VicecaptainPlayer = (props)=>{
         ['Wicket Keeper','Batsman','Alrounder','Bowler'],
         ['Goal Keeper','Defender','Mid Fielder','Forward'],
         ['Point Guard','Shooting Gaurd','Small Forward','Power Forward','Center'],
-        ['Defender','Alrounder','Defender']
+        ['Defender','Alrounder','Raider']
     ]
     let navigate = useNavigate()
     let [localVicecaptain,setLocalVicecaptain] = useState([])

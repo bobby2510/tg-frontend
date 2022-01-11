@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom'
 import { useParams } from "react-router";
 import NavBarTwo from '../navbar/NavBarTwo';
 import Team from './Team'
+import { toast } from 'react-toastify';
 
 
 let DisplayNormal = (props)=>{
@@ -100,12 +101,16 @@ let DisplayNormal = (props)=>{
         <React.Fragment>
             <NavBarTwo navigate = {navigate} />
             <div style={{backgroundColor:'white'}}>
+            <nav class=" container d-flex justify-content-around top-nav  p-2 top-fix-two" style={{maxWidth:1200,padding:0}}>
+                <button onClick={()=> navigate(`/shortcutprintnormal/${match}/${attempt}`) } className='btn btn-sm btn-success' style={{fontWeight:500}}>Shortcut Print</button>
+                <button onClick={()=> toast.error('under development!',{position:'top-center'})} className='btn btn-sm btn-danger' style={{fontWeight:500}}>Analytics</button>
+                <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}> Print</button>
+            </nav>
             <div className='container' style={{maxWidth:1200,padding:8}}>
 
                 <div className="card mt-2 text-center">
                     <div className='card-header d-flex justify-content-between'>
                         <h4>Generated Teams</h4>
-                        <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}>print</button>
                     </div>
                     <div className="display-team">
                         { finalTeamData.map((team)=> <Team teamData = {team} sportIndex={sportIndex.current} type={0} />)}

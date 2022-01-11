@@ -5,6 +5,13 @@ let get_rand_value = function(limit)
     return Math.floor(Math.random()*limit)
 }
 
+let limit = [
+    [0,29],
+    [30,69],
+    [70,100]
+]
+
+
 let fillPlayers = function(source,team,np,player_hash,index)
 {
     //console.log(source,team,np,player_hash,index)
@@ -95,6 +102,36 @@ let validate_partision = function(full_team,partisionStrategy)
     return flag;
 }
 
+//validate_selection 
+let validate_selection = (full_team,selectionStrategy) =>{
+
+   // console.log(selectionStrategy)
+    if(selectionStrategy===null)
+        return true
+    let c =[0,0,0]
+    for(let i=0;i<full_team.length;i++)
+    {
+        for(let j=0;j<full_team[i].length;j++)
+        {
+            let p = full_team[i][j]
+            if(parseFloat(p.selected_by)>=parseFloat(limit[0][0]) && parseFloat(p.selected_by)<=parseFloat(limit[0][1]))
+                c[0]= c[0] + 1;
+            else if(parseFloat(p.selected_by)>=parseFloat(limit[1][0]) && parseFloat(p.selected_by)<=parseFloat(limit[1][1]))
+                c[1]= c[1] + 1;
+            else
+                c[2] = c[2] + 1 
+        }
+    }
+    for(let i=0;i<selectionStrategy.length;i++)
+    {
+        if(selectionStrategy[i][0]===c[0] && selectionStrategy[i][1] === c[1] && selectionStrategy[i][2] === c[2])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 let get_captain_vicecaptain = function(team,captainPlayers,vicecaptainPlayers)
 {
    let t = []
@@ -148,7 +185,6 @@ let validate_final = function(team,c_vc_obj,team_hash)
             my_string = my_string+(my_list[i]+55)
         else 
             my_string = my_string+my_list[i]
-
     }
         
     if(team_hash.indexOf(my_string)=== -1)
@@ -160,13 +196,14 @@ let validate_final = function(team,c_vc_obj,team_hash)
     return false
 }
 
-let generateTeams = (selectedPlayers,fixedPlayers,captainPlayers,vicecaptainPlayers,partisionStrategy,leftRange,rightRange,combination,tn)=>{
+let generateTeams = (selectedPlayers,fixedPlayers,captainPlayers,vicecaptainPlayers,partisionStrategy,leftRange,rightRange,combination,tn,selectionStrategy)=>{
    let created_team_list  = []
     leftRange = Number(leftRange)
     rightRange = Number(rightRange)
     let team_hash = []
     let dp = 0;
     let team_cnt=0;
+   // console.log(selectionStrategy)
     while(true)
     {
         if(team_cnt===tn)
@@ -228,7 +265,10 @@ let generateTeams = (selectedPlayers,fixedPlayers,captainPlayers,vicecaptainPlay
         let full_team = get_full_team(team,selectedPlayers)
         let credit_valid = validate_credits(full_team,leftRange,rightRange)
         let partision_valid = validate_partision(full_team,partisionStrategy)
-        if(credit_valid !== -1 && partision_valid )
+        //validate the selection strategy 
+        //console.log(selectionStrategy)
+        let selection_valid = selectionStrategy === null ? true : validate_selection(full_team,selectionStrategy);
+        if(credit_valid !== -1 && partision_valid && selection_valid )
         {
             //select captains and if problem handle otherwise push 
             let c_vc_obj = get_captain_vicecaptain(team,captainPlayers,vicecaptainPlayers)
@@ -259,7 +299,7 @@ let generateTeams = (selectedPlayers,fixedPlayers,captainPlayers,vicecaptainPlay
    
 }
 
-let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generation_type,team_list,sport_index)
+let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generation_type,team_list,sport_index,selectionStrategy)
 {
     let data = JSON.parse(localStorage.getItem('tgk_data'))
     let req_data = data[sport_index]
@@ -272,6 +312,7 @@ let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generati
             attempt_length = req_data[i].attempts.length
         }
     }
+    let ss = selectionStrategy === null ? false : true
     return {
         id: attempt_length,
         player_list:selectedPlayers,
@@ -279,7 +320,8 @@ let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generati
         number_of_teams:number_of_teams,
         generation_type:generation_type,
         time:Date.now(),
-        team_list:team_list
+        team_list:team_list,
+        selection_strategy: ss
     }
 }
 let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightImage,playerList,attempt,sport_index)

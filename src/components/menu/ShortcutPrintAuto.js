@@ -2,10 +2,10 @@ import React,{useState,useEffect,useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
 import { useParams } from "react-router";
 import NavBarTwo from '../navbar/NavBarTwo';
-import Team from './Team'
+import STeam from './STeam'
 
 
-let DisplayAuto = (props)=>{
+let ShortcutPrintAuto = (props)=>{
     let navigate = useNavigate()
     let sportIndex = useRef(null)
     const {match,attempt} = useParams()
@@ -21,9 +21,6 @@ let DisplayAuto = (props)=>{
     }
     useEffect(()=>{
        
-    
-        let new_list = get_player_list()
-        props.setSelectedPlayers(new_list)
         let data = JSON.parse(localStorage.getItem('tgk_data'))
         for(let i=0;i<data.length;i++)
         {
@@ -51,7 +48,6 @@ let DisplayAuto = (props)=>{
             navigate('/')
             return 
         }
-        console.log(req_match)
         let req_attempt = null 
         for(let i=0;i<req_match.attempts.length;i++)
         {
@@ -60,7 +56,6 @@ let DisplayAuto = (props)=>{
                 req_attempt = req_match.attempts[i]
             }
         }
-        console.log(req_attempt)
         if(req_attempt===null)
         {
             navigate('/')
@@ -107,15 +102,11 @@ let DisplayAuto = (props)=>{
             }
             final_team_list.push(vp_list)
         }
-        console.log(final_team_list)
         setFinalTeamData(final_team_list)
     },[])
     return (
         <React.Fragment>
             <NavBarTwo navigate = {navigate} />
-            
-            
-
             <div style={{backgroundColor:'white'}}>
              {/* type of teams start */}
              <nav class=" container d-flex justify-content-around top-nav  pt-1 top-fix-two" style={{maxWidth:1200,padding:0}}>
@@ -137,8 +128,7 @@ let DisplayAuto = (props)=>{
                
                 <div className="card mt-2 text-center">
                     <div className='card-header d-flex justify-content-between'>
-                        <h4>Teams</h4>
-                        <button onClick={()=> navigate(`/shortcutprintauto/${match}/${attempt}`) } className='btn btn-sm btn-success' style={{fontWeight:500}}>shortcut print</button>
+                        <h4>Generated Teams</h4>
                         <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}>print</button>
                     </div>
                     <div className="display-team">
@@ -149,7 +139,7 @@ let DisplayAuto = (props)=>{
                            </div>
                         :
                         <React.Fragment>
-                        { finalTeamData[league].map((team)=> <Team teamData = {team} sportIndex={sportIndex.current} type={0} />)}
+                        { finalTeamData[league].map((team)=> <STeam teamData = {team} sportIndex={sportIndex.current} type={0} />)}
                         </React.Fragment>   
                         }
                         </div>
@@ -160,4 +150,4 @@ let DisplayAuto = (props)=>{
     );
 }
 
-export default DisplayAuto;
+export default ShortcutPrintAuto;

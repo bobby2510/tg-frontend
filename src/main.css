@@ -212,6 +212,10 @@ body {
   overscroll-behavior-y: contain;
 } 
 
+.shortcut-team
+{
+  font-size: 9px;
+}
 
 .team-input 
 {

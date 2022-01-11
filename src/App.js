@@ -39,6 +39,10 @@ import ManageUser from './api/ManageUser';
 import HowToGenerate from './components/siders/HowToGenerate';
 import RefundPolicy from './components/siders/RefundPolicy';
 import BestTips from './components/siders/BestTips';
+import Selection from './components/advanced/Selection';
+import ShortcutPrintAuto from './components/menu/ShortcutPrintAuto';
+import Analytics from './components/menu/Analytics';
+import ShortcutPrintNormal from './components/menu/ShortcutPrintNormal';
 
 // our color : #563d7c
 
@@ -67,6 +71,7 @@ const App = ()=>{
     let [seriesName,setSeriesName] = useState('')
     {/* team image and name data end  */}
     let [partisionStrategy,setPartisionStrategy] = useState([])
+    let [selectionStrategy,setSelectionStrategy] = useState([])
     let [leftRange,setLeftRange] = useState(97)
     let [rightRange,setRightRange] = useState(100)
     let[combination,setCombination] = useState([])
@@ -79,6 +84,8 @@ const App = ()=>{
     let [userEmail,setUserEmail] = useState('')
     let [userRole,setUserRole] = useState('')
     let [phoneNumber,setPhoneNumber] = useState('')
+    {/* flag for checking player percentage selection is there or not */}
+    let [selectionFlag,setSelectionFlag] = useState(false)
     
     useEffect(()=>{
         // making api call 
@@ -294,6 +301,14 @@ const App = ()=>{
                     rightName = {rightName}
                     rightImage = {rightImage}
                     /> } /> 
+                <Route path="/selection" element ={ <Selection
+                    reload = {reload}
+                    selectedPlayers = {selectedPlayers}
+                    selectionFlag = {selectionFlag}
+                    setSelectionFlag = {setSelectionFlag}
+                    sportIndex = {sportIndex}
+                    setSelectionStrategy = {setSelectionStrategy}
+                    /> } /> 
                 <Route path="/credit" element ={ <CreditRange
                     reload = {reload}
                     leftRange = {leftRange}
@@ -316,6 +331,7 @@ const App = ()=>{
 
                 <Route path="/advanced" element={<AdvancedGeneration
                     reload = {reload}
+                    selectionFlag = {selectionFlag}
                     sportIndex = {sportIndex}
                     playerList = {playerList}
                     selectedPlayers = {selectedPlayers}
@@ -323,6 +339,7 @@ const App = ()=>{
                     captainPlayers = {captainPlayers}
                     vicecaptainPlayers = {vicecaptainPlayers}
                     partisionStrategy = {partisionStrategy}
+                    selectionStrategy = {selectionStrategy}
                     leftRange ={leftRange}
                     seriesName = {seriesName}
                     rightRange = {rightRange}
@@ -335,6 +352,7 @@ const App = ()=>{
                     /> } />
                 <Route path="/grand" element={<GrandLeague
                     reload = {reload}
+                    selectionFlag = {selectionFlag}
                     sportIndex = {sportIndex}
                     playerList = {playerList}
                     selectedPlayers = {selectedPlayers}
@@ -348,6 +366,7 @@ const App = ()=>{
                 <Route path="/smart" element={<SmartGeneration
                     reload = {reload}
                     sportIndex = {sportIndex}
+                    selectionFlag = {selectionFlag}
                     playerList = {playerList}
                     selectedPlayers = {selectedPlayers}
                     seriesName = {seriesName}
@@ -360,6 +379,7 @@ const App = ()=>{
                 <Route path="/auto" element={<AutoGeneration
                     reload = {reload}
                     sportIndex = {sportIndex}
+                    selectionFlag = {selectionFlag}
                     playerList = {playerList}
                     selectedPlayers = {selectedPlayers}
                     seriesName = {seriesName}
@@ -382,6 +402,7 @@ const App = ()=>{
                 <Route path="/howtogenerate" element={<HowToGenerate /> } />
                 <Route path="/refundpolicy" element={<RefundPolicy /> } />
                 <Route path="/besttips" element={<BestTips /> } />
+                <Route path='/analytics/:match/:attempt' element={<Analytics />} />
               </Routes> 
              </div> 
              <div  style={{padding:0}}>
@@ -403,6 +424,11 @@ const App = ()=>{
                         sportIndex = {sportIndex}
                         reload = {reload}
                         /> } />
+                    <Route path='/shortcutprintnormal/:match/:attempt' element = {<ShortcutPrintNormal  
+                        />} />
+                    <Route path='/shortcutprintauto/:match/:attempt' element = {<ShortcutPrintAuto  
+                        />} />
+                    
                 </Routes>
             </div>
             </Router>

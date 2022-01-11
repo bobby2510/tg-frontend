@@ -144,8 +144,9 @@ const ResultAuto = (props)=>{
                
                 <div className="card mt-2 text-center">
                     <div className='card-header d-flex justify-content-between'>
-                    <h4>Results of Teams</h4>
-                        <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}>print</button>
+                    <h4>Results</h4>
+                    <button onClick={()=> navigate(`/shortcutprintauto/${match}/${attempt}`)} className='btn btn-sm btn-success' style={{fontWeight:500}}>shortcut print</button>
+                    <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}>print</button>
                     </div>
                     <div className="display-team">
                     {/* change here */}
