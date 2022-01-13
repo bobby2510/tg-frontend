@@ -229,6 +229,36 @@ body {
   margin-top: 10px;
 }
 
+.analytic-section 
+{
+  background-color: white;
+  margin-left:5px;
+  margin-right: 5px;
+  margin-top:10px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+
+}
+
+.analytic-sub-item
+{
+  flex-grow:1;
+  cursor: pointer;
+  padding: 0.5rem;
+  border:1px solid lightgray;
+}
+.analytic-item 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.analytic-container 
+{
+  background-color: white;
+  text-align: center;
+}
+
 
 .combination-item-one :first-child
 {

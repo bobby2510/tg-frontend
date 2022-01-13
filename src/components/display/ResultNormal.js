@@ -136,7 +136,7 @@ const ResultNormal = (props)=>{
         <div style={{backgroundColor:'white'}}>
         <nav class=" container d-flex justify-content-around top-nav  p-2 top-fix-two" style={{maxWidth:1200,padding:0}}>
             <button onClick={()=> navigate(`/shortcutprintnormal/${match}/${attempt}`)} className='btn btn-sm btn-success' style={{fontWeight:500}}>Shortcut Print</button>
-            <button onClick={()=>  toast.error('under development!',{position:'top-center'})} className='btn btn-sm btn-danger' style={{fontWeight:500}}>Analytics</button>
+            <button onClick={()=> navigate(`/analytics/${match}/${attempt}`) } className='btn btn-sm btn-danger' style={{fontWeight:500}}>Analytics</button>
             <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}> Print</button>
         </nav>
         <div className='container' style={{maxWidth:1200,padding:8}}>

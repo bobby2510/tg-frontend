@@ -299,7 +299,7 @@ let generateTeams = (selectedPlayers,fixedPlayers,captainPlayers,vicecaptainPlay
    
 }
 
-let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generation_type,team_list,sport_index,selectionStrategy)
+let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generation_type,team_list,sport_index,selectionStrategy,left_credits,right_credits)
 {
     let data = JSON.parse(localStorage.getItem('tgk_data'))
     let req_data = data[sport_index]
@@ -321,7 +321,9 @@ let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generati
         generation_type:generation_type,
         time:Date.now(),
         team_list:team_list,
-        selection_strategy: ss
+        selection_strategy: ss,
+        left_credits:left_credits,
+        right_credits:right_credits
     }
 }
 let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightImage,playerList,attempt,sport_index)

@@ -128,7 +128,7 @@ const AutoGeneration = (props)=>{
        final_teams_list.push(teams_list_one===null? [] : teams_list_one)
        final_teams_list.push(teams_list_two===null? [] : teams_list_two)
        final_teams_list.push(teams_list_three===null? [] : teams_list_three)
-       let attempt = get_attempt(props.matchId,props.selectedPlayers,'toss',17,3,final_teams_list,props.sportIndex,null)
+       let attempt = get_attempt(props.matchId,props.selectedPlayers,'toss',17,3,final_teams_list,props.sportIndex,null,98,100)
        if(attempt!=null)
        {
            let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)

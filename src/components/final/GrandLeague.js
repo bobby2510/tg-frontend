@@ -120,7 +120,7 @@ const GrandLeague = (props)=>{
        let teams_list =  generateTeams(props.selectedPlayers,tempFixed,tempCaptain,tempVicecaptain,strategies[props.sportIndex],temp_left,100,combinations[props.sportIndex],tn,null)
         if(teams_list!=null)
         {
-            let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,1,teams_list,props.sportIndex,null)
+            let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,1,teams_list,props.sportIndex,null,temp_left,100)
             if(attempt!=null)
             {
                 let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)

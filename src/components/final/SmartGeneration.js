@@ -228,7 +228,7 @@ const SmartGeneration = (props)=>{
         let teams_list =  generateTeams(props.selectedPlayers,[[],[],[],[]],temp_captain,temp_vicecaptain,team_strategy[p_index],req_credits.left,req_credits.right,team_combination[c_index],tn,null)
         if(teams_list!=null)
         {
-            let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,0,teams_list,props.sportIndex,null)
+            let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,0,teams_list,props.sportIndex,null,req_credits.left,req_credits.right)
             if(attempt!=null)
             {
                 let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)
