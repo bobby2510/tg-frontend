@@ -14,7 +14,7 @@ const FixedPlayer = (props)=>{
         ['Point Guard','Shooting Gaurd','Small Forward','Power Forward','Center'],
         ['Defender','Alrounder','Raider']
     ]
-    let limit = [6,6,4,4]
+    let limit = [8,8,5,4]
     let navigate = useNavigate()
     let [localFixed,setLocalFixed] = useState([])
     useEffect(()=>{
@@ -99,7 +99,7 @@ const FixedPlayer = (props)=>{
             <div className="section-info">
                 <span className='section-primary'>Fixed Player Section</span>
                 <span className='section-secondary'>Selected Player will be included in every created team</span>
-                <span className='section-secondary'>you can selected any where between <span style={{color:'black',fontWeight:500}}>0 - 7 players</span></span>
+                <span className='section-secondary'>you can selected any where between <span style={{color:'black',fontWeight:500}}>0 - {limit[props.sportIndex]} players</span></span>
             </div>
             {get_sub_title()}
             </div>

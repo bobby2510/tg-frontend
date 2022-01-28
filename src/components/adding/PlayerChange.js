@@ -2,7 +2,9 @@ import React,{useState} from 'react'
 
 
 const PlayerChange = (props)=>{
+    console.log(props.player)
     let [credit,setCredit] = useState(props.player.credits)
+    let [percentage,setPercentage] = useState(props.player.selected_by)
     let [role,setRole] = useState(props.player.role)
 
     let type_name = [
@@ -47,12 +49,16 @@ const PlayerChange = (props)=>{
     }
     // color:#eca048;
     let handleCredit = (e)=>{
-        props.handlePlayer(props.player.player_index,props.index,e.target.value,role)
+        props.handlePlayer(props.player.player_index,props.index,e.target.value,role,percentage)
         setCredit(e.target.value)
     }
     let handleRole = (e)=>{
-        props.handlePlayer(props.player.player_index,props.index,credit,e.target.value)
+        props.handlePlayer(props.player.player_index,props.index,credit,e.target.value,percentage)
         setRole(e.target.value)
+    }
+    let handlePercentage = (e)=>{
+        props.handlePlayer(props.player.player_index,props.index,credit,role,e.target.value)
+        setPercentage(e.target.value)
     }
     return (
         <React.Fragment>
@@ -67,7 +73,10 @@ const PlayerChange = (props)=>{
                 </div>
             </div>
             <div  style={{fontWeight:500,flexGrow:1}}>
-            <input onChange={ handleCredit } type="number" style={{width:40}} name="credit" value={credit} placeholder='credit' />
+            <input onChange={ handlePercentage } type="number" style={{width:60}} name="percentage" value={percentage} placeholder='percentage' />
+            </div>
+            <div  style={{fontWeight:500,flexGrow:1}}>
+            <input onChange={ handleCredit } type="number" style={{width:50}} name="credit" value={credit} placeholder='credit' />
             </div>
             <div  style={{fontWeight:500,flexGrow:1}}>
                 <select onChange={handleRole} name="role" value={role}>

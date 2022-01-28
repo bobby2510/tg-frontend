@@ -44,7 +44,7 @@ const ChangeData = (props)=>{
             return [[],[],[],[]]
     }
 
-    let handlePlayer = (pi,ti,credits,role) =>{
+    let handlePlayer = (pi,ti,credits,role,selection_percentage) =>{
         if(ti===0)
         {
             let temp = [...leftTeam]
@@ -53,6 +53,7 @@ const ChangeData = (props)=>{
                 {
                     player.credits= Number(credits)
                     player.role = Number(role)
+                    player.selected_by = parseFloat(selection_percentage)
                 }
                 return player 
             })
@@ -66,6 +67,7 @@ const ChangeData = (props)=>{
                 {
                     player.credits= Number(credits)
                     player.role = Number(role)
+                    player.selected_by = parseFloat(selection_percentage)
                 }
                 
                 return player 
@@ -77,10 +79,12 @@ const ChangeData = (props)=>{
     let handleContinue = ()=>{
         let player_credits = []
         let player_role = []
+        let player_percentage = []
         for(let i=0;i<70;i++)
         {
             player_credits.push(0)
             player_role.push(0)
+            player_percentage.push(0)
         }
         for(let i=0;i<leftTeam.length;i++)
         {
@@ -93,6 +97,10 @@ const ChangeData = (props)=>{
                 player_role[p.player_index] = 0
             else 
                 player_role[p.player_index] = Number(p.role) 
+            if(p.percentage === null || p.percentage === '')
+                player_percentage[p.player_index] = 0
+            else 
+                player_percentage[p.player_index] = Number(p.selected_by) 
         }
         for(let i=0;i<rightTeam.length;i++)
         {
@@ -105,6 +113,10 @@ const ChangeData = (props)=>{
                 player_role[p.player_index] = 0
             else 
                 player_role[p.player_index] = Number(p.role) 
+            if(p.percentage === null || p.percentage === '')
+                player_percentage[p.player_index] = 0
+            else 
+                player_percentage[p.player_index] = Number(p.selected_by)
         }
         // now the drama 
         let new_list = [...props.playerList]
@@ -116,6 +128,7 @@ const ChangeData = (props)=>{
                 let p = new_list[i][j]
                 p.credits = player_credits[p.player_index]
                 p.role = player_role[p.player_index]
+                p.selected_by = player_percentage[p.player_index]
                 final_list[p.role].push(p)
             }
         }
@@ -149,6 +162,7 @@ const ChangeData = (props)=>{
                             {
                                 m_data.data.left_team_players[k].credits = p.credits 
                                 m_data.data.left_team_players[k].role = p.role 
+                                m_data.data.left_team_players[k].selected_by = p.selected_by
                                 
                             }
                         }
@@ -161,7 +175,7 @@ const ChangeData = (props)=>{
                             {
                                 m_data.data.right_team_players[k].credits = p.credits 
                                 m_data.data.right_team_players[k].role = p.role 
-                                
+                                m_data.data.right_team_players[k].selected_by = p.selected_by
                             }
                         }
                     }
