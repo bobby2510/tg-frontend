@@ -200,6 +200,20 @@ const ChangeData = (props)=>{
           <span className='section-secondary'>If Any Miss match in the data change here</span>
       </div>
       <div className='section-info'>
+        <div style={
+            {
+                display:"flex",
+                justifyContent:"space-between",
+                width:"100%"
+            }
+        }>
+        <span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+        <span>percentage</span>
+        <span>credit</span>
+        <span>role &nbsp; &nbsp;</span>
+        </div>
+      </div>
+      <div className='section-info'>
           <span className='section-primary'>Team - {props.leftName}</span>
       </div>
       {leftTeam && leftTeam.map((player)=> <PlayerChange player={player} handlePlayer={handlePlayer} index={0} sportIndex={props.sportIndex}   /> )}
