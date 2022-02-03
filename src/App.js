@@ -43,6 +43,7 @@ import Selection from './components/advanced/Selection';
 import ShortcutPrintAuto from './components/menu/ShortcutPrintAuto';
 import Analytics from './components/menu/Analytics';
 import ShortcutPrintNormal from './components/menu/ShortcutPrintNormal';
+import Notify from './api/Notify';
 
 // our color : #563d7c
 
@@ -392,8 +393,13 @@ const App = ()=>{
                 <Route path="/register463980" element={<Register
                     reload = {reload}
                      userRole = {userRole}
+                     phoneNumber = {phoneNumber}
                     />} />
                 <Route path="/manageuser" element={<ManageUser
+                    reload = {reload}
+                    userRole = {userRole}
+                    />} /> 
+                <Route path="/notify" element={<Notify
                     reload = {reload}
                     userRole = {userRole}
                     />} /> 

@@ -17,7 +17,7 @@ const Register = (props)=>{
             navigate('/')
             return 
         }
-        if(props.userRole !== 'admin')
+        if(props.userRole !== 'admin' && props.userRole !== 'superuser')
         {
             navigate('/')
             return 
@@ -51,11 +51,22 @@ const Register = (props)=>{
             toast.error('Ener Valid Duration',{position:'top-center'})
             return 
         }
-        axios.post('https://team-generation-api.herokuapp.com/api/auth/register4642',{
+        let admin_obj = {
             phoneNumber:phone,
             duration:duration,
             password:password
-        })
+        }
+        let superuser_obj = {
+            phoneNumber:phone,
+            duration: duration,
+            password : password,
+            superUserPhoneNumber : props.phoneNumber
+        }
+        let req_obj = props.userRole === 'admin' ? admin_obj : superuser_obj
+        let admin_url = 'https://team-generation-api.herokuapp.com/api/auth/register4642'
+        let superuser_url = 'https://team-generation-api.herokuapp.com/api/auth/super/register4642'
+        let req_url = props.userRole === 'admin'? admin_url : superuser_url
+        axios.post(req_url,req_obj)
         .then(response =>{
                 if(response.status === 200)
                 {

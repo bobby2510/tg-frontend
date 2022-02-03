@@ -21,14 +21,20 @@ const NavBarOne = (props)=>{
             </div>
             <ul class="list-group list-group-flush m-2" >
                 {
-                    props.userRole === 'admin' ?
+                    props.userRole === 'admin' || props.userRole === 'superuser' ?
                     <li onClick={()=>{navigate('/register463980');return}} class="list-group-item" id="side_bar"><span> Register User</span></li>
                     :
                     null
                 }
                 {
-                    props.userRole === 'admin' ?
+                    props.userRole === 'admin' || props.userRole === 'superuser' ?
                     <li onClick={()=>{navigate('/manageuser');return}} class="list-group-item" id="side_bar"><span>  Manage User</span></li>
+                    :
+                    null
+                }
+                {
+                    props.userRole === 'admin' ?
+                    <li onClick={()=>{navigate('/notify');return}} class="list-group-item" id="side_bar"><span> Notify </span></li>
                     :
                     null
                 }

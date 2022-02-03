@@ -106,6 +106,8 @@ const Login = (props)=>{
                     <div className='text-center'>
                         <span style={{color:"grey",fontSize:12}}>This is a Premium Version software with <b>91.2%</b> Accuracy ,
                         to get this software contact us &nbsp;</span> 
+                        {/* change have to be made here */}
+                        { /*<p>Offcial partner ChiruRK9</p> */}
                         <p style={{fontWeight:500,color:'green'}}>Whatsapp : 9848579715</p>
                     </div>
                     <form onSubmit={handleSubmit}>

@@ -19,7 +19,7 @@ const ManageUser = (props)=>{
             navigate('/')
             return
         }     
-        if(props.userRole !== 'admin')
+        if(props.userRole !== 'admin' && props.userRole !== 'superuser')
         {
             navigate('/')
             return 
@@ -75,6 +75,11 @@ return diff_days;
             toast.error('Invalid Admin!',{position:'top-center'})
             return 
         }
+        if(props.userRole === 'superuser' && phone === '9848579715')
+        {
+            toast.error('you cannot see creator details!',{position: 'top-center'})
+            return
+        }
         axios.post(`https://team-generation-api.herokuapp.com/api/auth/details/${admin_id}`,{phoneNumber:phone})
         .then((response)=>{
             if(response.status===200)
@@ -111,7 +116,10 @@ return diff_days;
         }
         console.log(admin_id)
         console.log(data.userId)
-        axios.post(`https://team-generation-api.herokuapp.com/api/plan/add/${data.userId}/${admin_id}`,{duration:Number(duration)})
+        let admin_url = `https://team-generation-api.herokuapp.com/api/plan/add/${data.userId}/${admin_id}`
+        let superuser_url = `https://team-generation-api.herokuapp.com/api/plan/add/super/${data.userId}/${admin_id}`
+        let req_url = props.userRole === 'admin'? admin_url : superuser_url
+        axios.post(req_url,{duration:Number(duration)})
         .then((res)=>{
             if(res.status===200)
             {   
