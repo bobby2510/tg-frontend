@@ -18,8 +18,8 @@ let ContactUs = (props)=>{
                     <h6>Details</h6>
                    <div style={{color:'green'}}>
                    {/* changes have to be made here */}
-                   <h6>Whatsapp : 9848579715</h6>
-                   <h6>Telegram : 9848579715</h6>
+                   <h6>Whatsapp : {props.adminPhoneNumber}</h6>
+                   <h6>Telegram : {props.adminPhoneNumber}</h6>
                    <h6>Believer01.official@gmail.com</h6>
                    </div>
                     <hr/>

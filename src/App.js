@@ -420,7 +420,9 @@ const App = ()=>{
                         setAdminPhoneNumber = {setAdminPhoneNumber}
                     />} />
                 <Route path="/aboutus" element={<AboutUs /> } />
-                <Route path="/contactus" element={<ContactUs /> } />
+                <Route path="/contactus" element={<ContactUs
+                    adminPhoneNumber = {adminPhoneNumber}
+                    /> } />
                 <Route path="/howtogenerate" element={<HowToGenerate /> } />
                 <Route path="/refundpolicy" element={<RefundPolicy /> } />
                 <Route path="/besttips" element={<BestTips /> } />
