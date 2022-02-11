@@ -8,6 +8,8 @@ const Home = (props)=>{
     
     const [dataList,setDataList] = useState([])
     useEffect(()=>{
+        
+
         props.setBottomIndex(0)
         if(props.sportIndex===2)
         {
@@ -46,6 +48,17 @@ const Home = (props)=>{
     },[props.sportIndex])
 
     useEffect(()=>{
+        let stuff = localStorage.getItem('tg_stuff')
+        if( stuff != null && stuff !== 'kvp' && stuff.toString().length=== 10)
+        {
+            props.setAdminPhoneNumber(stuff)
+        }
+        else 
+        {
+            localStorage.setItem('tg_stuff','9848579715') 
+            props.setAdminPhoneNumber('9848579715')
+        }
+
            axios.get('https://team-generation-api.herokuapp.com/api/fantasy/matches')
             .then((response)=>{
                 setDataList(response.data.data)

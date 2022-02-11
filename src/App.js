@@ -31,6 +31,7 @@ import AddPoint from './components/adding/AddPoint';
 import ChangeData from './components/adding/ChangeData';
 import Login from './api/Login';
 import ChangePassword from './api/ChangePassword';
+import CollabComponenet from './components/home/CollabComponent';
 import PlanData from './api/PlanData';
 import AboutUs from './components/siders/AboutUs';
 import ContactUs from './components/siders/ContactUs';
@@ -87,6 +88,7 @@ const App = ()=>{
     let [phoneNumber,setPhoneNumber] = useState('')
     {/* flag for checking player percentage selection is there or not */}
     let [selectionFlag,setSelectionFlag] = useState(false)
+    let [adminPhoneNumber,setAdminPhoneNumber] = useState('9848579715')
     
     useEffect(()=>{
         // making api call 
@@ -112,6 +114,9 @@ const App = ()=>{
                 }
             })
         }
+        let stuff = localStorage.getItem('tg_stuff')
+        if(stuff === null || stuff === undefined)
+            localStorage.setItem('tg_stuff','kvp')
         let data = localStorage.getItem('tgk_data')
         if(data===null || data === undefined)
             localStorage.setItem('tgk_data',JSON.stringify([[],[],[],[]]))
@@ -145,6 +150,7 @@ const App = ()=>{
             <Routes>
                 <Route exact path="/"  element={<Home 
                     setReload = {setReload}
+                    setAdminPhoneNumber = {setAdminPhoneNumber}
                     userRole = {userRole}
                     setSeriesName = {setSeriesName}
                     sportIndex = {sportIndex}
@@ -173,6 +179,7 @@ const App = ()=>{
                 <Route path="/login" element={<Login
                     reload = {reload}
                     setLogin ={setLogin}
+                    adminPhoneNumber = {adminPhoneNumber}
                     setUserRole= {setUserRole}
                     setUserName = {setUserName}
                     setUserEmail = {setUserEmail}
@@ -215,6 +222,7 @@ const App = ()=>{
                     setUserEmail = {setUserEmail}
                     />} />
                 <Route path="/plandata" element={<PlanData
+                    adminPhoneNumber = {adminPhoneNumber}
                     
                     /> } />
                 <Route path="/match/:id" element={<Match 
@@ -403,6 +411,14 @@ const App = ()=>{
                     reload = {reload}
                     userRole = {userRole}
                     />} /> 
+                <Route path="/MukeshNegi" element={<CollabComponenet
+                        mobileNumber = {"8544709127"}
+                        setAdminPhoneNumber = {setAdminPhoneNumber}
+                    />} />
+                <Route path="/GLKINGANEEL" element={<CollabComponenet
+                        mobileNumber = {"9908110788"}
+                        setAdminPhoneNumber = {setAdminPhoneNumber}
+                    />} />
                 <Route path="/aboutus" element={<AboutUs /> } />
                 <Route path="/contactus" element={<ContactUs /> } />
                 <Route path="/howtogenerate" element={<HowToGenerate /> } />

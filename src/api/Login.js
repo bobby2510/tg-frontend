@@ -108,7 +108,7 @@ const Login = (props)=>{
                         to get this software contact us &nbsp;</span> 
                         {/* change have to be made here */}
                         { /*<p>Offcial partner ChiruRK9</p> */}
-                        <p style={{fontWeight:500,color:'green'}}>Whatsapp : 9848579715</p>
+                        <p style={{fontWeight:500,color:'green'}}>Whatsapp : {props.adminPhoneNumber}</p>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div class="form-group mt-3 mb-3">

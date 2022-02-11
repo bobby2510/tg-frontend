@@ -14,7 +14,7 @@ let PlanData = (props)=>{
                 <h3 className='team-number-title'>You Don't Have Active Plan</h3>
                 <p className='team-number-sub'>Contact us to active your plan </p>
                 {/* changes have to be made here*/}
-                <p><b><b>Whatsapp : 9848579715</b></b></p>
+                <p><b><b>Whatsapp : {props.adminPhoneNumber}</b></b></p>
                 <p className='team-number-sub'>Gmail : believer01.official@gmail.com</p>
            </div>
         </div>
