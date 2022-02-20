@@ -55,7 +55,7 @@ const AutoGeneration = (props)=>{
     ]
     ]
     let credit_left_range = [
-        [96.5,97.5,98.5],
+        [96.5,98,99],
         [96.5,97.5,98.5],
         [94.5,96.5,97],
         [94.5,96.5,97]
@@ -116,7 +116,7 @@ const AutoGeneration = (props)=>{
             }
         }
        let teams_list_one =  generateTeams(props.selectedPlayers,tempFixed,gl_captain,gl_vicecaptain,strategies[props.sportIndex],credit_left_range[props.sportIndex][0],100,combinations[props.sportIndex],11,null)
-       let teams_list_two =  generateTeams(props.selectedPlayers,tempFixed,sl_captain,sl_vicecaptain,strategies[props.sportIndex],credit_left_range[props.sportIndex][1],100,combinations[props.sportIndex],5,null)
+       let teams_list_two =  generateTeams(props.selectedPlayers,tempFixed,sl_captain,sl_vicecaptain,strategies[props.sportIndex],credit_left_range[props.sportIndex][1],100,combinations[props.sportIndex],3,null)
        let teams_list_three =  generateTeams(props.selectedPlayers,tempFixed,h2h_captain,h2h_vicecaptain,strategies[props.sportIndex],credit_left_range[props.sportIndex][2],100,combinations[props.sportIndex],1,null)
        let final_teams_list = []
        if(teams_list_one === null && teams_list_two===null && teams_list_three === null)
@@ -128,10 +128,10 @@ const AutoGeneration = (props)=>{
        final_teams_list.push(teams_list_one===null? [] : teams_list_one)
        final_teams_list.push(teams_list_two===null? [] : teams_list_two)
        final_teams_list.push(teams_list_three===null? [] : teams_list_three)
-       let attempt = get_attempt(props.matchId,props.selectedPlayers,'toss',17,3,final_teams_list,props.sportIndex,null,98,100)
+       let attempt = get_attempt(props.matchId,props.selectedPlayers,'toss',15,3,final_teams_list,props.sportIndex,null,98,100)
        if(attempt!=null)
        {
-           let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)
+           let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex,props.matchTime)
            if(result_obj!=null){
                toast.success('teams stored successfully!',{
                    position:'top-center'

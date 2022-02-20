@@ -1,10 +1,26 @@
-import React,{useState} from 'react' 
-import { useEffect } from 'react/cjs/react.development';
+import React,{useEffect,useState} from 'react' 
 import { useNavigate } from 'react-router';
 
 
 const PreviousMatchCard = (props)=>{
     const match_time = new Date(props.match.time).getTime();
+    const [matchStatus,setMatchStatus] = useState(0) 
+    useEffect(()=>{
+        const match_actual_time = new Date(props.match.match_time)
+        const present_time = new Date(Date.now())
+        let temp = 0;
+        if(props.match.status === 0)
+        {
+            if(match_actual_time<present_time)
+            {
+                temp = 1;
+            }
+        }
+        else 
+            temp = props.match.status; 
+        setMatchStatus(temp)
+    },[])
+
     const navigate = useNavigate()
     
     let now = new Date().getTime();
@@ -49,10 +65,26 @@ const PreviousMatchCard = (props)=>{
                 </div>
                 <div className="card-end-part">
                 <span class="badge badge-outline-warning">See Teams</span>
-                {props.match.result === true ? 
-                <span class="badge badge-outline-success">Results Available</span>
-                :
-                <span class="badge badge-outline-danger">Add points to check results</span>
+                {
+                    matchStatus === 0 ? 
+                    <span class="badge badge-outline-danger">Match not started</span>
+                    :
+                    null
+                }
+                {
+                    matchStatus === 1 ? 
+                    <React.Fragment>
+                    <span class="badge badge-outline-danger">Match inprogress</span>
+                    <span class="badge badge-outline-success">Player points Available</span>
+                    </React.Fragment>
+                    :
+                    null
+                }
+                {
+                    matchStatus === 2 ? 
+                    <span class="badge badge-outline-success">Results Available</span>
+                    :
+                    null
                 }
                 </div>
             </div>

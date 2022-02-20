@@ -97,7 +97,7 @@ let AddPoint = (props)=>{
             {
                 match.player_list[0] = leftTeam 
                 match.player_list[1] = rightTeam 
-                match.result = true 
+                match.status = 2; 
             }
 
             return match

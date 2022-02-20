@@ -3,9 +3,12 @@ import NavBarOne from '../navbar/NavBarOne';
 import Footer from '../footer/Footer';
 import NavBarThree from '../navbar/NavBarThree';
 import MatchCard from '../matchcards/MatchCard';
+import { MdOutlineHistory} from 'react-icons/md'
+import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios'
 const Home = (props)=>{
-    
+    let navigate = useNavigate()
     const [dataList,setDataList] = useState([])
     useEffect(()=>{
         
@@ -78,9 +81,12 @@ const Home = (props)=>{
 
                 {/* Done with the upper part */}
                 <div className="sub-content">
+                <div className='d-flex align-items-center justify-content-between p-1'>
                 <h4 className="sub-heading">Upcoming Matches</h4>
+                <span className='btn btn-sm btn-success' onClick={()=>{navigate('/savedmatches'); return;}} style={{fontWeight:400,fontSize:12}}><MdOutlineHistory size={14} /> Saved Matches</span>
+                </div>
                 <div className="d-flex flex-column">
-                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} setSeriesName={props.setSeriesName} match = {match} /> ) }
+                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
                 </div>  
                 </div>
                

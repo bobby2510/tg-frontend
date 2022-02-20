@@ -94,7 +94,7 @@ const GrandLeague = (props)=>{
             for(let j=0;j<props.selectedPlayers[i].length;j++)
             {
                 let p = props.selectedPlayers[i][j]
-                if(p.credits>=8.5)
+                if(p.credits>=9)
                 {
                     tempCaptain[i].push(p.player_index)
                 }
@@ -107,14 +107,14 @@ const GrandLeague = (props)=>{
             for(let j=0;j<props.selectedPlayers[i].length;j++)
             {
                 let p = props.selectedPlayers[i][j]
-                if(p.credits>=8)
+                if(p.credits>=8.5)
                 {
                     tempVicecaptain[i].push(p.player_index)
                 }
             }
         }
 
-        let temp_left = props.sportIndex === 2 || props.sportIndex===3 ? 94 : 97;
+        let temp_left = props.sportIndex === 2 || props.sportIndex===3 ? 96 : 97.5;
         let tempFixed = get_player_list()
         // 0 -> smart, 1 -> grand league , 2 -> advanced , 3 -> auto 
        let teams_list =  generateTeams(props.selectedPlayers,tempFixed,tempCaptain,tempVicecaptain,strategies[props.sportIndex],temp_left,100,combinations[props.sportIndex],tn,null)
@@ -123,7 +123,7 @@ const GrandLeague = (props)=>{
             let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,1,teams_list,props.sportIndex,null,temp_left,100)
             if(attempt!=null)
             {
-                let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)
+                let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex,props.matchTime)
                 if(result_obj!=null){
                     toast.success('teams stored successfully!',{
                         position:'top-center'

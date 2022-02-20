@@ -326,7 +326,7 @@ let get_attempt = function(matchId,selectedPlayers,type,number_of_teams,generati
         right_credits:right_credits
     }
 }
-let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightImage,playerList,attempt,sport_index)
+let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightImage,playerList,attempt,sport_index,matchTime)
 {
     let data = JSON.parse(localStorage.getItem('tgk_data'))
     // this is the spot 
@@ -371,6 +371,7 @@ let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightI
                         image:p.image,
                         team_index: 0,
                         player_index: p.player_index,
+                        player_fixed_id:p.player_fixed_id,
                         points:0                    
                     })
                 else 
@@ -379,6 +380,7 @@ let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightI
                         image:p.image,
                         team_index: 1,
                         player_index: p.player_index,
+                        player_fixed_id:p.player_fixed_id,
                         points:0  
                     })
             }
@@ -387,6 +389,7 @@ let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightI
         let obj = {
             id:matchId,
             series_name : seriesName,
+            match_time: matchTime,
             left_name:leftName,
             right_name: rightName,
             left_image:leftImage,
@@ -394,7 +397,8 @@ let store_data = function(matchId,seriesName,leftName,leftImage,rightName,rightI
             player_list:new_player_list,
             attempts:[attempt,],
             time:Date.now(),
-            result:false 
+            result:false ,
+            status: 0  // 0 - match not started , 1 - in progress , 2 - match completed 
         }
         console.log(obj)
         console.log(data)

@@ -36,7 +36,7 @@ const ResultAuto = (props)=>{
                 break;
             }
         }
-        if(req_match===null || req_match.result === false )
+        if(req_match===null || req_match.status === 0 )
         {
             navigate('/')
             return 

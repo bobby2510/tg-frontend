@@ -1,13 +1,40 @@
 import React,{useState} from 'react' 
 import { useEffect } from 'react/cjs/react.development';
 import { useNavigate } from 'react-router';
+import {MdLibraryAdd ,MdLibraryAddCheck} from 'react-icons/md'
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
 
 
 const MatchCard = (props)=>{
 
     const [time,setTime] = useState('')
+    const [saved,setSaved] = useState(false)
     const match_time = new Date(props.match.match_time).getTime();
     const lineups = props.match.lineup_out 
+    useEffect(()=>{
+        let saved_match_data = localStorage.getItem('saved_match_data')
+        if(saved_match_data!== null || saved_match_data !== undefined)
+        {
+            saved_match_data = JSON.parse(saved_match_data) 
+            let req_match = null 
+            console.log(saved_match_data)
+            let sport_data = saved_match_data[props.sportIndex]
+            for(let i=0;i<sport_data.length;i++)
+            {
+                if(sport_data[i].id === props.match.id)
+                {
+                    req_match = sport_data[i]
+                }
+            }
+            if(req_match!== null)
+            {
+                setSaved(true)
+            }
+        }
+        console.log(props.match)
+    },[])
     const navigate = useNavigate()
     let x = setInterval(function() {
         let now = new Date().getTime();
@@ -34,36 +61,106 @@ const MatchCard = (props)=>{
     let handleMatchCard = (id)=>
     {
         props.setSeriesName(props.match.series_name)
+        props.setMatchTime(props.match.match_time)
         navigate(`/match/${id}`)
+    }
+    let handleSaveMatch = ()=>{
+        let saved_match_data = localStorage.getItem('saved_match_data')
+        if(saved_match_data!== null || saved_match_data !== undefined)
+        {
+            saved_match_data = JSON.parse(saved_match_data) 
+            saved_match_data[props.sportIndex].push(props.match) 
+            setSaved(true) 
+            // some stuff here 
+            axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${props.match.id}`)
+            .then((response)=>{
+                let m_data = null
+                let temp = JSON.parse(localStorage.getItem('team_data'))
+                for(let i=0;i<temp.length;i++)
+                {
+                    if(temp[i].id === props.match.id )
+                    {
+                        m_data = temp[i].data 
+                        m_data.lineup_status = response.data.data.lineup_status 
+                        //left side updating 
+                        for(let k=0;k<response.data.data.left_team_players.length;k++)
+                        {
+                            let player = response.data.data.left_team_players[k]; 
+                            for(let j=0;j<m_data.left_team_players.length;j++)
+                            {
+                                if(m_data.left_team_players[j].player_index=== player.player_index)
+                                {
+                                    m_data.left_team_players[j].playing = player.playing; 
+                                }
+                            }
+                        }
+                        //right side updating 
+                        for(let k=0;k<response.data.data.right_team_players.length;k++)
+                        {
+                            let player = response.data.data.right_team_players[k]; 
+                            for(let j=0;j<m_data.right_team_players.length;j++)
+                            {
+                                if(m_data.right_team_players[j].player_index=== player.player_index)
+                                {
+                                    m_data.right_team_players[j].playing = player.playing; 
+                                } 
+                            }
+                        }
+                    }
+                }
+                if(m_data === null )
+                {
+                    temp.push({
+                        id: props.match.id,
+                        data: response.data.data    
+                    })
+                    m_data = response.data.data 
+                    localStorage.setItem('team_data',JSON.stringify(temp))
+                }
+            })
+            localStorage.setItem('saved_match_data',JSON.stringify(saved_match_data))
+            toast.success('Match save successfully!',{position:'top-center'})
+        }
     }
    
     return (
         <React.Fragment>
-            <div className="match-card" onClick={() => handleMatchCard(props.match.id)}>
-                <div className="d-flex justify-content-between border-bottom" style={{marginLeft:10,marginRight:10}}>
-                    <span className="series-name">{props.match.series_name}</span>
-                    <span class="lineups">{lineups? '• Lineups out' : ''}</span>
-                </div> 
-                <div className="card-middle" style={{marginLeft:10,marginRight:10}}>
-                   <div className="combine-image">
-                    <img className="team-image" src={props.match.left_team_image} alt="left" />
-                    <span className="left-team-name">{props.match.left_team_name}</span>
+            <div className="match-card" >
+                <div onClick={() => handleMatchCard(props.match.id)}>
+                        <div className="d-flex justify-content-between border-bottom" style={{marginLeft:10,marginRight:10}}>
+                        <span className="series-name">{props.match.series_name}</span>
+                        <span class="lineups">{lineups? '• Lineups out' : ''}</span>
+                    </div> 
+                    <div className="card-middle" style={{marginLeft:10,marginRight:10}}>
+                    <div className="combine-image">
+                        <img className="team-image" src={props.match.left_team_image} alt="left" />
+                        <span className="left-team-name">{props.match.left_team_name}</span>
+                        </div>
+                        <div className="timer"> {time} </div>
+                    <div className="combine-image" >
+                    <span className="right-team-name">{props.match.right_team_name}</span>
+                        <img className="team-image" src={props.match.right_team_image} alt="right" />
                     </div>
-                    <div className="timer"> {time} </div>
-                   <div className="combine-image" >
-                   <span className="right-team-name">{props.match.right_team_name}</span>
-                    <img className="team-image" src={props.match.right_team_image} alt="right" />
-                   </div>
-                   
+                    
+                    </div>
                 </div>
-                <div className="card-end-part">
-                <span class="badge badge-outline-success">Mega GL</span>
-                <span class="badge badge-outline-warning">SL</span>
-                <span class="badge badge-outline-danger">H2H</span>
-                {lineups?
-                <span class="badge badge-outline-success">Auto Create</span>
-
-                     : null}
+                <div className="card-end-part" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                    <div style={{display:"flex",alignItems:'center'}} onClick={() => handleMatchCard(props.match.id)}>
+                        <span class="badge badge-outline-success" >Mega GL</span>
+                        <span class="badge badge-outline-warning" >SL</span>
+                        <span class="badge badge-outline-danger">H2H</span>
+                        {lineups?
+                        <span class="badge badge-outline-success">Auto Create</span>
+        
+                            : null}
+                   </div>
+                   {/* here save stuff should be here */}
+                   {
+                    saved === false ?
+                    <span className='btn btn-sm btn-primary' onClick={()=>handleSaveMatch()} style={{padding:"0px 5px",fontSize:12,fontWeight:400}}><MdLibraryAdd  size={14}/>&nbsp;click to save</span>
+                     :
+                     <span className='btn btn-sm btn-success' onClick={()=>{toast.warning('match already saved!',{position:'top-center'})}} style={{padding:"0px 5px",fontSize:12,fontWeight:400}}><MdLibraryAddCheck  size={14}/>&nbsp;match saved</span>
+                    }
                 </div>
             </div>
         </React.Fragment>

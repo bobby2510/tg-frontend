@@ -45,6 +45,7 @@ import ShortcutPrintAuto from './components/menu/ShortcutPrintAuto';
 import Analytics from './components/menu/Analytics';
 import ShortcutPrintNormal from './components/menu/ShortcutPrintNormal';
 import Notify from './api/Notify';
+import SavedMatches from './components/home/SavedMatches';
 
 // our color : #563d7c
 
@@ -71,6 +72,7 @@ const App = ()=>{
     let [rightImage,setRightImage] = useState('')
     let [matchId,setMatchId] = useState('')
     let [seriesName,setSeriesName] = useState('')
+    let [matchTime,setMatchTime] = useState('')
     {/* team image and name data end  */}
     let [partisionStrategy,setPartisionStrategy] = useState([])
     let [selectionStrategy,setSelectionStrategy] = useState([])
@@ -120,6 +122,9 @@ const App = ()=>{
         let data = localStorage.getItem('tgk_data')
         if(data===null || data === undefined)
             localStorage.setItem('tgk_data',JSON.stringify([[],[],[],[]]))
+
+
+        //team_data 
         let team_data = localStorage.getItem('team_data')
         if(team_data === null || team_data === undefined)
             localStorage.setItem('team_data',JSON.stringify([]))
@@ -140,6 +145,35 @@ const App = ()=>{
             localStorage.setItem('team_data',JSON.stringify(team_data))
         }
 
+        //saved matches data 
+        let saved_match_data = localStorage.getItem('saved_match_data')
+        if(saved_match_data === null || saved_match_data === undefined)
+        //based on the sports available inside the software
+            localStorage.setItem('saved_match_data',JSON.stringify([[],[],[],[]]))
+        //probably if any removal of any out dated match data should be displayed here. 
+        saved_match_data = JSON.parse(saved_match_data)
+        if(saved_match_data!==null)
+        {
+            for(let i=0;i<4;i++)
+            {
+                saved_match_data[i]= saved_match_data[i].filter(team_obj =>{
+                    let match_time = new Date(team_obj.match_time).getTime();
+                    let now = new Date().getTime()
+                    let distance = now-match_time 
+                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    if(days<7)
+                        return true 
+                    else 
+                        return false  
+                })
+            }
+           
+            localStorage.setItem('saved_match_data',JSON.stringify(saved_match_data))
+        }
+
+
+
+
     },[])
 
     return (
@@ -153,6 +187,7 @@ const App = ()=>{
                     setAdminPhoneNumber = {setAdminPhoneNumber}
                     userRole = {userRole}
                     setSeriesName = {setSeriesName}
+                    setMatchTime = {setMatchTime}
                     sportIndex = {sportIndex}
                     setSportIndex = {setSportIndex}
                     bottomIndex = {bottomIndex}
@@ -252,6 +287,16 @@ const App = ()=>{
                     setMatchId = {setMatchId}
                     
                     />} />
+                
+                <Route path="/savedmatches" element={<SavedMatches
+                    reload = {reload}
+                    login = {login}
+                    plan = {plan}
+                    sportIndex = {sportIndex}
+                    setSeriesName = {setSeriesName}
+                    setMatchTime = {setMatchTime}
+                    />} />
+
                 <Route path="/change" element={<ChangeData 
                     reload = {reload}
                     matchId = {matchId}
@@ -351,6 +396,7 @@ const App = ()=>{
                     selectionStrategy = {selectionStrategy}
                     leftRange ={leftRange}
                     seriesName = {seriesName}
+                    matchTime = {matchTime}
                     rightRange = {rightRange}
                     matchId = {matchId}
                     combination = {combination}
@@ -366,6 +412,7 @@ const App = ()=>{
                     playerList = {playerList}
                     selectedPlayers = {selectedPlayers}
                     seriesName = {seriesName}
+                    matchTIme = {matchTime}
                     matchId = {matchId}
                     leftName = {leftName}
                     leftImage = {leftImage}
@@ -379,6 +426,7 @@ const App = ()=>{
                     playerList = {playerList}
                     selectedPlayers = {selectedPlayers}
                     seriesName = {seriesName}
+                    matchTime = {matchTime}
                     matchId = {matchId}
                     leftName = {leftName}
                     leftImage = {leftImage}
@@ -392,6 +440,7 @@ const App = ()=>{
                     playerList = {playerList}
                     selectedPlayers = {selectedPlayers}
                     seriesName = {seriesName}
+                    matchTime = {matchTime}
                     matchId = {matchId}
                     leftName = {leftName}
                     leftImage = {leftImage}
@@ -411,8 +460,8 @@ const App = ()=>{
                     reload = {reload}
                     userRole = {userRole}
                     />} /> 
-                <Route path="/MukeshNegi" element={<CollabComponenet
-                        mobileNumber = {"8544709127"}
+                <Route path="/SarjeetSaini" element={<CollabComponenet
+                        mobileNumber = {"6376103475"}
                         setAdminPhoneNumber = {setAdminPhoneNumber}
                     />} />
                 <Route path="/GLKINGANEEL" element={<CollabComponenet

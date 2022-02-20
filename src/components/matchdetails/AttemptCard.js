@@ -72,7 +72,7 @@ const AttemptCard = (props)=>{
                    <div className='d-flex justify-content-around align-items-center'>
                         <button onClick={()=> handleTeam(props.attempt.type)} className='btn btn-primary btn-sm'>See Teams</button>
                         {
-                            props.result === true? 
+                            props.status !== 0? 
                             <button onClick={()=> handleResult(props.attempt.type)} className='btn btn-success btn-sm'>See Results</button>
                             :
                             null 

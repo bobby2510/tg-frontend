@@ -39,7 +39,7 @@ const AdvancedGeneration = (props)=>{
             let attempt = get_attempt(props.matchId,props.selectedPlayers,'normal',tn,2,teams_list,props.sportIndex,ss,props.leftRange,props.rightRange)
             if(attempt!=null)
             {
-                let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex)
+                let result_obj = store_data(props.matchId,props.seriesName,props.leftName,props.leftImage,props.rightName,props.rightImage,props.playerList,attempt,props.sportIndex,props.matchTime)
                 if(result_obj!=null){
                     toast.success('teams stored successfully!',{
                         position:'top-center'

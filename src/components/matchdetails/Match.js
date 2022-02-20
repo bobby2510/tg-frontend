@@ -88,9 +88,6 @@ const Match = (props)=>{
             // if not i will have to add new and take from there 
             let m_data = null
             let temp = JSON.parse(localStorage.getItem('team_data'))
-            //let temp = []
-            //console.log(localStorage.getItem('team_data'))
-           //console.log(temp)
             for(let i=0;i<temp.length;i++)
             {
                 if(temp[i].id === id )
@@ -127,7 +124,7 @@ const Match = (props)=>{
             {
                 temp.push({
                     id: id,
-                    data: response.data.data 
+                    data: response.data.data    
                 })
                 m_data = response.data.data 
                 localStorage.setItem('team_data',JSON.stringify(temp))
@@ -344,7 +341,7 @@ const Match = (props)=>{
                 <nav className="d-flex justify-content-between align-items-center" >
                         <MdWest onClick={() => navigate(-1) } size={24} style={{marginLeft:10}} />
                         <span className="navbar-brand mb-0 text-center">
-                            <span>{time}left</span>
+                            <span>{time === 'Expired'? 'Expired' : `${time} left`}</span>
                         </span>
                         <MdHome onClick={()=> navigate('/')} size={24} style={{marginRight:10}} />
                 </nav>
