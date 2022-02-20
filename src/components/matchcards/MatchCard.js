@@ -18,7 +18,7 @@ const MatchCard = (props)=>{
         {
             saved_match_data = JSON.parse(saved_match_data) 
             let req_match = null 
-            console.log(saved_match_data)
+          //  console.log(saved_match_data)
             let sport_data = saved_match_data[props.sportIndex]
             for(let i=0;i<sport_data.length;i++)
             {
@@ -32,7 +32,7 @@ const MatchCard = (props)=>{
                 setSaved(true)
             }
         }
-        console.log(props.match)
+        //console.log(props.match)
     },[])
     const navigate = useNavigate()
     let x = setInterval(function() {
