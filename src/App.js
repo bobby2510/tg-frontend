@@ -135,9 +135,11 @@ const App = ()=>{
             team_data= team_data.filter(team_obj =>{
                 let match_time = new Date(team_obj.data.match_time).getTime();
                 let now = new Date().getTime()
+                if(match_time>now)
+                    return true;
                 let distance = now-match_time 
                 let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                if(days<1)
+                if(days<7)
                     return true 
                 else 
                     return false
@@ -264,6 +266,7 @@ const App = ()=>{
                     reload = {reload}
                     login = {login}
                     plan = {plan}
+                    matchTime = {matchTime}
                     sportIndex = {sportIndex}
                     setSportIndex = {setSportIndex}
                     selectedPlayers = {selectedPlayers}
@@ -295,6 +298,15 @@ const App = ()=>{
                     sportIndex = {sportIndex}
                     setSeriesName = {setSeriesName}
                     setMatchTime = {setMatchTime}
+                    
+                    setPlayerList = {setPlayerList}
+                    setSelectedPlayers = {setSelectedPlayers}
+                    setCaptainPlayers = {setCaptainPlayers}
+                    setVicecaptainPlayers= {setVicecaptainPlayers}
+                    setFixedPlayers = {setFixedPlayers}
+                    setRight = {setRight}
+                    setLeft = {setLeft}
+                    setRole = {setRole}
                     />} />
 
                 <Route path="/change" element={<ChangeData 

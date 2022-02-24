@@ -41,11 +41,11 @@ const SmartGeneration = (props)=>{
             right:100
         },
        {
-            left:97,
+            left:96,
             right:99
         },
         {
-            left:97,
+            left:96.5,
             right:99.5
         }
     ]

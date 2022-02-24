@@ -114,7 +114,7 @@ const GrandLeague = (props)=>{
             }
         }
 
-        let temp_left = props.sportIndex === 2 || props.sportIndex===3 ? 96 : 97.5;
+        let temp_left = props.sportIndex === 2 || props.sportIndex===3 ? 95 : 97;
         let tempFixed = get_player_list()
         // 0 -> smart, 1 -> grand league , 2 -> advanced , 3 -> auto 
        let teams_list =  generateTeams(props.selectedPlayers,tempFixed,tempCaptain,tempVicecaptain,strategies[props.sportIndex],temp_left,100,combinations[props.sportIndex],tn,null)

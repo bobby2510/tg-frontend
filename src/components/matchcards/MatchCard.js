@@ -71,52 +71,28 @@ const MatchCard = (props)=>{
             saved_match_data[props.sportIndex].push(props.match) 
             setSaved(true) 
             // some stuff here 
-            axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${props.match.id}`)
-            .then((response)=>{
-                let m_data = null
-                let temp = JSON.parse(localStorage.getItem('team_data'))
-                for(let i=0;i<temp.length;i++)
+           
+            let m_data = null
+            let temp = JSON.parse(localStorage.getItem('team_data'))
+            for(let i=0;i<temp.length;i++)
+            {
+                if(temp[i].id.toString() === props.match.id.toString() )
                 {
-                    if(temp[i].id === props.match.id )
-                    {
-                        m_data = temp[i].data 
-                        m_data.lineup_status = response.data.data.lineup_status 
-                        //left side updating 
-                        for(let k=0;k<response.data.data.left_team_players.length;k++)
-                        {
-                            let player = response.data.data.left_team_players[k]; 
-                            for(let j=0;j<m_data.left_team_players.length;j++)
-                            {
-                                if(m_data.left_team_players[j].player_index=== player.player_index)
-                                {
-                                    m_data.left_team_players[j].playing = player.playing; 
-                                }
-                            }
-                        }
-                        //right side updating 
-                        for(let k=0;k<response.data.data.right_team_players.length;k++)
-                        {
-                            let player = response.data.data.right_team_players[k]; 
-                            for(let j=0;j<m_data.right_team_players.length;j++)
-                            {
-                                if(m_data.right_team_players[j].player_index=== player.player_index)
-                                {
-                                    m_data.right_team_players[j].playing = player.playing; 
-                                } 
-                            }
-                        }
-                    }
+                    m_data = temp[i].data 
                 }
-                if(m_data === null )
-                {
+            }
+            if(m_data === null )
+            {
+                axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${props.match.id}`)
+                .then((response)=>{
                     temp.push({
-                        id: props.match.id,
+                        id: props.match.id.toString(),
                         data: response.data.data    
                     })
                     m_data = response.data.data 
                     localStorage.setItem('team_data',JSON.stringify(temp))
-                }
-            })
+                })
+            }
             localStorage.setItem('saved_match_data',JSON.stringify(saved_match_data))
             toast.success('Match save successfully!',{position:'top-center'})
         }

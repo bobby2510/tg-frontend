@@ -63,6 +63,42 @@ const Match = (props)=>{
             return [[],[],[],[]]
     }
    
+    let wrapper = (m_data)=>{
+            match_data.current = m_data 
+            setMatchTime(match_data.current.match_time)
+            let player_list = get_player_list()
+            props.setLeftName(match_data.current.left_team_name)
+            props.setRightName(match_data.current.right_team_name)
+            props.setLeftImage(match_data.current.left_team_image)
+            props.setRightImage(match_data.current.right_team_image)
+            props.setMatchId(id)  
+            match_data.current.left_team_players.forEach((player)=>{
+                player.selected = 0
+                player_list[player.role].push(player)
+            })
+            match_data.current.right_team_players.forEach((player)=>{
+                player.selected = 0
+                player_list[player.role].push(player)
+            })
+            let cnt=0 
+            for(let i=0;i<props.playerList.length;i++)
+                for(let j=0;j<props.playerList[i].length;j++)
+                        cnt = cnt + 1 
+            for(let i=0;i<player_list.length;i++)
+            {
+                player_list[i] = player_list[i].sort((x,y)=>{
+                    if(x.credits<y.credits)
+                        return 1;
+                    else 
+                        return -1;
+                })
+            }
+            if(cnt ===0)
+            {
+            props.setPlayerList(player_list)
+            }
+    }
+
     useEffect(()=>{
        
         if(props.reload === null)
@@ -79,20 +115,38 @@ const Match = (props)=>{
         {
             navigate('/plandata')
         }
-        axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
-        .then((response)=>{
-            
-            //console.log(response.data.data)
-            //checking whether same id is there 
-            // if present i will have to take from there 
-            // if not i will have to add new and take from there 
-            let m_data = null
-            let temp = JSON.parse(localStorage.getItem('team_data'))
-            for(let i=0;i<temp.length;i++)
+        let m_data = null
+        let temp = JSON.parse(localStorage.getItem('team_data'))
+        for(let i=0;i<temp.length;i++)
+        {
+            if(temp[i].id === id )
             {
-                if(temp[i].id === id )
-                {
-                    m_data = temp[i].data 
+                m_data = temp[i].data 
+            }
+        }
+        if(m_data === null) 
+        {
+            axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
+            .then((response)=>{
+                temp.push({
+                    id: id,
+                    data: response.data.data    
+                })
+                m_data = response.data.data 
+                localStorage.setItem('team_data',JSON.stringify(temp))
+                wrapper(m_data)
+            })
+        }
+        else 
+        {
+            let present = new Date(Date.now())
+            let m_time = new Date(props.matchTime)
+            if(m_time>=present)
+            {
+                console.log('here vp')
+                console.log(m_time>present)
+                axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
+                .then((response)=>{
                     m_data.lineup_status = response.data.data.lineup_status 
                     //left side updating 
                     for(let k=0;k<response.data.data.left_team_players.length;k++)
@@ -118,56 +172,22 @@ const Match = (props)=>{
                             } 
                         }
                     }
-                }
-            }
-            if(m_data === null )
-            {
-                temp.push({
-                    id: id,
-                    data: response.data.data    
-                })
-                m_data = response.data.data 
-                localStorage.setItem('team_data',JSON.stringify(temp))
-            }
-            match_data.current = m_data 
-            //console.log(m_data)
-            //console.log(match_data.current)
-            setMatchTime(match_data.current.match_time)
-            let player_list = get_player_list()
-            //console.log(player_list)
-            props.setLeftName(match_data.current.left_team_name)
-            props.setRightName(match_data.current.right_team_name)
-            props.setLeftImage(match_data.current.left_team_image)
-            props.setRightImage(match_data.current.right_team_image)
-            props.setMatchId(id)  
-
-            match_data.current.left_team_players.forEach((player)=>{
-                player.selected = 0
-                player_list[player.role].push(player)
-            })
-            match_data.current.right_team_players.forEach((player)=>{
-                player.selected = 0
-                player_list[player.role].push(player)
-            })
-            let cnt=0 
-            for(let i=0;i<props.playerList.length;i++)
-                for(let j=0;j<props.playerList[i].length;j++)
-                        cnt = cnt + 1 
-            for(let i=0;i<player_list.length;i++)
-            {
-                player_list[i] = player_list[i].sort((x,y)=>{
-                    if(x.credits<y.credits)
-                        return 1;
-                    else 
-                        return -1;
+                    temp = temp.map((m)=>{
+                        if(m.id == id)
+                        {
+                            m.data = m_data 
+                        }
+                        return m;
+                    })
+                    localStorage.setItem('team_data',JSON.stringify(temp))
+                    wrapper(m_data)
                 })
             }
-                if(cnt ===0)
-                {
-                props.setPlayerList(player_list)
-                }
-            })
-            //console.log(props.playerList)
+            else 
+            {
+                wrapper(m_data)
+            }
+        }  
     },[])
 
     let x = setInterval(function() {

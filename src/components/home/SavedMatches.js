@@ -13,6 +13,38 @@ const SavedMatches = (props)=>{
    
 
     useEffect(()=>{
+        if(props.sportIndex===2)
+        {
+            props.setPlayerList([[],[],[],[],[]])
+            props.setSelectedPlayers([[],[],[],[],[]])
+            props.setFixedPlayers([[],[],[],[],[]])
+            props.setCaptainPlayers([[],[],[],[],[]])
+            props.setVicecaptainPlayers([[],[],[],[],[]])
+            props.setRight(0)
+            props.setLeft(0)
+            props.setRole([0,0,0,0,0])
+        }
+        else if(props.sportIndex===3)
+        {
+            props.setPlayerList([[],[],[]])
+            props.setSelectedPlayers([[],[],[]])
+            props.setFixedPlayers([[],[],[]])
+            props.setCaptainPlayers([[],[],[]])
+            props.setVicecaptainPlayers([[],[],[]])
+            props.setRight(0)
+            props.setLeft(0)
+            props.setRole([0,0,0])
+        }
+        else{
+            props.setPlayerList([[],[],[],[]])
+            props.setSelectedPlayers([[],[],[],[]])
+            props.setFixedPlayers([[],[],[],[]])
+            props.setCaptainPlayers([[],[],[],[]])
+            props.setVicecaptainPlayers([[],[],[],[]])
+            props.setRight(0)
+            props.setLeft(0)
+            props.setRole([0,0,0,0])
+        }
         let saved_match_data = localStorage.getItem('saved_match_data')
         if(saved_match_data!== null && saved_match_data!== undefined)
         {
