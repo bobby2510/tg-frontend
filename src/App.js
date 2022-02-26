@@ -472,7 +472,7 @@ const App = ()=>{
                     reload = {reload}
                     userRole = {userRole}
                     />} /> 
-                <Route path="/SarjeetSaini" element={<CollabComponenet
+                <Route path="/AvinashSaini" element={<CollabComponenet
                         mobileNumber = {"7740980052"}
                         setAdminPhoneNumber = {setAdminPhoneNumber}
                     />} />
