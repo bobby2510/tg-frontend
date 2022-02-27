@@ -33,8 +33,20 @@ const NavBarOne = (props)=>{
                     null
                 }
                 {
+                    props.userRole === 'superuser' ?
+                    <li onClick={()=>{navigate('/accountsdata');return}} class="list-group-item" id="side_bar"><span> Accounts Data </span></li>
+                    :
+                    null
+                } 
+                {
                     props.userRole === 'admin' ?
                     <li onClick={()=>{navigate('/notify');return}} class="list-group-item" id="side_bar"><span> Notify </span></li>
+                    :
+                    null
+                }
+                {
+                    props.userRole === 'admin' ?
+                    <li onClick={()=>{navigate('/adminaccountsdata');return}} class="list-group-item" id="side_bar"><span> Admin Accounts Data </span></li>
                     :
                     null
                 }

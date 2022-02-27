@@ -46,6 +46,8 @@ import Analytics from './components/menu/Analytics';
 import ShortcutPrintNormal from './components/menu/ShortcutPrintNormal';
 import Notify from './api/Notify';
 import SavedMatches from './components/home/SavedMatches';
+import AccountsData from './accounts/AccountsData';
+import AdminAccountsData from './accounts/AdminAccountsData';
 
 // our color : #563d7c
 
@@ -308,7 +310,17 @@ const App = ()=>{
                     setLeft = {setLeft}
                     setRole = {setRole}
                     />} />
-
+                <Route path="/accountsdata" element={<AccountsData 
+                    reload = {reload}
+                    login={login}
+                    userRole = {userRole}
+                    phoneNumber = {phoneNumber}
+                    />} />
+                <Route path="/adminaccountsdata" element={<AdminAccountsData
+                    reload = {reload}
+                    login={login}
+                    userRole = {userRole}
+                    />} />
                 <Route path="/change" element={<ChangeData 
                     reload = {reload}
                     matchId = {matchId}
@@ -472,7 +484,8 @@ const App = ()=>{
                     reload = {reload}
                     userRole = {userRole}
                     />} /> 
-                <Route path="/AvinashSaini" element={<CollabComponenet
+                <Route path="/Avinash
+                Saini" element={<CollabComponenet
                         mobileNumber = {"7740980052"}
                         setAdminPhoneNumber = {setAdminPhoneNumber}
                     />} />
