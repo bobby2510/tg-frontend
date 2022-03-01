@@ -484,9 +484,12 @@ const App = ()=>{
                     reload = {reload}
                     userRole = {userRole}
                     />} /> 
-                <Route path="/Avinash
-                Saini" element={<CollabComponenet
+                <Route path="/AvinashSaini" element={<CollabComponenet
                         mobileNumber = {"7740980052"}
+                        setAdminPhoneNumber = {setAdminPhoneNumber}
+                    />} />
+                <Route path="/MukeshNegi" element={<CollabComponenet
+                        mobileNumber = {"8544709127"}
                         setAdminPhoneNumber = {setAdminPhoneNumber}
                     />} />
                 <Route path="/GLKINGANEEL" element={<CollabComponenet
