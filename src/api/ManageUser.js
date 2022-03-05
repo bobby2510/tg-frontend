@@ -219,6 +219,33 @@ return diff_days;
         })
     }
 
+    let handleLimit = ()=>{
+        let admin_id = localStorage.getItem('tg_id')
+        if(admin_id === null || admin_id === undefined || admin_id ==='')
+        {
+            toast.error('Invalid Admin!',{position:'top-center'})
+            return 
+        }
+        if(data===null)
+        {
+            toast.error('Invalid and Data not fetched!',{position:'top-center'})
+            return 
+        }
+        axios.post(`https://team-generation-api.herokuapp.com/api/auth/removelimit/${data.userId}/${admin_id}`)
+        .then(r=>{
+            if(r.status===200)
+            {
+                toast.success('Login Limit Removed Successfully!',{position:'top-center'})
+                return 
+            }
+            else 
+            {
+                toast.error('Something went wrong!',{position:'top-center'})
+                return 
+            }
+        })
+    }
+
     return (
         <React.Fragment>
             <NavBarTwo navigate={navigate} />
@@ -260,6 +287,7 @@ return diff_days;
                             :
                             <button onClick={()=> handleBlock()}  className='btn btn-danger btn-sm vp-btn m-2'>Block User</button>
                             } 
+                            <button onClick={()=> handleLimit()}  className='btn btn-primary btn-sm vp-btn m-2'>Remove Limit</button>
                        </div>
                     </div>
                 </div>
