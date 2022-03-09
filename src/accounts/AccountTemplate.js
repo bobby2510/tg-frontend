@@ -40,6 +40,7 @@ const AccountTemplate = (props)=>{
         {
             let note = props.data[i]
             let temp_date = new Date(note.createdAt)
+            
             //couting today stuff 
             
             if(final_today_date.getDate() === temp_date.getDate() && final_today_date.getMonth() === temp_date.getMonth() && final_today_date.getFullYear() === temp_date.getFullYear())
@@ -69,7 +70,7 @@ const AccountTemplate = (props)=>{
                     if(note.notifyType === 'register')
                         week_list[j].register = week_list[j].register + 1;
                     else 
-                        week_list[j].register = week_list[j].extension + 1;
+                        week_list[j].extension = week_list[j].extension + 1;
                     break;
                 }
             }
