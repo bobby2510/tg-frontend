@@ -1,0 +1,49 @@
+import React,{useEffect} from 'react'
+import NavBarTwo from '../navbar/NavBarTwo';
+import GenericFooter from '../footer/GenericFooter';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+
+const Decision = (props)=>{
+    let {id} = useParams()
+    let navigate = useNavigate()
+
+    useEffect(()=>{
+        if(props.reload === null)
+        {
+            navigate('/')
+            return
+        }
+    },[])
+
+    return (
+        <React.Fragment>
+            <NavBarTwo navigate ={navigate} />
+            <div className="mini-container">
+            <h4 className="sub-heading mb-4">Choose Here</h4>
+            
+                <div className='section-card'>
+                    <div className="card-start-part" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                    <br/>
+                    </div>
+                    <img className="section-image" src="/generator.jpg" alt="generator" />
+                    <button onClick={()=>{ navigate(`/match/${id}`)}} className='btn btn-success section-btn'>Continue</button>
+
+                </div>
+                <div className='section-card'>
+                    <div className="card-start-part" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                    <br/>
+                    </div>
+                    <img className="section-image" src="/expert.jpg" alt="expert" />
+                    <button onClick={()=>{ toast.error('Still Under Development',{position:'top-center'});return; }} className='btn btn-primary section-btn'>Continue</button>
+
+                </div>
+            </div>
+            <GenericFooter />
+        </React.Fragment>
+    );
+}
+
+export default Decision;

@@ -57,7 +57,7 @@ body{
 
 .mini-container 
 {
-    height: calc(100vh - 107px);
+    height: calc(100vh - 108px);
     padding-left:10px;
     padding-right:10px;
     overflow-y:scroll;
@@ -357,6 +357,17 @@ body {
   display: flex;
   align-items: center;
   border-radius: 0px 0px 4px 4px;
+  background-color: rgb(245, 245, 247);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top:5px;
+  padding-bottom: 5px;
+}
+.card-start-part 
+{
+  display: flex;
+  align-items: center;
+  border-radius: 4px 4px 0px 0px;
   background-color: rgb(245, 245, 247);
   padding-left: 10px;
   padding-right: 10px;

@@ -61,7 +61,7 @@ const MatchCard = (props)=>{
     {
         props.setSeriesName(props.match.series_name)
         props.setMatchTime(props.match.match_time)
-        navigate(`/match/${id}`)
+        navigate(`/decision/${id}`)
     }
     let handleSaveMatch = ()=>{
         let saved_match_data = localStorage.getItem('saved_match_data')
@@ -128,7 +128,7 @@ const MatchCard = (props)=>{
                         <span class="badge badge-outline-success">Auto Create</span>
         
                             : null}
-                   </div>
+                        </div>
                    {/* here save stuff should be here */}
                    {
                     saved === false ?

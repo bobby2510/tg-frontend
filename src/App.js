@@ -48,6 +48,7 @@ import Notify from './api/Notify';
 import SavedMatches from './components/home/SavedMatches';
 import AccountsData from './accounts/AccountsData';
 import AdminAccountsData from './accounts/AdminAccountsData';
+import Decision from './components/Expert/Decision';
 
 // our color : #563d7c
 
@@ -471,6 +472,14 @@ const App = ()=>{
                     rightName = {rightName}
                     rightImage = {rightImage}
                         />} />
+
+                {/* Expert Related Stuff will come here */}
+                <Route path="/decision/:id" element={<Decision 
+                    reload = {reload}
+                    />} />
+
+
+
                 <Route path="/register463980" element={<Register
                     reload = {reload}
                      userRole = {userRole}
@@ -484,6 +493,7 @@ const App = ()=>{
                     reload = {reload}
                     userRole = {userRole}
                     />} /> 
+                
                 <Route path="/AvinashSaini" element={<CollabComponenet
                         mobileNumber = {"7740980052"}
                         setAdminPhoneNumber = {setAdminPhoneNumber}
