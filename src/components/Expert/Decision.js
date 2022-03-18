@@ -16,6 +16,15 @@ const Decision = (props)=>{
             navigate('/')
             return
         }
+        if(props.login === false)
+        {
+            navigate('/login')
+            return 
+        }
+        if(props.plan === false)
+        {
+            navigate('/plandata')
+        }
     },[])
 
     return (

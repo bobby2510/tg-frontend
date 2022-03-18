@@ -476,6 +476,8 @@ const App = ()=>{
                 {/* Expert Related Stuff will come here */}
                 <Route path="/decision/:id" element={<Decision 
                     reload = {reload}
+                    login = {login}
+                    plan = {plan}
                     />} />
 
 
