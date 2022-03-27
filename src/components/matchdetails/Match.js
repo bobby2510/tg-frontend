@@ -97,6 +97,7 @@ const Match = (props)=>{
             {
             props.setPlayerList(player_list)
             }
+            console.log(player_list)
     }
 
     useEffect(()=>{
@@ -157,6 +158,7 @@ const Match = (props)=>{
                             if(m_data.left_team_players[j].player_index=== player.player_index)
                             {
                                 m_data.left_team_players[j].playing = player.playing; 
+                                m_data.left_team_players[j].image = player.image;
                             }
                         }
                     }
@@ -168,7 +170,8 @@ const Match = (props)=>{
                         {
                             if(m_data.right_team_players[j].player_index=== player.player_index)
                             {
-                                m_data.right_team_players[j].playing = player.playing; 
+                                m_data.right_team_players[j].playing = player.playing;
+                                m_data.right_team_players[j].image = player.image 
                             } 
                         }
                     }
@@ -188,6 +191,7 @@ const Match = (props)=>{
                 wrapper(m_data)
             }
         }  
+        
     },[])
 
     let x = setInterval(function() {

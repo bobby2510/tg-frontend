@@ -49,6 +49,10 @@ import SavedMatches from './components/home/SavedMatches';
 import AccountsData from './accounts/AccountsData';
 import AdminAccountsData from './accounts/AdminAccountsData';
 import Decision from './components/Expert/Decision';
+import ExpertPanel from './components/Expert/ExpertPanel'
+import ShareSoftware from './components/Expert/ShareSoftware';
+import ShareHuman from './components/Expert/ShareHuman';
+import StoreExpertTeams from './components/Expert/StoreExpertTeams'
 
 // our color : #563d7c
 
@@ -94,6 +98,10 @@ const App = ()=>{
     {/* flag for checking player percentage selection is there or not */}
     let [selectionFlag,setSelectionFlag] = useState(false)
     let [adminPhoneNumber,setAdminPhoneNumber] = useState('9848579715')
+
+    {/* expert stuff here */}
+    let [softwareTeams,setSoftwareTeams] = useState([])
+    let [humanTeams,setHumanTeams] = useState([])
     
     useEffect(()=>{
         // making api call 
@@ -479,7 +487,33 @@ const App = ()=>{
                     login = {login}
                     plan = {plan}
                     />} />
+                <Route path="/expertpanel" element={<ExpertPanel 
+                    reload = {reload}
+                    login = {login}
+                    plan = {plan}
+                    />} />
 
+                <Route path="/sharesoftware/:match/:attempt" element={ <ShareSoftware
+                    sportIndex = {sportIndex}
+                    reload = {reload}
+                    softwareTeams = {softwareTeams}
+                    setSoftwareTeams = {setSoftwareTeams}
+                    /> } />
+                <Route path="/sharehuman/:match" element={ <ShareHuman 
+                    sportIndex = {sportIndex}
+                    reload = {reload}
+                    playerList = {playerList}
+                    humanTeams  = {humanTeams}
+                    setHumanTeams = {setHumanTeams}
+                    /> } />
+                <Route path="/storeexperteams/:match/:type" element={<StoreExpertTeams 
+                    sportIndex = {sportIndex}
+                    reload = {reload}
+                    softwareTeams = {softwareTeams}
+                    humanTeams = {humanTeams}
+                    setSoftwareTeams = {setSoftwareTeams}
+                    setHumanTeams = {setHumanTeams}
+                    />} />
 
 
                 <Route path="/register463980" element={<Register
