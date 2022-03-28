@@ -413,7 +413,10 @@ const Match = (props)=>{
                 <button onClick={()=> handleAuto()} className="btn btn-dark btn-sm vp-btn" style={{marginRight:5}}> Auto Create Teams</button>
                 : null} 
                 <button onClick={()=> handleContinue() } className="btn btn-success btn-sm vp-btn"> Continue </button>
-           </div>
+                { props.userRole !== 'customer'?
+                    <button onClick={()=> { navigate(`/superdecision/${id}`)}} className="btn btn-primary btn-sm vp-btn" style={{marginLeft:5}}>Expert Choice</button>
+                    : null}
+                </div>
         </React.Fragment>
     );
 }

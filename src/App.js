@@ -53,6 +53,8 @@ import ExpertPanel from './components/Expert/ExpertPanel'
 import ShareSoftware from './components/Expert/ShareSoftware';
 import ShareHuman from './components/Expert/ShareHuman';
 import StoreExpertTeams from './components/Expert/StoreExpertTeams'
+import ShowExpertTeams from './components/Expert/ShowExpertTeams';
+import SuperDecision from './components/Expert/SuperDecision'
 
 // our color : #563d7c
 
@@ -102,6 +104,9 @@ const App = ()=>{
     {/* expert stuff here */}
     let [softwareTeams,setSoftwareTeams] = useState([])
     let [humanTeams,setHumanTeams] = useState([])
+    let [expertMatchList,setExpertMatchList] = useState([])
+    let [fetchedExpertCards,setFetchedExpertCards] = useState([])
+    let [expertUserList,setExpertUserList] = useState([]) 
     
     useEffect(()=>{
         // making api call 
@@ -184,7 +189,14 @@ const App = ()=>{
             localStorage.setItem('saved_match_data',JSON.stringify(saved_match_data))
         }
 
-
+        // //expert stuff here
+        // axios.get(`https://team-generation-api.herokuapp.com/api/expert/teamlist`)
+        // .then((response)=>{
+        //     if(response.status === 200)
+        //     {
+        //         setExpertMatchList(response.data.data)
+        //     }
+        // })
 
 
     },[])
@@ -199,6 +211,8 @@ const App = ()=>{
                     setReload = {setReload}
                     setAdminPhoneNumber = {setAdminPhoneNumber}
                     userRole = {userRole}
+                    expertMatchList = {expertMatchList}
+                    setExpertMatchList={setExpertMatchList}
                     setSeriesName = {setSeriesName}
                     setMatchTime = {setMatchTime}
                     sportIndex = {sportIndex}
@@ -299,6 +313,7 @@ const App = ()=>{
                     rightName = {rightName}
                     rightImage = {rightImage}
                     setMatchId = {setMatchId}
+                    userRole = {userRole}
                     
                     />} />
                 
@@ -486,11 +501,29 @@ const App = ()=>{
                     reload = {reload}
                     login = {login}
                     plan = {plan}
+                    setLeftImage = {setLeftImage}
+                    setRightImage = {setRightImage}
+                    setLeftName = {setLeftName}
+                    setRightName = {setRightName}
+                    sportIndex = {sportIndex}
+                    playerList = {playerList}
+                    setPlayerList = {setPlayerList}
+                    setMatchId = {setMatchId}
                     />} />
-                <Route path="/expertpanel" element={<ExpertPanel 
+                <Route path="/superdecision/:id" element={<SuperDecision 
                     reload = {reload}
                     login = {login}
                     plan = {plan}
+                    />} />
+                <Route path="/expertpanel/:match" element={<ExpertPanel 
+                    reload = {reload}
+                    login = {login}
+                    plan = {plan}
+                    sportIndex={sportIndex}
+                    fetchedExpertCards={fetchedExpertCards}
+                    setFetchedExpertCards = {setFetchedExpertCards}
+                    expertUserList = {expertUserList}
+                    setExpertUserList = {setExpertUserList}
                     />} />
 
                 <Route path="/sharesoftware/:match/:attempt" element={ <ShareSoftware
@@ -505,14 +538,17 @@ const App = ()=>{
                     playerList = {playerList}
                     humanTeams  = {humanTeams}
                     setHumanTeams = {setHumanTeams}
+
                     /> } />
-                <Route path="/storeexperteams/:match/:type" element={<StoreExpertTeams 
+                <Route path="/storeexpertteams/:match/:type" element={<StoreExpertTeams 
                     sportIndex = {sportIndex}
                     reload = {reload}
                     softwareTeams = {softwareTeams}
                     humanTeams = {humanTeams}
                     setSoftwareTeams = {setSoftwareTeams}
                     setHumanTeams = {setHumanTeams}
+                    phoneNumber = {phoneNumber}
+                  
                     />} />
 
 
@@ -556,6 +592,7 @@ const App = ()=>{
                 <Routes>
                     <Route  path="/display/:match/:attempt" element={<DisplayNormal 
                         sportIndex = {sportIndex}
+                        userRole = {userRole}
                         reload = {reload}
                         /> } />
                     <Route  path="/result/:match/:attempt" element={<ResultNormal 
@@ -574,6 +611,20 @@ const App = ()=>{
                     <Route path='/shortcutprintnormal/:match/:attempt' element = {<ShortcutPrintNormal  
                         />} />
                     <Route path='/shortcutprintauto/:match/:attempt' element = {<ShortcutPrintAuto  
+                        />} />
+                    <Route path='/showexpertteams/:id' element={<ShowExpertTeams
+                        sportIndex = {sportIndex}
+                        reload = {reload}
+                        expertUserList = {expertUserList}
+                        setExpertUserList = {setExpertUserList}
+                        fetchedExpertCards = {fetchedExpertCards}
+                        setFetchedExpertCards = {setFetchedExpertCards}
+                        leftImage = {leftImage}
+                        rightImage = {rightImage}
+                        leftName = {leftName}
+                        rightName = {rightName}
+                        seriesName = {seriesName}
+                        playerList = {playerList}
                         />} />
                     
                 </Routes>

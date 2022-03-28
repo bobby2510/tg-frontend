@@ -33,6 +33,7 @@ const MatchCard = (props)=>{
             }
         }
         //console.log(props.match)
+        //console.log(props.expertMatchList)
     },[])
     const navigate = useNavigate()
     let x = setInterval(function() {
@@ -61,7 +62,10 @@ const MatchCard = (props)=>{
     {
         props.setSeriesName(props.match.series_name)
         props.setMatchTime(props.match.match_time)
-        navigate(`/decision/${id}`)
+        if(props.expertMatchList.indexOf(id.toString()) !== -1)
+            navigate(`/decision/${id}`)
+        else 
+            navigate(`/match/${id}`)
     }
     let handleSaveMatch = ()=>{
         let saved_match_data = localStorage.getItem('saved_match_data')
@@ -111,7 +115,10 @@ const MatchCard = (props)=>{
                         <img className="team-image" src={props.match.left_team_image} alt="left" />
                         <span className="left-team-name">{props.match.left_team_name}</span>
                         </div>
+                      <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
                         <div className="timer"> {time} </div>
+                        {props.expertMatchList.indexOf(props.match.id.toString()) !== -1?   <span class="badge badge-outline-success vp-blink" >Expert Analysis</span> : null}
+                      </div>
                     <div className="combine-image" >
                     <span className="right-team-name">{props.match.right_team_name}</span>
                         <img className="team-image" src={props.match.right_team_image} alt="right" />

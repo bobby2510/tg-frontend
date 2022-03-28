@@ -4,11 +4,21 @@ import GenericFooter from '../footer/GenericFooter';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import axios from 'axios'
 
 
 const Decision = (props)=>{
     let {id} = useParams()
     let navigate = useNavigate()
+
+    let get_player_list = ()=>{
+        if(props.sportIndex===2)
+            return [[],[],[],[],[]]
+        else if(props.sportIndex===3)
+            return [[],[],[]]
+        else 
+            return [[],[],[],[]]
+    }
 
     useEffect(()=>{
         if(props.reload === null)
@@ -25,6 +35,26 @@ const Decision = (props)=>{
         {
             navigate('/plandata')
         }
+        axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
+        .then((response)=>{
+            let m_data = response.data.data 
+            let player_list = get_player_list()
+            props.setLeftName(m_data.left_team_name)
+            props.setRightName(m_data.right_team_name)
+            props.setLeftImage(m_data.left_team_image)
+            props.setRightImage(m_data.right_team_image)
+            props.setMatchId(id)  
+            m_data.left_team_players.forEach((player)=>{
+                player.selected = 0
+                player_list[player.role].push(player)
+            })
+            m_data.right_team_players.forEach((player)=>{
+                player.selected = 0
+                player_list[player.role].push(player)
+            })
+            // setPlayerList 
+            props.setPlayerList(player_list)
+        })
     },[])
 
     return (
@@ -46,7 +76,7 @@ const Decision = (props)=>{
                     <br/>
                     </div>
                     <img className="section-image" src="/expert.jpg" alt="expert" />
-                    <button onClick={()=>{ toast.error('Still Under Development',{position:'top-center'});return; }} className='btn btn-primary section-btn'>Continue</button>
+                    <button onClick={()=>{ navigate(`/expertpanel/${id}`) }} className='btn btn-primary section-btn'>Continue</button>
 
                 </div>
             </div>

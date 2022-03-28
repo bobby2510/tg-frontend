@@ -21,6 +21,13 @@ let DisplayNormal = (props)=>{
     }
     useEffect(()=>{
       
+        if(props.reload === null)
+        {
+            navigate('/')
+            return
+        }
+
+
         let data = JSON.parse(localStorage.getItem('tgk_data'))
         for(let i=0;i<data.length;i++)
         {
@@ -105,6 +112,9 @@ let DisplayNormal = (props)=>{
                 <button onClick={()=> navigate(`/shortcutprintnormal/${match}/${attempt}`) } className='btn btn-sm btn-success' style={{fontWeight:500}}>Shortcut Print</button>
                 <button onClick={()=> navigate(`/analytics/${match}/${attempt}`) } className='btn btn-sm btn-danger' style={{fontWeight:500}}>Analytics</button>
                 <button onClick={()=> window.print()} className='btn btn-sm btn-primary' style={{fontWeight:500}}> Print</button>
+                {props.userRole ==='customer'? null: 
+                <button onClick={()=> {navigate(`/sharesoftware/${match}/${attempt}`);return;}} className='btn btn-sm btn-success' style={{fontWeight:500}}>Share Teams</button>
+            }
             </nav>
             <div className='container' style={{maxWidth:1200,padding:8}}>
 

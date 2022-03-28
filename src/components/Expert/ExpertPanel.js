@@ -5,13 +5,25 @@ import GenericFooter from '../footer/GenericFooter'
 import {MdListAlt,MdQueryStats} from 'react-icons/md'
 import ExpertTeamCard from './ExpertTeamCard'
 import ExpertPredictionCard from './ExpertPredictionCard'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 
 const ExpertPanel = (props)=>{
     let navigate = useNavigate()
+    let {match} = useParams()
     const [expertActive,setExpertActive] = useState([1,0])
+    let [teamsCard,setTeamsCard] = useState([])
+    let [expertUsers,setExpertUsers] = useState([])
     useEffect(()=>{
-        
+        axios.get(`https://team-generation-api.herokuapp.com/api/expert/getteams/${match}`)
+        .then((response)=>{
+            if(response.status === 200)
+            {
+                props.setFetchedExpertCards(response.data.data)
+                props.setExpertUserList(response.data.expertData)
+            }
+        })
     },[])    
     let handleExpertActive = (index)=>{
         let temp = [...expertActive]
@@ -23,7 +35,7 @@ const ExpertPanel = (props)=>{
     return (
         <React.Fragment>
             <NavBarTwo navigate ={navigate} />
-            <div className="mini-container" style={{padding:0}}>
+            <div  style={{padding:0}}>
                     <nav class="d-flex justify-content-around top-nav  pt-1 top-fix-two" style={{backgroundColor:'#fff'}}>
                         <div onClick={()=>handleExpertActive(0)} className={expertActive.indexOf(1) === 0  ? 'sport-icon sport-icon-active':'sport-icon'}>
                             <MdListAlt size={20} />
@@ -43,8 +55,13 @@ const ExpertPanel = (props)=>{
                         <span className='section-secondary'>See teams of experts </span>
                         <span className='section-secondary'>Both software and Human made teams</span>
                     </div>
-                    <div style={{paddingLeft:8,paddingRight:8}}>
-                        <ExpertTeamCard />
+                    <div className="expert-vp-container" style={{paddingLeft:8,paddingRight:8}}>
+                    {props.fetchedExpertCards && props.fetchedExpertCards.map((card,index)=>{
+                        return <React.Fragment>
+                            <ExpertTeamCard data = {card} expertUsers = {props.expertUserList} index={index} />
+                        </React.Fragment>
+                    })}
+                        
                     </div>
                 </React.Fragment>
                 : 
@@ -55,8 +72,10 @@ const ExpertPanel = (props)=>{
                         <span className='section-secondary'>See Prediction and match data </span>
                         <span className='section-secondary'>Accurate tips and data given by experts</span>
                     </div>
-                    <div style={{paddingLeft:8,paddingRight:8}}>
-                        <ExpertPredictionCard />
+                    <div className="expert-vp-container" style={{paddingLeft:10,paddingRight:10}}>
+                        <br></br>
+                        <br></br>
+                       <img src='/coming.jpg' style={{width:'100%'}} />
                     </div>
                     
                 </React.Fragment>

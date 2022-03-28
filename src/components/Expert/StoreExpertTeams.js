@@ -23,8 +23,10 @@ const StoreExpertTeams = (props)=>{
     let typeName = ['MegaGL','MiniGL','SL','H2H']
 
     useEffect(()=>{
-        if(type === 0)
+        
+        if(Number(type) === 0)
         {
+            console.log(props.softwareTeams)
             if(props.softwareTeams.length>0)
             {
                setApiTeams(props.softwareTeams)
@@ -35,7 +37,7 @@ const StoreExpertTeams = (props)=>{
                 return;
             }
         }
-        else if(type === 1) 
+        else if(Number(type) === 1) 
         {
             if(props.humanTeams.length>0)
             {
@@ -75,9 +77,53 @@ const StoreExpertTeams = (props)=>{
 
     let handleContinue = ()=>{
         //validations here 
-        
+        if(fantasyIndex.indexOf(1) === -1)
+        {
+            toast.error('Select Fantasy App!',{position:'top-center'})
+            return;
+        }
+        if(tossIndex.indexOf(1) === -1)
+        {
+            toast.error('Select Toss Data of players!',{position:'top-center'})
+            return;
+        }
+        if(typeIndex.indexOf(1) === -1)
+        {
+            toast.error('Select Teams Used in Contest!',{position:'top-center'})
+            return;
+        }
+        if(apiTeams.length===0)
+        {
+            toast.error('Teams failed to attach!',{position:'top-center'})
+            return;
+        }
 
         // calling api here 
+        let postData = {
+            matchId:match,
+            numberOfTeams:apiTeams.length,
+            typeOfTeams: Number(type) === 0 ? 'software' :'human',
+            fantasyApp: fantasyName[fantasyIndex.indexOf(1)],
+            tossData: tossName[tossIndex.indexOf(1)],
+            teamUse: typeName[typeIndex.indexOf(1)],
+            teamData: apiTeams,
+            sportIndex: props.sportIndex,
+            sectionUsed: 'advanced',
+            expertNumber:props.phoneNumber
+        }
+       // console.log(JSON.stringify(apiTeams))
+        axios.post(`https://team-generation-api.herokuapp.com/api/expert/postteams`,postData)
+        .then((response)=>{
+            if(response.status === 200)
+            {
+                toast.success(response.data.message,{position:'top-center'})
+                navigate('/')
+                return 
+            }
+        }).catch((error)=>{
+            toast.error('Something went wrong while fetching teams!',{position:'top-center'})
+            return;
+        })
 
     }
     return (
@@ -91,7 +137,7 @@ const StoreExpertTeams = (props)=>{
                             <div className="expert-block">
                                 <div className="expert-label">Teams Attached</div>
                                 <div className='expert-content'>
-                                    <div className='expert-box' style={{padding:10,fontWeight:400,fontSize:18,display:'flex',alignItems:'center',justifyContent:'center'}}><MdOfflinePin size={24} style={{color:'green'}}/> <span>&nbsp;Total 5 Teams Added</span></div>
+                                    <div className='expert-box' style={{padding:10,fontWeight:400,fontSize:18,display:'flex',alignItems:'center',justifyContent:'center'}}><MdOfflinePin size={24} style={{color:'green'}}/> <span>&nbsp;Total {apiTeams.length} Teams Added</span></div>
                                 </div>
                             </div>
                             <div className="expert-block">

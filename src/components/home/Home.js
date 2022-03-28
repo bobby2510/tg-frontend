@@ -67,6 +67,12 @@ const Home = (props)=>{
                 setDataList(response.data.data)
                 console.log(response.data.data)
             })
+            axios.get('https://team-generation-api.herokuapp.com/api/expert/teamlist')
+            .then((response)=>{
+                props.setExpertMatchList(response.data.data)
+            })
+
+
             props.setReload('done')
     },[])
 
@@ -86,7 +92,7 @@ const Home = (props)=>{
                 <span className='btn btn-sm btn-success' onClick={()=>{navigate('/savedmatches'); return;}} style={{fontWeight:400,fontSize:12}}><MdOutlineHistory size={14} /> Saved Matches</span>
                 </div>
                 <div className="d-flex flex-column">
-                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
+                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} expertMatchList ={props.expertMatchList} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
                 </div>  
                 </div>
                

@@ -127,7 +127,9 @@ let ShareSoftware = (props)=>{
                     team:finalShareTeam
                 })
             }
-            console.log(shareStuff)
+            props.setSoftwareTeams(shareStuff)
+            navigate(`/storeexpertteams/${match}/0`)
+            return;
         }
         else 
         {
