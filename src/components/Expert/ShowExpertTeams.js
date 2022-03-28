@@ -11,8 +11,8 @@ const ShowExpertTeams = (props)=>{
     let {id} = useParams()
     let [expertActive,setExpertActive] = useState([1,0])
     let [finalTeamData,setFinalTeamData] = useState([])
-    let [avatar,setAvatar] = useState('')
-    let [name,setName] = useState('')
+    let [avatar,setAvatar] = useState('0')
+    let [name,setName] = useState('expert')
     let handleExpertActive = (index)=>{
         let temp = [...expertActive]
         temp[0]=0;
