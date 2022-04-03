@@ -89,8 +89,8 @@ const App = ()=>{
     let [rightRange,setRightRange] = useState(100)
     let[combination,setCombination] = useState([])
     {/* user authentication details */}
-    let [login,setLogin] = useState(false)
-    let [plan,setPlan] = useState(false)
+    let [login,setLogin] = useState(true)
+    let [plan,setPlan] = useState(true)
     let [currentPlan,setCurrentPlan] = useState(null)
     let [previousPlan,setPreviousPlan] = useState(null)
     let [userName,setUserName] = useState('')
