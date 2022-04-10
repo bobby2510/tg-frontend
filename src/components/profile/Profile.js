@@ -55,7 +55,7 @@ return diff_days;
                 <div className='user-profile'>
                     <div className='d-flex justify-content-between'>
                     <h4>User Profile</h4>
-                    <button onClick={() => handleLogout()} className='btn btn-primary btn-sm'>Logout</button>
+                    {/* <button onClick={() => handleLogout()} className='btn btn-primary btn-sm'>Logout</button> */}
                     </div>
                     
                     <hr/> 
