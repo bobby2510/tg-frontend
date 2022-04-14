@@ -93,7 +93,7 @@ const Match = (props)=>{
                         return -1;
                 })
             }
-            if(cnt ===0)
+            if(cnt ===0 || props.expertMatchList.indexOf(id.toString()) !== -1)
             {
             props.setPlayerList(player_list)
             }
