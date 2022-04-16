@@ -39,7 +39,7 @@ const Login = (props)=>{
             toast.error('Enter Valid Phone Number',{position:'top-center'})
             return 
         }
-        axios.post('https://team-generation-api.herokuapp.com/api/auth/login',{
+        axios.post(`${props.backend}/api/auth/login`,{
             phoneNumber:phone,
             password:password
         })
@@ -62,7 +62,7 @@ const Login = (props)=>{
                     localStorage.setItem('tg_id',data.id)
                    
                     props.setLogin(true)
-                    axios.get(`https://team-generation-api.herokuapp.com/api/plan/status/${data.id}`)
+                    axios.get(`${props.backend}/api/plan/status/${data.id}`)
                     .then(res=>{
                         if(res.status === 200)
                         {

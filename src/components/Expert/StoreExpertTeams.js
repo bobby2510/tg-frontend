@@ -112,7 +112,7 @@ const StoreExpertTeams = (props)=>{
             expertNumber:props.phoneNumber
         }
        // console.log(JSON.stringify(apiTeams))
-        axios.post(`https://team-generation-api.herokuapp.com/api/expert/postteams`,postData)
+        axios.post(`${props.backend}/api/expert/postteams`,postData)
         .then((response)=>{
             if(response.status === 200)
             {

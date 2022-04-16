@@ -44,13 +44,13 @@ const ChangePassword = (props)=>{
             return 
         }
         let temp_id = localStorage.getItem('temp_id')
-        axios.put(`https://team-generation-api.herokuapp.com/api/auth/change_password/${temp_id}`,{name:name,email:email,password:password})
+        axios.put(`${props.backend}/api/auth/change_password/${temp_id}`,{name:name,email:email,password:password})
         .then(res => {
             if(res.status===200)
             {
                 localStorage.setItem('tg_id',temp_id)
                 props.setLogin(true)
-                axios.get(`https://team-generation-api.herokuapp.com/api/plan/status/${temp_id}`)
+                axios.get(`${props.backend}/api/plan/status/${temp_id}`)
                 .then(response =>{
                     let data = response.data.data 
                     if(response.status === 200)

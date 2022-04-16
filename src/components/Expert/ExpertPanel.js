@@ -16,7 +16,7 @@ const ExpertPanel = (props)=>{
     let [teamsCard,setTeamsCard] = useState([])
     let [expertUsers,setExpertUsers] = useState([])
     useEffect(()=>{
-        axios.get(`https://team-generation-api.herokuapp.com/api/expert/getteams/${match}`)
+        axios.get(`${props.backend}/api/expert/getteams/${match}`)
         .then((response)=>{
             if(response.status === 200)
             {

@@ -59,7 +59,7 @@ return diff_days;
             toast.error('Invalid and Data not fetched!',{position:'top-center'})
             return 
         }
-        axios.post(`https://team-generation-api.herokuapp.com/api/auth/details/${admin_id}`,{phoneNumber:data.phoneNumber})
+        axios.post(`${props.backend}/api/auth/details/${admin_id}`,{phoneNumber:data.phoneNumber})
         .then((r)=>{
             if(r.status===200)
             {
@@ -80,7 +80,7 @@ return diff_days;
             toast.error('you cannot see creator details!',{position: 'top-center'})
             return
         }
-        axios.post(`https://team-generation-api.herokuapp.com/api/auth/details/${admin_id}`,{phoneNumber:phone})
+        axios.post(`${props.backend}/api/auth/details/${admin_id}`,{phoneNumber:phone})
         .then((response)=>{
             if(response.status===200)
             {
@@ -116,8 +116,8 @@ return diff_days;
         }
         console.log(admin_id)
         console.log(data.userId)
-        let admin_url = `https://team-generation-api.herokuapp.com/api/plan/add/${data.userId}/${admin_id}`
-        let superuser_url = `https://team-generation-api.herokuapp.com/api/plan/add/super/${data.userId}/${admin_id}`
+        let admin_url = `${props.backend}/api/plan/add/${data.userId}/${admin_id}`
+        let superuser_url = `${props.backend}/api/plan/add/super/${data.userId}/${admin_id}`
         let req_url = props.userRole === 'admin'? admin_url : superuser_url
         axios.post(req_url,{duration:Number(duration)})
         .then((res)=>{
@@ -148,7 +148,7 @@ return diff_days;
             toast.error('Invalid and Data not fetched!',{position:'top-center'})
             return 
         }
-        axios.delete(`https://team-generation-api.herokuapp.com/api/plan/remove/${data.userId}/${admin_id}`)
+        axios.delete(`${props.backend}/api/plan/remove/${data.userId}/${admin_id}`)
         .then(r=>{
             if(r.status===200)
             {
@@ -176,7 +176,7 @@ return diff_days;
             toast.error('Invalid and Data not fetched!',{position:'top-center'})
             return 
         }
-        axios.post(`https://team-generation-api.herokuapp.com/api/auth/unblock/${data.userId}/${admin_id}`)
+        axios.post(`${props.backend}/api/auth/unblock/${data.userId}/${admin_id}`)
         .then(r=>{
             if(r.status===200)
             {
@@ -203,7 +203,7 @@ return diff_days;
             toast.error('Invalid and Data not fetched!',{position:'top-center'})
             return 
         }
-        axios.post(`https://team-generation-api.herokuapp.com/api/auth/block/${data.userId}/${admin_id}`)
+        axios.post(`${props.backend}/api/auth/block/${data.userId}/${admin_id}`)
         .then(r=>{
             if(r.status===200)
             {
@@ -231,7 +231,7 @@ return diff_days;
             toast.error('Invalid and Data not fetched!',{position:'top-center'})
             return 
         }
-        axios.post(`https://team-generation-api.herokuapp.com/api/auth/removelimit/${data.userId}/${admin_id}`)
+        axios.post(`${props.backend}/api/auth/removelimit/${data.userId}/${admin_id}`)
         .then(r=>{
             if(r.status===200)
             {

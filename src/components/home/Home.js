@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios'
 const Home = (props)=>{
+    let [loader,setLoader] = useState(false)
     let navigate = useNavigate()
     const [dataList,setDataList] = useState([])
     useEffect(()=>{
@@ -62,12 +63,13 @@ const Home = (props)=>{
             props.setAdminPhoneNumber('9848579715')
         }
 
-           axios.get('https://team-generation-api.herokuapp.com/api/fantasy/matches')
+           axios.get(`${props.backend}/api/fantasy/matches`)
             .then((response)=>{
                 setDataList(response.data.data)
+                setLoader(true)
                 console.log(response.data.data)
             })
-            axios.get('https://team-generation-api.herokuapp.com/api/expert/teamlist')
+            axios.get(`${props.backend}/api/expert/teamlist`)
             .then((response)=>{
                 props.setExpertMatchList(response.data.data)
             })
@@ -92,6 +94,15 @@ const Home = (props)=>{
                 <span className='btn btn-sm btn-success' onClick={()=>{navigate('/savedmatches'); return;}} style={{fontWeight:400,fontSize:12}}><MdOutlineHistory size={14} /> Saved Matches</span>
                 </div>
                 <div className="d-flex flex-column">
+                { loader ? 
+                   null
+                    : 
+                    <div style={{display:'flex',justifyContent:'center',marginTop:100}}>
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
+                }
                 { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} expertMatchList ={props.expertMatchList} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
                 </div>  
                 </div>

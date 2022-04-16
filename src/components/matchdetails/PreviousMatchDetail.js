@@ -50,7 +50,7 @@ const PreviousMatchDetail = (props)=>{
 
         // api call have to be made 
         if(req_match.status !== 2){
-            axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/scorecard/${sportName[props.sportIndex]}/${req_match.id}`)
+            axios.get(`${props.backend}/api/fantasy/scorecard/${sportName[props.sportIndex]}/${req_match.id}`)
             .then((response)=>{
                 let vp_status = response.data.data.match_status
                 console.log(vp_status)

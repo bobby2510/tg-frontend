@@ -35,7 +35,7 @@ const Decision = (props)=>{
         {
             navigate('/plandata')
         }
-        axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
+        axios.get(`${props.backend}/api/fantasy/match/${id}`)
         .then((response)=>{
             let m_data = response.data.data 
             let player_list = get_player_list()

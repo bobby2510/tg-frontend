@@ -25,7 +25,7 @@ const AdminAccountsData = (props)=>{
             return;
         }
         let admin_id = localStorage.getItem('tg_id')
-        axios.get(`https://team-generation-api.herokuapp.com/api/auth/admin/superuserdetail/${admin_id}/${phoneNumber}`)
+        axios.get(`${props.backend}/api/auth/admin/superuserdetail/${admin_id}/${phoneNumber}`)
         .then(response =>{
             if(response.status === 200)
             {

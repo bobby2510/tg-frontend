@@ -87,7 +87,7 @@ const MatchCard = (props)=>{
             }
             if(m_data === null )
             {
-                axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${props.match.id}`)
+                axios.get(`${props.backend}/api/fantasy/match/${props.match.id}`)
                 .then((response)=>{
                     temp.push({
                         id: props.match.id.toString(),

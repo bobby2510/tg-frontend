@@ -127,7 +127,7 @@ const Match = (props)=>{
         }
         if(m_data === null) 
         {
-            axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
+            axios.get(`${props.backend}/api/fantasy/match/${id}`)
             .then((response)=>{
                 temp.push({
                     id: id,
@@ -146,7 +146,7 @@ const Match = (props)=>{
             {
                 console.log('here vp')
                 console.log(m_time>present)
-                axios.get(`https://team-generation-api.herokuapp.com/api/fantasy/match/${id}`)
+                axios.get(`${props.backend}/api/fantasy/match/${id}`)
                 .then((response)=>{
                     m_data.lineup_status = response.data.data.lineup_status 
                     //left side updating 

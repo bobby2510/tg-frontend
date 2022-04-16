@@ -22,7 +22,7 @@ const Notify = (props)=>{
             return
         }
         let admin_id = localStorage.getItem('tg_id')
-        axios.get(`https://team-generation-api.herokuapp.com/api/auth/notify/${admin_id}`)
+        axios.get(`${props.backend}/api/auth/notify/${admin_id}`)
         .then(response =>{
             if(response.status === 200)
             {

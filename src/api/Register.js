@@ -63,8 +63,8 @@ const Register = (props)=>{
             superUserPhoneNumber : props.phoneNumber
         }
         let req_obj = props.userRole === 'admin' ? admin_obj : superuser_obj
-        let admin_url = 'https://team-generation-api.herokuapp.com/api/auth/register4642'
-        let superuser_url = 'https://team-generation-api.herokuapp.com/api/auth/super/register4642'
+        let admin_url = `${props.backend}/api/auth/register4642`
+        let superuser_url = `${props.backend}/api/auth/super/register4642`
         let req_url = props.userRole === 'admin'? admin_url : superuser_url
         axios.post(req_url,req_obj)
         .then(response =>{
