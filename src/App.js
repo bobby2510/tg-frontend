@@ -70,7 +70,10 @@ const App = ()=>{
         'https://tg-node-two.herokuapp.com',
         'https://tg-node-three.herokuapp.com',
         'https://tg-node-four.herokuapp.com',
-        'https://tg-node-five.herokuapp.com'
+        'https://tg-node-five.herokuapp.com',
+        'https://tg-node-six.herokuapp.com',
+        'https://tg-node-seven.herokuapp.com',
+        'https://team-generation-api.herokuapp.com'
     ]
     const [reload, setReload] = useState(null)
     const [sportIndex,setSportIndex] = useState(0) // change 
@@ -127,11 +130,11 @@ const App = ()=>{
     useEffect(()=>{
 
         let backendStuff = localStorage.getItem('backend')
-        let backendIndex = getRandNumber(5) // array length
+        let backendIndex = getRandNumber(8) // array length
         if(backendStuff !== null && backendStuff !== undefined && backendStuff !== '')
         {
             if(backendIndex === parseInt(backendStuff))
-                backendIndex = (backendIndex+1)%5; // array length 
+                backendIndex = (backendIndex+1)%8; // array length 
             localStorage.setItem('backend',`${backendIndex}`); 
         }
         else 
