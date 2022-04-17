@@ -103,7 +103,7 @@ const Home = (props)=>{
                         </div>
                     </div>
                 }
-                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} expertMatchList ={props.expertMatchList} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
+                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} backend = {props.backend} expertMatchList ={props.expertMatchList} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
                 </div>  
                 </div>
                

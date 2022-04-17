@@ -181,9 +181,12 @@ const App = ()=>{
             localStorage.setItem('team_data',JSON.stringify([]))
         //probably if any removal of any out dated match data should be displayed here. 
        team_data = JSON.parse(team_data)
+
         if(team_data!==null)
         {
             team_data= team_data.filter(team_obj =>{
+                if(team_obj.data === undefined)
+                    return false;
                 let match_time = new Date(team_obj.data.match_time).getTime();
                 let now = new Date().getTime()
                 if(match_time>now)
