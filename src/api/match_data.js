@@ -399,7 +399,7 @@ let temp_match_data = [
                 "player_index": 31
             }, {
                 "credits": 8.5,
-                "name": "Jitesh Sharma ",
+                "name": " J Sharma",
                 "image ": "https: //d13ir53smqqeyp.cloudfront.net/player-images/partner-image/IPL22/8702-IPL.png",
                 "player_fixed_id": 2324,
                 "playing": 0,

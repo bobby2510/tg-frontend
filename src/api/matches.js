@@ -8,7 +8,7 @@ let temp_matches = [
             "match_time": "2022-04-20T14:00:00+00:00",
             "right_team_image": "https://s3.ap-south-1.amazonaws.com/myteam11main/images/teamflags/CK_PUN_1.png",
             "right_team_name": "PUN",
-            "series_name": "Indian T20 League"
+            "series_name": "TATA IPL 2022"
         }
     ],
     [],
