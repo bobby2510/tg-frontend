@@ -126,6 +126,7 @@ const Match = (props)=>{
                 m_data = temp[i].data 
             }
         }
+        m_data = null // this is for time being
         if(m_data === null) 
         {
             let jp=false
