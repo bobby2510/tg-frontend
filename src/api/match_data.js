@@ -400,7 +400,7 @@ let temp_match_data = [
             }, {
                 "credits": 8.5,
                 "name": " J Sharma",
-                "image ": "https: //d13ir53smqqeyp.cloudfront.net/player-images/partner-image/IPL22/8702-IPL.png",
+                "image ": "https://d13ir53smqqeyp.cloudfront.net/player-images/default-player-image.png",
                 "player_fixed_id": 2324,
                 "playing": 0,
                 "points": 0,
