@@ -5,7 +5,6 @@ import NavBarThree from '../navbar/NavBarThree';
 import MatchCard from '../matchcards/MatchCard';
 import { MdOutlineHistory} from 'react-icons/md'
 import { useNavigate } from 'react-router-dom';
-import temp_matches from '../../api/matches';
 
 import axios from 'axios'
 const Home = (props)=>{

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios'
-import temp_match_data from '../../api/match_data';
 
 
 const Decision = (props)=>{

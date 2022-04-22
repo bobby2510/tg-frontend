@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import {MdWest,MdHome} from 'react-icons/md'
 import { toast } from 'react-toastify';
-import temp_match_data from "../../api/match_data";
 
 import axios from 'axios'
 import Player from "./Player";
