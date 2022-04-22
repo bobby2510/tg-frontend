@@ -67,19 +67,14 @@ const Home = (props)=>{
            axios.get(`${props.backend}/api/fantasy/matches`)
             .then((response)=>{
                
-                if(response.data.data[0].length === 0)
-                {
-                    setDataList(temp_matches)
-                   // console.log(temp_matches)
-                }
-                else{
+              
                     setDataList(response.data.data)
-                }
+                
                 setLoader(true)
                 console.log(response.data.data)
             })
             .catch((e)=>{
-                setDataList(temp_matches)
+               // setDataList(temp_matches)
             })
             axios.get(`${props.backend}/api/expert/teamlist`)
             .then((response)=>{

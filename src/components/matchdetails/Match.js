@@ -126,32 +126,8 @@ const Match = (props)=>{
                 m_data = temp[i].data 
             }
         }
-        m_data = null // this is for time being
         if(m_data === null) 
         {
-            let jp=false
-            let jp_data = null 
-            for(let i=0;i<temp_match_data.length;i++)
-            {
-                if(temp_match_data[i].id.toString() === id.toString())
-                {
-                    jp = true 
-                    jp_data = temp_match_data[i].data 
-                }
-                    
-            }
-            if(jp)
-            {
-                temp.push({
-                    id: id,
-                    data: jp_data    
-                })
-                m_data = jp_data 
-                localStorage.setItem('team_data',JSON.stringify(temp))
-                wrapper(m_data)
-            }
-            else 
-            {
                 axios.get(`${props.backend}/api/fantasy/match/${id}`)
                 .then((response)=>{
                     temp.push({
@@ -164,24 +140,14 @@ const Match = (props)=>{
                 })
                 .catch((e)=>{
                     console.log('eror occured')
-                })
-            }
+                })     
            
         }
         else 
-        {
-            let jp=false 
-            for(let i=0;i<temp_match_data.length;i++)
-            {
-                if(temp_match_data[i].id.toString() === id.toString())
-                {
-                    jp = true 
-                }
-                    
-            }
+        {   
             let present = new Date(Date.now())
             let m_time = new Date(props.matchTime)
-            if(m_time>=present && jp === false)
+            if(m_time>=present)
             {
                 console.log('here vp')
                 console.log(m_time>present)
