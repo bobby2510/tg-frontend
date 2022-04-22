@@ -398,6 +398,18 @@ let temp_match_data = [
                 "team_index": 1,
                 "player_index": 31
             }, {
+                "credits": 8.5,
+                "name": " J Sharma",
+                "image ": "https://d13ir53smqqeyp.cloudfront.net/player-images/default-player-image.png",
+                "player_fixed_id": 2324,
+                "playing": 0,
+                "points": 0,
+                "role": 0,
+                "selected_by": 19.73,
+                "team_name": "PUN",
+                "team_index": 1,
+                "player_index": 32
+            }, {
                 "credits": 7.5,
                 "name": "Baltej Singh",
                 "image": "https://d13ir53smqqeyp.cloudfront.net/player-images/partner-image/IPL22/9054-IPL.png",
@@ -409,22 +421,7 @@ let temp_match_data = [
                 "team_name": "PUN",
                 "team_index": 1,
                 "player_index": 33
-            }, 
-            {
-                "credits": 8.5,
-                "name": "J Sharma",
-                "image": "https://d13ir53smqqeyp.cloudfront.net/player-images/default-player-image.png",
-                "player_fixed_id": 2324,
-                "playing": 0,
-                "points": 0,
-                "role": 0,
-                "selected_by": 19.73,
-                "team_name": "PUN",
-                "team_index": 1,
-                "player_index": 32
-            }, 
-            
-            {
+            }, {
                 "credits": 8.5,
                 "name": "Sandeep Sharma",
                 "image": "https://d13ir53smqqeyp.cloudfront.net/player-images/partner-image/IPL22/1517-IPL.png",
