@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import NavBarTwo from '../navbar/NavBarTwo';
 import GenericFooter from '../footer/GenericFooter';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import axios from 'axios'
 const Decision = (props)=>{
     let {id} = useParams()
     let navigate = useNavigate()
+    let [primeTeams,setPrimeTeams] = useState(false)
 
     let get_player_list = ()=>{
         if(props.sportIndex===2)
@@ -63,6 +64,7 @@ const Decision = (props)=>{
                 if(response.status === 200)
                 {
                     props.setPrimeFetchedData(response.data)
+                    setPrimeTeams(response.data.primeTeams)
                 }
             }) 
     },[])
@@ -73,7 +75,7 @@ const Decision = (props)=>{
             <div className="mini-container">
             <h4 className="sub-heading mb-4">Choose Here</h4>
             {/*prime user stuff here only */}
-            {props.primeUser && props.primePlan &&  props.primeMatchList.indexOf(id.toString()) !== -1 ?
+            {props.primeUser && props.primePlan &&  props.primeMatchList.indexOf(id.toString()) !== -1 && primeTeams === true ?
                 <div className='section-card'>
                     <img className="section-image" src="/primeteam.jpg" alt="prime" />
                     <button onClick={()=>{ navigate('/primedisplay')}} className='btn section-btn' style={{backgroundColor:'purple',color:'white'}}>Continue</button>
