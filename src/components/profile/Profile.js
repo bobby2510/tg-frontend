@@ -104,7 +104,46 @@ return diff_days;
                         )}
                     
                 </div>
+
+                {/*prime plan stuff*/}
+                {props.primeUser === true ?  
+                <div className='user-profile'>
+                    <h4>Prime Plan Details</h4>
+                    <hr/> 
+                    <h6>Current Prime Plan</h6>
+                    {props.primePlan===true && props.currentPrimePlan !== null ? 
+                    <div className='d-flex justify-content-around align-items-center'>
+                        <h6 style={{color:'green'}}>Active</h6>
+                        <div className='d-flex flex-column align-items-start justify-content-center'>
+                            <h4 className='profile-number'>Days Left : {get_days(props.currentPrimePlan.end_date)}</h4>
+                            <span className='profile-sub'>plan type : {props.currentPrimePlan.duration} days</span>
+                            <span className='profile-sub'>Start date : {props.currentPrimePlan.start_date} </span>
+                            <span className='profile-sub'>End Date : {props.currentPrimePlan.end_date} </span>
+                        </div>
+                    </div>
+                    :
+                        <h6 className='text-center p-2' style={{color:'red'}}>You Don't have Active Plan</h6>
+                    }
+                    <hr/>
+                    <h6>Previous Prime Plans</h6>
+                    {props.previousPrimePlan === null ? <p className='text-center p-4'>No Previous Plans</p> : null}
+                    {props.previousPrimePlan && props.previousPrimePlan.length === 0 ? <p className='text-center p-4'>No Previous Plans</p> : null}
+                    {props.previousPrimePlan && props.previousPrimePlan.map(plan => 
+                        <div className='d-flex justify-content-around align-items-center expired '>
+                        <h6 style={{color:'red'}}>Expired</h6>
+                        <div className='d-flex flex-column align-items-start justify-content-center'>
+                            <span className='profile-sub'>plan type : {plan.duration} days</span>
+                            <span className='profile-sub'>Start date : {plan.start_date} </span>
+                            <span className='profile-sub'>End Date : {plan.end_date} </span>
+                        </div>  
+                    </div>
+                        )}
+                    
+                </div>
+                : null}
+
             
+
             </div>
             <Footer
                 bottomIndex = {props.bottomIndex}

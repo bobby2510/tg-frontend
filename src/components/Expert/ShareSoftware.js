@@ -154,7 +154,7 @@ let ShareSoftware = (props)=>{
                 <div onClick={()=> handleShareTeams()}  className={'sport-icon'}>
                      <MdIosShare style={{color:'green'}} size={36} />
                     <span>Share Teams</span>
-                </div>
+                </div>    
             </nav>
             <div className='share-container' style={{maxWidth:1200,padding:8}}>
 

@@ -32,8 +32,10 @@ const MatchCard = (props)=>{
                 setSaved(true)
             }
         }
-        //console.log(props.match)
-        //console.log(props.expertMatchList)
+        // console.log(props.primeMatchList)
+        // console.log(props.expertMatchList)
+        // console.log(props.primeUser)
+        // console.log(props.primePlan)
     },[])
     const navigate = useNavigate()
     let x = setInterval(function() {
@@ -62,7 +64,7 @@ const MatchCard = (props)=>{
     {
         props.setSeriesName(props.match.series_name)
         props.setMatchTime(props.match.match_time)
-        if(props.expertMatchList.indexOf(id.toString()) !== -1)
+        if(props.expertMatchList.indexOf(id.toString()) !== -1 || props.primeMatchList.indexOf(id.toString())!== -1)
             navigate(`/decision/${id}`)
         else 
             navigate(`/match/${id}`)
@@ -130,7 +132,11 @@ const MatchCard = (props)=>{
                     <div style={{display:"flex",alignItems:'center'}} onClick={() => handleMatchCard(props.match.id)}>
                         <span class="badge badge-outline-success" >Mega GL</span>
                         <span class="badge badge-outline-warning" >SL</span>
-                        <span class="badge badge-outline-danger">H2H</span>
+                        {props.primeUser && props.primePlan && props.primeMatchList.indexOf(props.match.id.toString()) !== -1 ?
+                                <span class="badge badge-outline-success vp-blink" >P</span> 
+                                :
+                                <span class="badge badge-outline-danger">H2H</span>
+                            }
                         {lineups?
                         <span class="badge badge-outline-success">Auto Create</span>
         

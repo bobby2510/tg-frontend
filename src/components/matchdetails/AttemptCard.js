@@ -1,5 +1,7 @@
 import React,{useState} from 'react' 
 import { useNavigate } from 'react-router';
+import {MdRadioButtonUnchecked , MdRadioButtonChecked , MdIosShare} from 'react-icons/md'
+
 
 
 const AttemptCard = (props)=>{
@@ -60,6 +62,61 @@ const AttemptCard = (props)=>{
         }
     }
 
+    let handleAttempt = ()=>{
+        let temp = [...props.attemptArray]
+        if(temp[props.attempt.id] === 0)
+            temp[props.attempt.id] =1; 
+        else 
+            temp[props.attempt.id]=0; 
+        props.setAttemptArray(temp);
+    }
+    let handleShareStuff = ()=>{
+        // console.log(props.attempt)
+        let player_data = []
+        for(let i=0;i<70;i++)
+        {
+            player_data.push(null)   
+        }
+        for(let i=0;i<props.attempt.player_list.length;i++)
+        {
+            for(let j=0;j<props.attempt.player_list[i].length;j++)
+            {
+                let p = props.attempt.player_list[i][j] 
+                player_data[p.player_index] = p
+            }
+        }
+        // now taking the teams stuff 
+        let req_teams = [] 
+        for(let i=0;i<props.attempt.team_list.length;i++)
+        {
+            let vp_team = props.attempt.team_list[i] 
+            let temp_team = [] 
+            for(let j=0;j<vp_team.team.length;j++)
+                temp_team.push([]) 
+            // doing more stuff here 
+            for(let j=0;j<vp_team.team.length;j++)
+            {
+                for(let k=0;k<vp_team.team[j].length;k++)
+                {
+                    temp_team[j].push({
+                        player_index: vp_team.team[j][k],
+                        credits:   player_data[vp_team.team[j][k]].credits
+                    })
+                }
+            }
+            req_teams.push({
+                team_number: i+1, 
+                captain: vp_team.captain, 
+                vicecaptain: vp_team.vicecaptain, 
+                credits: vp_team.credits, 
+                team: temp_team
+            })
+        }
+        props.setPrimeTeamData(req_teams)
+        navigate('/postprime')
+        return
+    }
+
     return (
         <React.Fragment>
             <div className="match-card pb-2">
@@ -67,18 +124,37 @@ const AttemptCard = (props)=>{
                     <span className="series-name">{get_generation(props.attempt.generation_type)}</span>
                     <span class="lineups">{timeString} ago</span>
                 </div> 
-                <div className="text-center" style={{marginLeft:10,marginRight:10}}>
-                    <h4>Number of Teams : {props.attempt.number_of_teams}</h4>
-                   <div className='d-flex justify-content-around align-items-center'>
-                        <button onClick={()=> handleTeam(props.attempt.type)} className='btn btn-primary btn-sm'>See Teams</button>
-                        {
-                            props.status !== 0? 
-                            <button onClick={()=> handleResult(props.attempt.type)} className='btn btn-success btn-sm'>See Results</button>
-                            :
-                            null 
-                        }
-                   </div>
-                   
+                <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+               {
+                   props.primeAdmin === true? 
+                    <React.Fragment>
+                    {
+                        props.attemptArray[props.attempt.id] === 0? 
+                        <MdRadioButtonUnchecked onClick={()=> handleAttempt()} size={20} style={{marginLeft:10,marginRight:10}}  />
+                        : 
+                        <MdRadioButtonChecked onClick={()=>handleAttempt()} size={20} style={{marginLeft:10,marginRight:10}}  />
+                    }
+                    </React.Fragment>
+                   : null
+               }
+                    <div className="text-center" style={{marginLeft:10,flexGrow:1,marginRight:10}}>
+                        <h4>Number of Teams : {props.attempt.number_of_teams}</h4>
+                        <div className='d-flex justify-content-around align-items-center'>
+                                <button onClick={()=> handleTeam(props.attempt.type)} className='btn btn-primary btn-sm'>See Teams</button>
+                                {
+                                    props.status !== 0? 
+                                    <button onClick={()=> handleResult(props.attempt.type)} className='btn btn-success btn-sm'>See Results</button>
+                                    :
+                                    null 
+                                }
+                        </div>
+                    </div>
+                {/*this is for sharing stuff*/}
+                { props.primeAdmin === true? 
+                    <MdIosShare onClick={()=> handleShareStuff()} size={20} style={{marginLeft:10,marginRight:10}}  />
+                    : 
+                    null 
+                }
                 </div>
                
             </div>

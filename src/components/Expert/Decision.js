@@ -56,8 +56,15 @@ const Decision = (props)=>{
                 // setPlayerList 
                 props.setPlayerList(player_list)
             })
-        
-      
+
+            //calling second api 
+            axios.get(`${props.backend}/api/primeteam/getdata/${id}/${props.phoneNumber}`)
+            .then((response)=>{
+                if(response.status === 200)
+                {
+                    props.setPrimeFetchedData(response.data)
+                }
+            }) 
     },[])
 
     return (
@@ -65,7 +72,15 @@ const Decision = (props)=>{
             <NavBarTwo navigate ={navigate} />
             <div className="mini-container">
             <h4 className="sub-heading mb-4">Choose Here</h4>
-            
+            {/*prime user stuff here only */}
+            {props.primeUser && props.primePlan &&  props.primeMatchList.indexOf(id.toString()) !== -1 ?
+                <div className='section-card'>
+                    <img className="section-image" src="/primeteam.jpg" alt="prime" />
+                    <button onClick={()=>{ navigate('/primedisplay')}} className='btn section-btn' style={{backgroundColor:'purple',color:'white'}}>Continue</button>
+                </div>
+                :
+                null
+            }
                 <div className='section-card'>
                     <div className="card-start-part" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                     <br/>
