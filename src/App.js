@@ -68,15 +68,15 @@ const App = ()=>{
         return Math.floor((Math.random() * num))
     }
     const backendList = [
-       // 'http://localhost:5000'
-        'https://tg-node-one.herokuapp.com',
-        'https://tg-node-two.herokuapp.com',
-        'https://tg-node-three.herokuapp.com',
-        'https://tg-node-four.herokuapp.com',
-        'https://tg-node-five.herokuapp.com',
-        'https://tg-node-six.herokuapp.com',
-        'https://tg-node-seven.herokuapp.com',
-        'https://team-generation-api.herokuapp.com'
+        'http://localhost:5000'
+        // 'https://tg-node-one.herokuapp.com',
+        // 'https://tg-node-two.herokuapp.com',
+        // 'https://tg-node-three.herokuapp.com',
+        // 'https://tg-node-four.herokuapp.com',
+        // 'https://tg-node-five.herokuapp.com',
+        // 'https://tg-node-six.herokuapp.com',
+        // 'https://tg-node-seven.herokuapp.com',
+        // 'https://team-generation-api.herokuapp.com'
     ]
     const [reload, setReload] = useState(null)
     const [sportIndex,setSportIndex] = useState(0) // change 
@@ -186,7 +186,7 @@ const App = ()=>{
                         setPreviousPrimePlan(data.previous_prime_plans)
                     }
                   //  console.log(data.phoneNumber.toString())
-                    if(data.phoneNumber.toString() === '9848579715' || data.phoneNumber.toString() === '9908110788')
+                    if(data.phoneNumber.toString() === '9848579715' || data.phoneNumber.toString() === '9908110788' || data.phoneNumber.toString() === '9001517196')
                     {
                         //console.log('hi')
                         setPrimeAdmin(true)

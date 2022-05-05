@@ -10,6 +10,7 @@ import axios from 'axios'
 const Decision = (props)=>{
     let {id} = useParams()
     let navigate = useNavigate()
+    let [primeLoader,setPrimeLoader] = useState(false)
     let [primeTeams,setPrimeTeams] = useState(false)
 
     let get_player_list = ()=>{
@@ -65,6 +66,7 @@ const Decision = (props)=>{
                 {
                     props.setPrimeFetchedData(response.data)
                     setPrimeTeams(response.data.primeTeams)
+                    setPrimeLoader(true)
                 }
             }) 
     },[])
@@ -75,11 +77,22 @@ const Decision = (props)=>{
             <div className="mini-container">
             <h4 className="sub-heading mb-4">Choose Here</h4>
             {/*prime user stuff here only */}
-            {props.primeUser && props.primePlan &&  props.primeMatchList.indexOf(id.toString()) !== -1 && primeTeams === true ?
-                <div className='section-card'>
-                    <img className="section-image" src="/primeteam.jpg" alt="prime" />
-                    <button onClick={()=>{ navigate('/primedisplay')}} className='btn section-btn' style={{backgroundColor:'purple',color:'white'}}>Continue</button>
-                </div>
+            {props.primeUser && props.primePlan &&  props.primeMatchList.indexOf(id.toString()) !== -1  ?
+                <React.Fragment>
+                { primeTeams === true ? 
+                        <div className='section-card'>
+                            <img className="section-image" src="/primeteam.jpg" alt="prime" />
+                            <button onClick={()=>{ navigate('/primedisplay')}} className='btn section-btn' style={{backgroundColor:'purple',color:'white'}}>Continue</button>
+                        </div>
+                    : 
+                    <div className='section-card'>
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only"></span>
+                        </div>
+                    </div>
+                }
+               
+                </React.Fragment>
                 :
                 null
             }
