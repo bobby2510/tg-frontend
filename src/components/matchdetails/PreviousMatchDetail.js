@@ -279,21 +279,27 @@ const PreviousMatchDetail = (props)=>{
                     </div>
                     {
                         matchStatus === 0?
-                        <span>Match is not started Yet, see teams here</span>
+                        <React.Fragment>
+                            <span>Match is not started Yet, see teams here !</span>
+                            <span> if you want to change points <button onClick={()=> handleAddPoint() } className='btn btn-success btn-sm' style={{fontWeight:500}}>Change Points</button></span>
+                        </React.Fragment>
                         :
                         null
                     }
                     {
                         matchStatus === 1?
-                        <span>Match is in Progress, You can check points of your teams</span>
+                        <React.Fragment>
+                            <span>Match is in Progress, You can check points of your teams</span>
+                            <span> if you want to change points <button onClick={()=> handleAddPoint() } className='btn btn-success btn-sm' style={{fontWeight:500}}>Change Points</button></span>
+                        </React.Fragment>
                         :
                         null
                     }
                     {
                         matchStatus === 2?
                         <React.Fragment>
-                        <span>Match is Finished! Check results of  your teams !!!</span>
-                        <span> if you want to change points <button onClick={()=> handleAddPoint() } className='btn btn-success btn-sm' style={{fontWeight:500}}>Change Points</button></span>
+                            <span>Match is Finished! Check results of  your teams !!!</span>
+                            <span> if you want to change points <button onClick={()=> handleAddPoint() } className='btn btn-success btn-sm' style={{fontWeight:500}}>Change Points</button></span>
                         </React.Fragment>
                         :
                         null
