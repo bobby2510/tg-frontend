@@ -130,17 +130,25 @@ const MatchCard = (props)=>{
                 </div>
                 <div className="card-end-part" style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                     <div style={{display:"flex",alignItems:'center'}} onClick={() => handleMatchCard(props.match.id)}>
-                        <span class="badge badge-outline-success" >Mega GL</span>
-                        <span class="badge badge-outline-warning" >SL</span>
-                        {props.primeUser && props.primePlan && props.primeMatchList.indexOf(props.match.id.toString()) !== -1 ?
-                                <span class="badge badge-outline-success vp-blink" >P</span> 
-                                :
-                                <span class="badge badge-outline-danger">H2H</span>
-                            }
-                        {lineups?
-                        <span class="badge badge-outline-success">Auto Create</span>
-        
-                            : null}
+                        {
+                            props.bookingOpenList.indexOf(props.match.id.toString()) !== -1 ? 
+                            <span class="badge badge-outline-success vp-blink" >Bookings Open</span>
+                            :
+                            <React.Fragment>
+                                <span class="badge badge-outline-success" >Mega GL</span>
+                                <span class="badge badge-outline-warning" >SL</span>
+                                {props.primeUser && props.primePlan && props.primeMatchList.indexOf(props.match.id.toString()) !== -1 ?
+                                        <span class="badge badge-outline-success vp-blink" >P</span> 
+                                        :
+                                        <span class="badge badge-outline-danger">H2H</span>
+                                    }
+                                {lineups?
+                                <span class="badge badge-outline-success">Auto Create</span>
+                
+                                    : null}
+                            </React.Fragment>
+                        }
+                       
                         </div>
                    {/* here save stuff should be here */}
                    {

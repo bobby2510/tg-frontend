@@ -12,6 +12,7 @@ const Decision = (props)=>{
     let navigate = useNavigate()
     let [primeLoader,setPrimeLoader] = useState(false)
     let [primeTeams,setPrimeTeams] = useState(false)
+    let [backupLoader,setBackupLoader] = useState(false)
 
     let get_player_list = ()=>{
         if(props.sportIndex===2)
@@ -68,6 +69,10 @@ const Decision = (props)=>{
                     setPrimeTeams(response.data.primeTeams)
                     setPrimeLoader(true)
                 }
+                else 
+                {
+                    setBackupLoader(true)
+                }
             }) 
     },[])
 
@@ -85,11 +90,19 @@ const Decision = (props)=>{
                             <button onClick={()=>{ navigate('/primedisplay')}} className='btn section-btn' style={{backgroundColor:'purple',color:'white'}}>Continue</button>
                         </div>
                     : 
-                    <div className='section-card'>
+                    <React.Fragment>
+                    {backupLoader === true? 
+                        <div className='section-card'>
+                            You didn't book Prime Teams.
+                        </div>
+                        :
+                        <div className='section-card'>
                         <div class="spinner-border" role="status">
                             <span class="sr-only"></span>
                         </div>
                     </div>
+                    }
+                    </React.Fragment>
                 }
                
                 </React.Fragment>

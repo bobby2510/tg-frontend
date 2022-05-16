@@ -113,7 +113,7 @@ const AttemptCard = (props)=>{
             })
         }
         props.setPrimeTeamData(req_teams)
-        navigate('/postprime')
+        navigate(`/postprime/${props.matchId}`)
         return
     }
 

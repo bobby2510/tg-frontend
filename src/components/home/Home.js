@@ -87,7 +87,23 @@ const Home = (props)=>{
         {
             axios.get(`${props.backend}/api/primeteam/teamlist`)
             .then((response)=>{
+                // some stuff here 
+                let new_list = []
+                let booking_list = response.data.booking_data 
+                let prime_list = response.data.data
+                for(let i=0;i<booking_list.length;i++)
+                {
+                    let flag = false
+                    for(let j=0;j<prime_list.length;j++)
+                    {
+                        if(booking_list[i] === prime_list[j])
+                            flag = true 
+                    }
+                    if(flag === false)
+                        new_list.push(booking_list[i]);
+                }
                 props.setPrimeMatchList(response.data.data)
+                props.setBookingOpenList(new_list)
             })
         }
     },[props.primePlan])
@@ -117,7 +133,7 @@ const Home = (props)=>{
                         </div>
                     </div>
                 }
-                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} backend = {props.backend} expertMatchList ={props.expertMatchList} primeMatchList={props.primeMatchList} primeUser={props.primeUser} primePlan={props.primePlan} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
+                { dataList[0] &&  dataList[props.sportIndex].map((match)=> <MatchCard key={match.id} backend = {props.backend} expertMatchList ={props.expertMatchList} primeMatchList={props.primeMatchList} bookingOpenList={props.bookingOpenList} primeUser={props.primeUser} primePlan={props.primePlan} sportIndex={props.sportIndex} setSeriesName={props.setSeriesName} setMatchTime={props.setMatchTime} match = {match} /> ) }
                 </div>  
                 </div>
                

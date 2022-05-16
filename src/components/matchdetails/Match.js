@@ -1,8 +1,9 @@
 import React,{useEffect,useState,useRef} from "react"
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
-import {MdWest,MdHome} from 'react-icons/md'
+import {MdWest,MdHome , MdEventAvailable} from 'react-icons/md'
 import { toast } from 'react-toastify';
+
 
 import axios from 'axios'
 import Player from "./Player";
@@ -32,6 +33,9 @@ const Match = (props)=>{
     const {id} = useParams()
     const [time,setTime] = useState('')
     let [matchTime,setMatchTime] = useState(null)
+    let [teamsBooked,setTeamsBooked] = useState(false)
+    let [openBooking,setOpenBooking] = useState(false)
+
     let match_data = useRef({})
     let get_active_role = ()=>{
         if(props.sportIndex===2)
@@ -195,6 +199,36 @@ const Match = (props)=>{
                 wrapper(m_data)
             }
         }  
+
+        // doing stuff for prime bookings 
+        if(props.primeUser === true && props.primePlan === true && props.bookingOpenList.indexOf(id) !== -1)
+        {
+            axios.get(`${props.backend}/api/primebooking/status/${id}/${props.phoneNumber}`)
+            .then((response)=>{
+                if(response.status === 200)
+                {
+                    setTeamsBooked(response.data.booked)
+                }
+                else 
+                {
+                    setTeamsBooked(false)
+                }
+            })
+        }
+        if(props.phoneNumber === '9848579715')
+        {
+            axios.get(`${props.backend}/api/primebooking/admin/status/${id}`)
+            .then((response)=>{
+                if(response.status === 200)
+                {
+                    setOpenBooking(true)
+                }
+                else 
+                {
+                    setOpenBooking(false)
+                }
+            })
+        }
         
     },[])
 
@@ -361,6 +395,29 @@ const Match = (props)=>{
         navigate('/change')
         return 
     }
+    let handleBook = ()=>{
+        navigate(`/bookteams/${id}`)
+        return 
+    }
+    let handleOpenBooking = ()=>{
+        axios.post(`${props.backend}/api/admin/primebooking/create`,{
+            matchId: id, 
+            sportIndex: props.sportIndex
+        })
+        .then((response)=>{
+            if(response.status === 200)
+            {
+                toast.success(response.data.message,{position:'top-center'})
+                setOpenBooking(true)
+                return;
+            }
+            else 
+            {
+                toast.error(response.data.message,{position:'top-center'})
+                return;
+            }
+        })
+    }
 
     return (
         <React.Fragment>
@@ -397,7 +454,32 @@ const Match = (props)=>{
            </div>
            {/* Here i am going to give option to edit and add player data */}
             <div className="change-data">
-            <span><span style={{color:'grey',fontSize:'13px'}}>Any Credit or role data mismatch? </span><button onClick={()=> handleEdit()} className="vp-btn btn btn-sm btn-dark">Edit Data</button> </span>
+            <div style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}>
+                <span><span style={{color:'grey',fontSize:'13px'}}>Credit or role mismatch? </span><button onClick={()=> handleEdit()} className="vp-btn btn btn-sm btn-dark">Edit Data</button> </span>
+                { props.primeUser === true && props.primePlan === true && props.bookingOpenList.indexOf(id.toString()) !== -1 ? 
+                    <React.Fragment>
+                        { 
+                            teamsBooked === true ? <span className="vp-btn btn btn-sm btn-success"><MdEventAvailable /> Booked</span>
+                             : 
+                            <button onClick={()=> handleBook()} className="vp-btn btn btn-sm btn-primary">Book Teams</button>
+                        }
+                    </React.Fragment>
+                    : 
+                    null
+                }
+                {
+                    props.phoneNumber.toString() === '9848579715' ? 
+                    <React.Fragment>
+                    { 
+                        openBooking === true ? <span className="vp-btn btn btn-sm btn-success">Booking Opened</span>
+                         : 
+                        <button onClick={()=> handleOpenBooking()} className="vp-btn btn btn-sm btn-primary">Open Booking</button>
+                    }
+                </React.Fragment>
+                : 
+                null
+                }
+            </div>
             </div>  
            {/* Here the main part of selecting players will happen */}
            <nav class="d-flex justify-content-around top-nav top-fix-two" style={{backgroundColor:'#fff'}}>

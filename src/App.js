@@ -57,6 +57,7 @@ import ShowExpertTeams from './components/Expert/ShowExpertTeams';
 import SuperDecision from './components/Expert/SuperDecision'
 import PostPrime from './prime/PostPrime';
 import DisplayPrimeTeam from './prime/DisplayPrimeTeam';
+import BookTeams from './prime/BookTeams';
 
 // our color : #563d7c
 
@@ -140,6 +141,9 @@ const App = ()=>{
     let [primeTeamData,setPrimeTeamData] = useState([]) 
     let [primeMatchList,setPrimeMatchList] = useState([])
     let [primeFetchedData,setPrimeFetchedData] = useState(null)
+    {/* prime team booking data */}
+    let [bookingOpenList,setBookingOpenList] = useState([])
+
 
     useEffect(()=>{
 
@@ -285,6 +289,8 @@ const App = ()=>{
                     expertMatchList = {expertMatchList}
                     setExpertMatchList={setExpertMatchList}
                     primeMatchList = {primeMatchList}
+                    bookingOpenList = {bookingOpenList}
+                    setBookingOpenList = {setBookingOpenList}
                     setPrimeMatchList = {setPrimeMatchList}
                     primeUser = {primeUser} 
                     primePlan = {primePlan}
@@ -381,11 +387,15 @@ const App = ()=>{
                     reload = {reload}
                     login = {login}
                     plan = {plan}
+                    primeUser = {primeUser}
+                    primePlan = {primePlan}
                     matchTime = {matchTime}
                     sportIndex = {sportIndex}
                     setSportIndex = {setSportIndex}
                     selectedPlayers = {selectedPlayers}
                     setSelectedPlayers = {setSelectedPlayers}
+                    bookingOpenList = {bookingOpenList}
+                    setBookingOpenList = {setBookingOpenList}
                     playerList = {playerList}
                     setPlayerList = {setPlayerList}
                     right = {right}
@@ -407,6 +417,7 @@ const App = ()=>{
                     expertMatchList = {expertMatchList}
                     backend = {backend}
                     primeAdmin = {primeAdmin}
+                    phoneNumber = {phoneNumber}
                     
                     />} />
                 
@@ -463,7 +474,7 @@ const App = ()=>{
                     setMatchId = {setMatchId}
             
                     />} />
-                <Route path="/postprime" element={<PostPrime 
+                <Route path="/postprime/:id" element={<PostPrime 
                     sportIndex = {sportIndex}
                     reload = {reload}
                     matchId = {matchId}
@@ -576,6 +587,13 @@ const App = ()=>{
                     rightName = {rightName}
                     rightImage = {rightImage}
                     backend = {backend}
+                    /> } />
+                <Route path="/bookteams/:id" element={<BookTeams
+                    reload = {reload}
+                    sportIndex = {sportIndex}
+                    backend = {backend}
+                    phoneNumber = {phoneNumber}
+                    matchId = {matchId}
                     /> } />
                 <Route path="/grand" element={<GrandLeague
                     reload = {reload}
