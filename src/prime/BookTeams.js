@@ -22,9 +22,9 @@ const BookTeams = (props)=>{
             toast.error('Field cannot be empty!',{position:'top-center'})
             return    
         }
-        if(parseInt(teamNumber) < 3 || parseInt(teamNumber)>20)
+        if(parseInt(teamNumber) < 3 || parseInt(teamNumber)>12)
         {
-            toast.error('Number of teams should in-between 3-20 teams!',{position:'top-center'})
+            toast.error('Number of teams should in-between 3-12 teams!',{position:'top-center'})
             return;
         }
         axios.post(`${props.backend}/api/primebooking/book`,{
@@ -53,7 +53,7 @@ const BookTeams = (props)=>{
            <div className='team-number-mini'>
                 <img src='/booking.jpg' style={{width:'70%'}} />
                 <h3 className='team-number-title'>Book Your Prime Teams</h3>
-                <p className='team-number-sub'>you can book between between <b>3 - 20</b> Teams</p>
+                <p className='team-number-sub'>you can book between between <b>3 - 12</b> Teams</p>
                 <div className='team-input'>
                     <input onChange={handleChange} type="number" name="teamNumber" placeholder='No.of Teams' value={teamNumber} />
                     <button onClick={()=> handleClick()} className='vp-btn btn btn-success team-btn'>Book Teams</button>
