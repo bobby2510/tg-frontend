@@ -70,14 +70,11 @@ const App = ()=>{
     }
     const backendList = [
     //    'http://localhost:5000'
-        'https://tg-node-one.herokuapp.com',
-        'https://tg-node-two.herokuapp.com',
-        'https://tg-node-three.herokuapp.com',
-        'https://tg-node-four.herokuapp.com',
-        'https://tg-node-five.herokuapp.com',
-        'https://tg-node-six.herokuapp.com',
-        'https://tg-node-seven.herokuapp.com',
-        'https://team-generation-api.herokuapp.com'
+        'https://tg-node-eight.herokuapp.com',
+        'https://tg-node-nine.herokuapp.com',
+        'https://tg-node-ten.herokuapp.com',
+        'https://tg-node-eleven.herokuapp.com',
+        'https://tg-node-twelve.herokuapp.com',
     ]
     const [reload, setReload] = useState(null)
     const [sportIndex,setSportIndex] = useState(0) // change 
@@ -184,8 +181,8 @@ const App = ()=>{
                         setCurrentPlan(data.current_plan)
                         setPreviousPlan(data.previous_plans)
                         setPhoneNumber(data.phoneNumber)
-                        setPrimePlan(data.prime_plan)
-                        setPrimeUser(data.prime_user)
+                        setPrimePlan(true)
+                        setPrimeUser(true)
                         setCurrentPrimePlan(data.current_prime_plan)
                         setPreviousPrimePlan(data.previous_prime_plans)
                     }
