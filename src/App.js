@@ -184,8 +184,8 @@ const App = ()=>{
                         setCurrentPlan(data.current_plan)
                         setPreviousPlan(data.previous_plans)
                         setPhoneNumber(data.phoneNumber)
-                        setPrimePlan(data.prime_plan)
-                        setPrimeUser(data.prime_user)
+                        setPrimePlan(true)
+                        setPrimeUser(true)
                         setCurrentPrimePlan(data.current_prime_plan)
                         setPreviousPrimePlan(data.previous_prime_plans)
                     }
