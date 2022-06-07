@@ -194,7 +194,7 @@ const App = ()=>{
                         setPreviousPrimePlan(data.previous_prime_plans)
                     }
                   //  console.log(data.phoneNumber.toString())
-                    if(data.phoneNumber.toString() === '9848579715' || data.phoneNumber.toString() === '9642640768' || data.phoneNumber.toString() === '9001517196' || data.phoneNumber.toString() === '9908110788')
+                    if(data.phoneNumber.toString() === '9848579715' || data.phoneNumber.toString() === '9642640768' || data.phoneNumber.toString() === '9001517196' )
                     {
                         //console.log('hi')
                         setPrimeAdmin(true)
