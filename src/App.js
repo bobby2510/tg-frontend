@@ -758,7 +758,7 @@ const App = ()=>{
              </div> 
              <div  style={{padding:0}}>
                 <Routes>
-                    <Route  path="/display/:match/:attempt" element={<DisplayNormal 
+                    <Route  path="/display/:match/:attempt/:ftype/:fvalue" element={<DisplayNormal 
                         sportIndex = {sportIndex}
                         userRole = {userRole}
                         reload = {reload}

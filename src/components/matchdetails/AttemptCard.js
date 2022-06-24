@@ -26,13 +26,15 @@ const AttemptCard = (props)=>{
         if(seconds>0)
         timeString += seconds+"s "
  
-    let get_generation = (type)=>{
+    let get_generation = (type,attempt)=>{
         if(type === 0)
             return 'Smart Section'
         else if(type === 1)
             return 'Grand league Section'
         else if(type === 2)
             return 'Advanced Section'
+        else if(type === 99)
+            return attempt.shortcut
         else 
             return 'Auto Create'
     }
@@ -40,7 +42,7 @@ const AttemptCard = (props)=>{
     let handleTeam = (type)=>{
         if(type==='normal')
         {
-            navigate(`/display/${props.matchId}/${props.attempt.id}`)
+            navigate(`/display/${props.matchId}/${props.attempt.id}/9/9`)
             return 
         }
         else 
@@ -121,7 +123,7 @@ const AttemptCard = (props)=>{
         <React.Fragment>
             <div className="match-card pb-2">
                 <div className="d-flex justify-content-between border-bottom" style={{marginLeft:10,marginRight:10}}>
-                    <span className="series-name">{get_generation(props.attempt.generation_type)}</span>
+                    <span className="series-name">{get_generation(props.attempt.generation_type,props.attempt)}</span>
                     <span class="lineups">{timeString} ago</span>
                 </div> 
                 <div style={{display:'flex',justifyContent:'space-around',alignItems:'center'}}>

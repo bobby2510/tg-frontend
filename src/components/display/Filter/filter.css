@@ -1,0 +1,16 @@
+.chip{
+    border-radius: 10px;
+    box-shadow: 0px 0px 3px black;
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: white;
+}
+
+.chip-container 
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}

@@ -1,8 +1,16 @@
 import React from 'react'  
+import {HiOutlineExternalLink} from 'react-icons/hi'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const Table = (props)=>{
+    let navigate = useNavigate()
+    let handleTableClick = (ftype,fvalue)=>{
+        console.log(ftype,fvalue)
+        navigate(`/display/${props.match}/${props.attempt}/${ftype}/${fvalue}`)
+        return;
+    }
     return (
         <React.Fragment>
         <div className='analytic-section'>
@@ -22,7 +30,15 @@ const Table = (props)=>{
                        {
                            props.data[0].map((name,index)=>{
                                 return <tr>
-                                <th scope="row">{index+1}</th>
+                                <th scope="row">
+                                   <div className='d-flex justify-content-center align-items-center'>
+                                    <span>{index+1}</span>
+                                    {props.data[3].length >0? 
+                                        <HiOutlineExternalLink style={{color:'blue',marginLeft:2}} size={20} onClick={()=> {handleTableClick(props.filterType,props.data[3][index])}} />
+                                        : null}
+                                   
+                                   </div>
+                                </th>
                                 <td>{name}</td>
                                 <td>{props.data[1][index]}</td>
                                 <td>{props.data[2][index]}</td>

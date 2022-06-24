@@ -128,7 +128,7 @@ const GrandLeague = (props)=>{
                     toast.success('teams stored successfully!',{
                         position:'top-center'
                     })
-                    navigate(`/display/${result_obj.matchId}/${result_obj.attempt_id}`)
+                    navigate(`/display/${result_obj.matchId}/${result_obj.attempt_id}/9/9`)
                     return 
                 }
             }

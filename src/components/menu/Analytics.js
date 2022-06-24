@@ -6,6 +6,7 @@ import GenericFooter from '../footer/GenericFooter';
 import { toast } from 'react-toastify';
 import {MdRemoveCircleOutline,MdAddCircleOutline} from 'react-icons/md'
 import Table from './Table'
+import {HiOutlineExternalLink} from 'react-icons/hi'
 
 
 const Analytics = (props)=>{
@@ -77,6 +78,53 @@ const Analytics = (props)=>{
                 break;
             }
         }
+
+        let cs = [
+            [
+                [1,3,2,5],[1,3,3,4],[1,4,3,3],[1,4,2,4],[1,4,1,5],[1,5,2,3],[1,5,1,4],[1,6,1,3],[1,3,1,6],[1,3,4,3],
+                [2,3,3,3],[2,3,2,4],[2,3,1,5],[2,4,2,3],[2,4,1,4],[2,5,1,3],
+                [3,3,2,3],[3,4,1,3],[3,3,1,4],
+                [4,3,1,3]
+            ],
+            [ 
+                [1,4,5,1],[1,5,4,1],[1,5,3,2],[1,4,4,2],[1,3,4,3],[1,4,3,3],[1,3,5,2]
+            ],
+            [
+                [1,1,1,1,4],[1,1,1,2,3],[1,1,1,3,2],[1,1,1,4,1],[1,1,2,1,3],[1,1,2,2,2],[1,1,2,3,1],[1,1,3,2,1],[1,1,4,1,1],[1,2,1,1,3],[1,2,1,2,2],[1,2,2,1,2],[1,2,2,2,1],[1,2,3,1,1],[1,3,1,1,2],[1,3,1,2,1],[1,3,2,1,1],[1,4,1,1,1],
+                [2,1,1,1,2],[2,1,1,1,3],[2,1,1,2,2],[2,1,1,3,1],[2,1,2,1,2],[2,1,2,2,1],[2,1,3,1,1],[2,2,1,1,2],[2,2,1,2,1],[2,2,2,1,1],[2,3,1,1,1],
+                [3,1,1,1,2],[3,1,1,2,1],[3,1,2,1,1],[3,2,1,1,1],
+                [4,1,1,1,1]
+             ],
+             [
+                [2,2,3],[3,2,2],[3,1,3],[4,1,2],[4,2,1]
+            ]
+        ]
+
+        let ps = [
+            [
+            [4,7],
+            [5,6],
+            [6,5],
+            [7,4]
+        ],
+        [
+            [4,7],
+            [5,6],
+            [6,5],
+            [7,4]
+        ],
+        [
+            [3,5],
+            [4,4],
+            [5,3]
+        ],
+        [
+            [2,5],
+            [3,4],
+            [4,3],
+            [5,2]
+        ]
+        ]
         // console.log(sportIndex.current)
         // console.log(req_match)
         if(req_match===null)
@@ -285,6 +333,7 @@ const Analytics = (props)=>{
         })
         //nailing the first thing 
         let first_key = []
+        let first_filter_value = []
         let first_value =[]
         let first_percentage = []
         for(let i=0;i<first_data.length;i++)
@@ -292,13 +341,15 @@ const Analytics = (props)=>{
             if(temp_list[i]!==null)
             {
                 first_key.push(temp_list[i].name)
+                first_filter_value.push(temp_list[i].player_index)
                 first_value.push(first_data[i])
                 first_percentage.push(get_percentage(first_data[i],req_attempt.number_of_teams))
              }
         }
-        setFirst([first_key,first_value,first_percentage])
+        setFirst([first_key,first_value,first_percentage,first_filter_value])
         //naling the second thing 
         let second_key = []
+        let second_filter_value = []
         let second_value =[]
         let second_percentage = []
         for(let i=0;i<second_data.length;i++)
@@ -306,13 +357,15 @@ const Analytics = (props)=>{
             if(temp_list[i]!==null)
             {
                 second_key.push(temp_list[i].name)
+                second_filter_value.push(temp_list[i].player_index)
                 second_value.push(second_data[i])
                 second_percentage.push(get_percentage(second_data[i],req_attempt.number_of_teams))
              }
         }
-        setSecond([second_key,second_value,second_percentage])
+        setSecond([second_key,second_value,second_percentage,second_filter_value])
         //naling the third thing 
         let third_key = []
+        let third_filter_value = []
         let third_value =[]
         let third_percentage = []
         for(let i=0;i<third_data.length;i++)
@@ -320,46 +373,79 @@ const Analytics = (props)=>{
             if(temp_list[i]!==null)
             {
                 third_key.push(temp_list[i].name)
+                third_filter_value.push(temp_list[i].player_index)
                 third_value.push(third_data[i])
                 third_percentage.push(get_percentage(third_data[i],req_attempt.number_of_teams))
              }
         }
-        setThird([third_key,third_value,third_percentage])
+        setThird([third_key,third_value,third_percentage,third_filter_value])
         let fourth_key = []
+        let fourth_filter_value = []
         let fourth_value =[]
         let fourth_percentage = []
 
         for(let i=0;i<fourth_data.length;i++)
         {
             fourth_key.push(fourth_data[i].key)
+            let d = fourth_data[i].key.split('-')
+            let d_i = d.map(v => parseInt(v))
+            let vp_list = cs[sportIndex.current]
+            for(let i=0;i<vp_list.length;i++)
+            {
+                let size = vp_list[i].length 
+                let cnt = 0 
+                for(let j=0;j<vp_list[i].length;j++)
+                {
+                    if(vp_list[i][j] === d_i[j])
+                        cnt++;
+                }
+                if(cnt === size)
+                {
+                    fourth_filter_value.push(i);
+                    break;
+                }
+            }
             fourth_value.push(fourth_data[i].value)
             fourth_percentage.push(get_percentage(fourth_data[i].value,req_attempt.number_of_teams))
         }
-        setFourth([fourth_key,fourth_value,fourth_percentage])
+        setFourth([fourth_key,fourth_value,fourth_percentage,fourth_filter_value])
 
         let fifth_key = []
+        let fifth_filter_value = []
         let fifth_value =[]
         let fifth_percentage = []
 
         for(let i=0;i<fifth_data.length;i++)
         {
             fifth_key.push(fifth_data[i].key)
+            fifth_filter_value.push(fifth_data[i].key)
             fifth_value.push(fifth_data[i].value)
             fifth_percentage.push(get_percentage(fifth_data[i].value,req_attempt.number_of_teams))
         }
-        setFifth([fifth_key,fifth_value,fifth_percentage])
+        setFifth([fifth_key,fifth_value,fifth_percentage,fifth_filter_value])
         console.log([fifth_key,fifth_value,fifth_percentage])
         let sixth_key = []
+        let sixth_filter_value=[]
         let sixth_value =[]
         let sixth_percentage = []
 
         for(let i=0;i<sixth_data.length;i++)
         {
             sixth_key.push(sixth_data[i].key)
+            let d = sixth_data[i].key.split('-')
+            let d_i = d.map(v => parseInt(v))
+            let vp_list = ps[sportIndex.current]
+            for(let i=0;i<vp_list.length;i++)
+            {
+                if(d_i[0] === vp_list[i][0] && d_i[1] === vp_list[i][1]){
+                    sixth_filter_value.push(i);
+                    break;
+                }
+            }
             sixth_value.push(sixth_data[i].value)
             sixth_percentage.push(get_percentage(sixth_data[i].value,req_attempt.number_of_teams))
         }
-        setSixth([sixth_key,sixth_value,sixth_percentage])
+        setSixth([sixth_key,sixth_value,sixth_percentage,sixth_filter_value])
         if(seventh_data!==null)
         {
             let seventh_key = []
@@ -372,7 +458,7 @@ const Analytics = (props)=>{
             seventh_value.push(seventh_data[i].value)
             seventh_percentage.push(get_percentage(seventh_data[i].value,req_attempt.number_of_teams))
         }
-        setSeventh([seventh_key,seventh_value,seventh_percentage])
+        setSeventh([seventh_key,seventh_value,seventh_percentage,[]])
         }
        
     },[])
@@ -388,22 +474,36 @@ const Analytics = (props)=>{
         setActive(new_list)
     }
     let get_table = ()=>{
+        let f_type = 0
         let req_index = active.indexOf(1)
         let data = null 
-        if(req_index === 0)
+        if(req_index === 0){
             data = first;
-        else if(req_index === 1)
+            f_type =0;
+        }
+        else if(req_index === 1){
             data = second 
-        else if(req_index === 2)
+            f_type = 1;
+        }
+        else if(req_index === 2){
             data = third 
-        else if(req_index === 3)
+            f_type = 2;
+        }
+        else if(req_index === 3){
             data = fourth 
-        else if(req_index === 4)
+            f_type = 5;
+        }
+        else if(req_index === 4){
             data = fifth 
-        else if(req_index === 5)
+            f_type = 4;
+        }
+        else if(req_index === 5){
             data = sixth 
-        else 
+            f_type = 3;
+        }
+        else {
             data =seventh 
+        }
         console.log(data)
         if(main_name.current===null)
             return  <div></div>
@@ -411,8 +511,11 @@ const Analytics = (props)=>{
             <React.Fragment>
                 <Table
                 data = {data} 
+                filterType = {f_type}
                 header = {section_name[req_index]}
                 name = {main_name.current[req_index]}
+                match = {match}
+                attempt = {attempt}
                 />
             </React.Fragment>
         );
